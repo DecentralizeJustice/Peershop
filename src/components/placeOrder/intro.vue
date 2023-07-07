@@ -1,28 +1,47 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 const enabled0 = ref(false)
 const enabled1 = ref(false)
 const enabled2 = ref(false)
 const enabled3 = ref(false)
 const requirements = [
+{
+    title: 'Check Order Regularly',
+    text: `Your required to check on your order every other day.`
+  },
   {
     title: 'Ships from Amazon',
     text: `All of your items must ship Directly from Amazon`
   },
   {
+    title: 'Good Supply',
+    text: `Your Items should be in good stock. Good stock is generally 2+ in stock.`
+  },
+  {
     title: 'Open To the Public',
     text: `None of your items can be prime member only items.`
   },
-  {
-    title: 'Good Supply',
-    text: `Your Items should be in good stock. Good stock is generally 3+ in stock.`
-  },
-  {
-    title: 'Check Order Regularly',
-    text: `Your required to check on your order every other day.`
-  }
 ]
+function next(){
+
+}
+const allready = computed(() => {
+  if(!enabled0.value){
+    return false
+  }
+  if(!enabled1.value){
+    return false
+  }
+  if(!enabled2.value){
+    return false
+  }
+  if(!enabled3.value){
+    return false
+  }
+  return true
+})
+
 </script>
 
 <template>
@@ -32,7 +51,7 @@ const requirements = [
               <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Anon Shop Intro</span>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">Anon shop is a peer-to-peer marketplace that 
                       allows you to shop on Amazon anonymously.
-                      You place an order to an Amazon locker near you. Another person from the Monero Community then arranges your item(s) to be delivered to the locker.
+                      You place an order to an Amazon locker (or hub counter) near you. Another person from the Monero Community then arranges your item(s) to be delivered to the locker.
                       Once you pick your items up and are satisfied, the funds are released to the correct party.
                     </p>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
@@ -84,8 +103,8 @@ const requirements = [
           </div>
           <div class="w-full p-2 justify center">
           <div class="container py-10 px-10 mx-0 min-w-full flex flex-col items-center">
-            <button v-if="true" disabled class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Continue</button>
-            <button v-if="false"  class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="getPassphrase()">Continue</button>
+            <button v-if="!allready" disabled class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Continue</button>
+            <button v-if="allready"  class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="next()">Continue</button>
           </div>
         </div>
 

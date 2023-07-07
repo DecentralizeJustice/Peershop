@@ -1,8 +1,12 @@
 <script setup>
+import { ref } from 'vue'
 import intro from "@/components/placeOrder/intro.vue"
+import cart from "@/components/placeOrder/cart.vue"
 function next(params) {
   console.log('next')
+  step.value += 1
 }
+const step = ref(0)
 </script>
 
 <template>
@@ -15,7 +19,8 @@ function next(params) {
       <div class="relative z-10">
         <div class="flex flex-wrap items-center -m-8">
           
-          <intro @next="next"/>
+          <intro v-if='step === 0' @next="next"/>
+          <cart v-if='step === 1' @next="next"/>
         </div>
       </div>
     </div>

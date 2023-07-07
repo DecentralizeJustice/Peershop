@@ -64,7 +64,7 @@ const messageArray = ref([])
 <section class="pb-15 bg-gray-800 overflow-hidden">
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap justify-center -m-4">
-      <div class="w-full md:w-auto p-4"><img class="mx-auto" src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685927855/landingpage/image-3.png" alt=""></div>
+      <div class="w-full md:w-auto p-4"><img class="mx-auto" src="https://res.cloudinary.com/dylevfpbl/image/upload/v1688697049/landingpage/image_5.png" alt=""></div>
       <div class="w-full md:flex-1 p-4">
         <div class="relative flex flex-col justify-center items-center p-8 h-full text-center bg-gray-900 overflow-hidden rounded-3xl">
           <div class="absolute bottom-0 left-1/2 min-w-max transform -translate-x-1/2">

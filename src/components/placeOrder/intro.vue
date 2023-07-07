@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
+const emit = defineEmits(['next'])
 const enabled0 = ref(false)
 const enabled1 = ref(false)
 const enabled2 = ref(false)
@@ -8,7 +9,7 @@ const enabled3 = ref(false)
 const requirements = [
 {
     title: 'Check Order Regularly',
-    text: `Your required to check on your order every other day.`
+    text: `Your required to check on your order every day.`
   },
   {
     title: 'Ships from Amazon',
@@ -24,7 +25,7 @@ const requirements = [
   },
 ]
 function next(){
-
+  emit('next')
 }
 const allready = computed(() => {
   if(!enabled0.value){

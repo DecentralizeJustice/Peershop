@@ -1,5 +1,8 @@
 <script setup>
 import intro from "@/components/placeOrder/intro.vue"
+function next(params) {
+  console.log('next')
+}
 </script>
 
 <template>
@@ -12,7 +15,7 @@ import intro from "@/components/placeOrder/intro.vue"
       <div class="relative z-10">
         <div class="flex flex-wrap items-center -m-8">
           
-          <intro />
+          <intro @next="next"/>
         </div>
       </div>
     </div>

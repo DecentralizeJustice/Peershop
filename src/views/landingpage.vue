@@ -16,7 +16,6 @@ async function checkForMessages() {
   div.scrollTo({top: 99999999999999999999999999999, behavior: "smooth"})
 }
 onMounted(() => {
-  checkForMessages()
 })
 const targetId = ref('123')
 

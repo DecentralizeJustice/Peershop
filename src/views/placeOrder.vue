@@ -1,9 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 import axios from 'axios'
 import { getRandomInt, numberArrayToWordArray } from '@/assets/misc.js'
 import checkoutPassphrase from "@/components/checkoutPassphrase.vue"
 import serviceList from '@/assets/serviceList.json'
+const enabled = ref(false)
 const stockArray = ref([])
 const step = ref(0)
 const selected = ref('')
@@ -69,22 +71,23 @@ onMounted(() => {
         <div class="flex flex-wrap items-center -m-8">
           <div class="w-full md:w-1/2 p-8">
             <img v-if='step === 1' src="https://res.cloudinary.com/dylevfpbl/image/upload/v1686249628/landingpage/image_4.png" alt="">
-                <div class="md:max-w-md mx-auto text-center" v-if='step === 0'>
-                  <h3 class="font-heading text-5xl text-white font-black tracking-tight mb-5">Supply and Pricing</h3>
-                      <ul style="height: 40vh;" class="overflow-auto bg-gray-800 rounded-xl">
-                        <li class="flex items-center px-3 py-5" v-for="(value, name, index) in servicePriceandStock">
-                          <p class="text-gray-100 font-bold text-xl">{{name}}: ${{ value.price.toLocaleString("en", { useGrouping: false, minimumFractionDigits: 2 }) }} , stock: {{ value.stock }}</p>
-                        </li>
-  <!--                       <li class="flex items-center mb-4">
-                        <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="font-bold text-gray-100 text-xl">Access to Early Features First</p>
-                      </li> -->
-                      </ul>
+                <div class="md:max-w-md mx-auto text-center items-center " v-if='step === 0'>
+                  <h3 class="font-heading text-4xl text-white font-black tracking-tight mb-10">Order Requirements</h3>
+                  <SwitchGroup as="div" class="flex items-center justify-around">
+                    <Switch v-model="enabled" :class="[enabled ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
+                      <span aria-hidden="true" :class="[enabled ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+                    </Switch>
+                    <SwitchLabel as="span" class="ml-3 text-sm" style="">
+                      <h4 class="font-medium text-white text-3xl">Ships from Amazon</h4>
+                      <p class="text-white text-xl mt-4">All of your items must ship from Amazon</p>
+                    </SwitchLabel>
+                  </SwitchGroup>
               </div>
           </div>
           
           <div class="w-full md:w-1/2 p-8 order-first md:order-last">
             <div class="md:max-w-md mx-auto text-center" v-if='step === 0'>
-              <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Purchase 1 Service Phone Rental</span>
+              <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Place Anon Order</span>
                 <h2 class="font-heading  text-4xl  md:text-6xl text-white font-black tracking-tight">~$1.5/service</h2>
                     <p class="mb-8 mt-2 text-lg text-gray-700 font-bold">Verify One Service with 1 Day Access</p>
                     <ul class="text-left"><li class="flex items-center mb-4">

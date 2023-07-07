@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.14",
     "axios": "^1.4.0",
     "form-data": "^4.0.0",
     "human-readable-ids": "^1.0.4",
@@ -21,6 +22,7 @@
     "vue-router": "4"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.0.3",

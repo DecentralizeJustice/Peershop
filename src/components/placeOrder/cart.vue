@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 /* import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue' */
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 import cartSVG from '@/assets/svg/cart.svg'
+import box1 from '@/assets/svg/box1.svg'
+import box2 from '@/assets/svg/box2.svg'
 const emit = defineEmits(['next'])
 
 const pendingItemLink = ref('')
@@ -53,6 +55,12 @@ function addToCart() {
   pendingItemQuantity.value = 1,
   pendingItemNotes.value = ''
   console.log(cart.value)
+}
+function getbox(index) {
+  if(((index+1) % 2  == 0)) {
+    return box1
+  }
+  return box2
 }
 const comments = [
   {
@@ -175,11 +183,11 @@ const allready = computed(() => {
             <div class="px-10 py-5 text-white" v-if="cart.length > 0">
               <h2 class="inline-block text-2xl text-blue-500 font-bold uppercase tracking-widest">Your Cart</h2>
               <ul role="list" class="divide-y divide-gray-100">
-                <li v-for="comment in comments" :key="comment.id" class="flex gap-x-4 py-5">
-                  <img class="h-12 w-12 flex-none rounded-full bg-gray-50" :src="comment.imageUrl" alt="" />
+                <li v-for="(comment,index) in comments" :key="comment.id" class="flex gap-x-4 py-5">
+                  <img class="h-12 w-12 flex-none" :src="getbox(index)" alt="" />
                   <div class="flex-auto">
                     <div class="flex items-baseline justify-between gap-x-4">
-                      <p class="text-sm font-semibold leading-6 text-white">{{ comment.name }}</p>
+                      <p class="text-sm font-semibold leading-6 text-white">Item: {{ index + 1 }}</p>
                       <p class="flex-none text-xs text-white">
                         <time :datetime="comment.dateTime">{{ comment.date }}</time>
                       </p>
@@ -191,12 +199,10 @@ const allready = computed(() => {
             </div>
           </div>
         </div>
-
-        
           <div class="w-full p-2 justify center">
           <div class="container py-10 px-10 mx-0 min-w-full flex flex-col items-center">
             <button v-if="!allready" disabled class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Continue</button>
-            <button v-if="allready"  class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="next()">Continue</button>
+            <button v-if="allready"  class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="next()">Continue To Locker Info</button>
           </div>
         </div>
 

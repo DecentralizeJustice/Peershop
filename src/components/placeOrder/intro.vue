@@ -20,8 +20,8 @@ const requirements = [
     text: `Your Items should be in good stock. Good stock is generally 2+ in stock.`
   },
   {
-    title: 'Open To the Public',
-    text: `None of your items can be prime member only items.`
+    title: 'Variable Pricing',
+    text: `Since we do not have native Amazon support, our pricing is just an estimate. You might pay more or less.`
   },
 ]
 function next(){

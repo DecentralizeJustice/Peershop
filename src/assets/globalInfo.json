@@ -1,3 +1,5 @@
 {
-    "myServiceFeeBase": 3
+    "myServiceFeeBase": 3,
+    "minLockerOrder": 25,
+    "estimatedTax": 8
 }

@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 /* import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue' */
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
+import globalJson from '@/assets/globalInfo.json'
 import cartSVG from '@/assets/svg/cart.svg'
 import box1 from '@/assets/svg/box1.svg'
 import box2 from '@/assets/svg/box2.svg'
@@ -9,7 +10,6 @@ import box3 from '@/assets/svg/box3.svg'
 import box4 from '@/assets/svg/box4.svg'
 import box5 from '@/assets/svg/box5.svg'
 const emit = defineEmits(['next'])
-
 const pendingItemLink = ref('')
 const pendingItemPrice = ref(0)
 const pendingItemQuantity = ref(1)
@@ -48,8 +48,8 @@ function addToCart() {
   cart.value.push(
     {
     itemLink: pendingItemLink.value,
-    price: pendingItemPrice.value,
-    quantity: pendingItemQuantity.value,
+    price: Number(pendingItemPrice.value),
+    quantity: Number(pendingItemQuantity.value),
     notes: pendingItemNotes.value
     }
   )
@@ -69,11 +69,25 @@ function getbox(index) {
   return boxlist[(index) % boxlist.length]
 }
 function removeItem(index) {
-  cart.value = cart.value.splice(index + 1, 1)
+  cart.value = cart.value.toSpliced(index, 1)
   return
 }
 const allready = computed(() => {
-  return true
+  if(itemSubtotal.value > Number(globalJson.minLockerOrder)){
+    return true
+  }
+  return false
+})
+
+const itemSubtotal = computed(() => {
+  let subtotal = Number(0)
+  cart.value.forEach(element => {
+    subtotal += (element.quantity * element.price)
+  });
+  return subtotal
+})
+const orderTax = computed(() => {
+  return itemSubtotal.value*Number(globalJson.estimatedTax)*Number(1/100)
 })
 
 </script>
@@ -142,7 +156,7 @@ const allready = computed(() => {
             </div>
           </div>
           <div class="w-full md:w-1/2 p-10 text-center">
-          <div class="flex flex-col justify-center h-full bg-gray-800 rounded-3xl">
+          <div class="flex flex-col justify-content:start h-full bg-gray-800 rounded-3xl max-h-[36rem] overflow-y-auto">
             <div class="flex-initial justify-center" v-if="cart.length < 1">
               <h2 class="font-heading text-3xl text-white font-black tracking-tight p-4">Your Cart Is Empty</h2>
               <div class="w-1/3 p-4 flex flex-col justify-center mx-auto"><img class="mx-auto" :src="cartSVG" alt=""></div>
@@ -178,10 +192,33 @@ const allready = computed(() => {
             </div>
           </div>
         </div>
-          <div class="w-full p-2 justify center">
-          <div class="container py-10 px-10 mx-0 min-w-full flex flex-col items-center">
-            <button v-if="!allready" disabled class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Continue</button>
-            <button v-if="allready"  class=" md:w-1/4  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="next()">Continue To Locker Info</button>
+        <div class="w-full px-2 justify-center mx-auto text-center">
+          <div class="px-4 sm:px-0 text-white">
+          <h3 class="text-2xl">Estimated Fees</h3>
+
+          <div class="grid md:grid-cols-2 gap-4 md:w-4/6 mx-auto text-xl  text-center md:mt-0 mt-5">
+            <div class="md:py-4">
+              <div class="text-white">
+                <p class=" mb-4"><span class="text-blue-500 font-bold">Item Subtotal:</span><br/>{{itemSubtotal.toFixed(2)}} USD</p>
+                <p><span class="text-blue-500 font-bold">Estimated {{globalJson.estimatedTax}}% Tax: <br/></span>
+                  {{orderTax.toFixed(2)}} USD </p>
+               </div>
+            </div>
+            <div class="md:py-4">
+              <div class="text-white">
+                <p class=" mb-4"><span class="text-blue-500 font-bold">Non-Refundable Service Fee:</span><br/>{{globalJson.myServiceFeeBase}} USD</p>
+                <p><span class="text-blue-500 font-bold">Order Total:</span><br/>{{(itemSubtotal+orderTax+Number(globalJson.myServiceFeeBase)).toFixed(2)}} USD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+          <div class="md:w-2/3 mx-auto">
+          <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
+            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="next()">Back To Intro</button>
+            <button v-if="!allready" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Min. Order is {{ globalJson.minLockerOrder }} USD</button>
+            <button v-if="allready"  class="  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="next()">Continue To Locker Info</button>
           </div>
         </div>
 

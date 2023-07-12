@@ -1,5 +1,7 @@
 {
     "myServiceFeeBase": 3,
     "minLockerOrder": 25,
-    "estimatedTax": 8
+    "estimatedTax": 8,
+    "shopperBond": 1,
+    "earnerBond": 5
 }

@@ -1,6 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
-/* import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue' */
+import { ref, computed, onMounted } from 'vue'
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 import globalJson from '@/assets/globalInfo.json'
 import cartSVG from '@/assets/svg/cart.svg'
@@ -9,7 +8,8 @@ import box2 from '@/assets/svg/box2.svg'
 import box3 from '@/assets/svg/box3.svg'
 import box4 from '@/assets/svg/box4.svg'
 import box5 from '@/assets/svg/box5.svg'
-const emit = defineEmits(['next'])
+const emit = defineEmits(['next', 'back'])
+const props = defineProps(['cart'])
 const pendingItemLink = ref('')
 const pendingItemPrice = ref(0)
 const pendingItemQuantity = ref(1)
@@ -22,7 +22,10 @@ const amountError = ref(false)
 const quantityError = ref(false)
 
 function next(){
-  emit('next')
+  emit('next', cart.value)
+}
+function back(){
+  emit('back', cart.value)
 }
 function addToCart() {
   if(pendingItemLink.value.length < 4 || pendingItemLink.value.length > 1000){
@@ -89,7 +92,9 @@ const itemSubtotal = computed(() => {
 const orderTax = computed(() => {
   return itemSubtotal.value*Number(globalJson.estimatedTax)*Number(1/100)
 })
-
+onMounted(() => {
+  cart.value = props.cart
+})
 </script>
 
 <template>
@@ -199,26 +204,29 @@ const orderTax = computed(() => {
           <div class="grid md:grid-cols-2 gap-4 md:w-4/6 mx-auto text-xl  text-center md:mt-0 mt-5">
             <div class="md:py-4">
               <div class="text-white">
-                <p class=" mb-4"><span class="text-blue-500 font-bold">Item Subtotal:</span><br/>{{itemSubtotal.toFixed(2)}} USD</p>
-                <p><span class="text-blue-500 font-bold">Estimated {{globalJson.estimatedTax}}% Tax: <br/></span>
+                <p class=" mb-4"><span class="text-blue-300 font-bold">Item Subtotal:</span><br/>{{itemSubtotal.toFixed(2)}} USD</p>
+                <p><span class="text-blue-300 font-bold">Estimated {{globalJson.estimatedTax}}% Tax: <br/></span>
                   {{orderTax.toFixed(2)}} USD </p>
                </div>
             </div>
             <div class="md:py-4">
               <div class="text-white">
-                <p class=" mb-4"><span class="text-blue-500 font-bold">Non-Refundable Service Fee:</span><br/>{{globalJson.myServiceFeeBase}} USD</p>
-                <p><span class="text-blue-500 font-bold">Order Total:</span><br/>{{(itemSubtotal+orderTax+Number(globalJson.myServiceFeeBase)).toFixed(2)}} USD</p>
+                <p class=" mb-4"><span class="text-blue-300 font-bold">Non-Refundable Service Fee:</span><br/>{{globalJson.myServiceFeeBase}} USD</p>
+                <p><span class="text-blue-300 font-bold">Refundable Shopper Bond:</span><br/>{{(Number(globalJson.shopperBond)).toFixed(2)}} USD</p>
               </div>
             </div>
-          </div>
+            </div>
+          <div>
+            <p class="text-blue-600 font-bold text-3xl mb-1 mt-6 md:mt-3">Order Total:</p>
+            <p  class="text-2xl">{{(itemSubtotal+orderTax+Number(globalJson.myServiceFeeBase)+ Number(globalJson.shopperBond)).toFixed(2)}} USD</p></div>
         </div>
 
         </div>
           <div class="md:w-2/3 mx-auto">
           <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
-            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="next()">Back To Intro</button>
+            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="back()">Back To Intro</button>
             <button v-if="!allready" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Min. Order is {{ globalJson.minLockerOrder }} USD</button>
-            <button v-if="allready"  class="  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="next()">Continue To Locker Info</button>
+            <button v-if="allready"  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="next()">Continue To Locker Info</button>
           </div>
         </div>
 

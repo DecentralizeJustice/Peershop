@@ -6,16 +6,15 @@ import box2 from '@/assets/svg/box2.svg'
 import box3 from '@/assets/svg/box3.svg'
 import box4 from '@/assets/svg/box4.svg'
 import box5 from '@/assets/svg/box5.svg'
-const emit = defineEmits(['back', 'goTo'])
-const props = defineProps(['cart', 'lockerInfo'])
-
-const defaultEarnerPercentage = 3
+const emit = defineEmits(['back', 'goTo', 'next'])
+const props = defineProps(['cart', 'lockerInfo', 'orderNotes', 'earnerIncintive', 'defaultEarnerPercentage', 'moneroAddress'])
 const lockerInfo = ref({})
 const cart = ref([])
 const orderEarnerInfoExpanded = ref(false)
-const earnerPercentage = ref(defaultEarnerPercentage)
-function goTo(step){
-  emit('goTo', step)
+const earnerPercentage = ref(props.defaultEarnerPercentage)
+const orderNotes = ref('')
+function goTo(step, earnerPercentage){
+  emit('goTo', step, earnerPercentage)
 }
 function getbox(index) {
   const boxlist = [
@@ -49,6 +48,8 @@ const costAfterIncentive = computed(() => {
 onMounted(() => {
   cart.value = props.cart
   lockerInfo.value = props.lockerInfo
+  orderNotes.value = props.orderNotes
+  earnerPercentage.value = props.earnerIncintive
 })
 watch(earnerPercentage, (percentage) => {
   if (percentage === '') {
@@ -58,19 +59,23 @@ watch(earnerPercentage, (percentage) => {
 })
 </script>
 
-<template>
+<template><div class="flex flex-wrap items-center p-1">
           <div class="w-full text-center text-3xl mt-6 text-blue-300 font-bold "><h1>Order Summary</h1></div>
           <div class="w-full md:w-1/2 p-10 text-center">
           <div class="flex flex-col justify-content:start h-full bg-gray-800 rounded-3xl max-h-[36rem] overflow-y-auto mt-6">
             <div class="px-4 md:px-8 py-5 text-white">
-              <h2 class="inline-block text-2xl text-blue-500 font-bold uppercase tracking-widest">Locker Info 
+              <h2 class="inline-block text-2xl text-blue-500 font-bold uppercase tracking-widest">General Info 
                 <button class="block w-full pb-1 mt-4 text-lg text-center text-white font-bold bg-red-500  rounded-full"
-                    @click="goTo(2)">Edit Locker Info</button>
+                    @click="goTo(2,earnerPercentage)">Edit General Info</button>
                   </h2> 
                   <div>
                   <p class="text-left text-lg my-2 mt-4 break-all">Locker Name: {{ lockerInfo.lockerName }}</p>
                   <p class="text-left text-lg my-2 break-all">Locker Zipcode: {{ lockerInfo.lockerZipcode }}</p>
                   <p class="text-left text-lg my-2 break-all">Locker Type: {{ lockerInfo.type }}</p>
+                  <p class="text-left text-lg my-2 break-all mt-4">Monero Refund Address:<br/> {{moneroAddress}}</p>
+                  <p class="text-left text-lg my-2 break-all mt-4">Order Notes:<br/> 
+                    <span v-if="orderNotes.length > 0">{{orderNotes}}</span> 
+                    <span v-if="orderNotes.length < 1">None</span> </p>
                   </div>
 
             </div>
@@ -82,7 +87,7 @@ watch(earnerPercentage, (percentage) => {
             <div class="px-4 md:px-8 py-5 text-white">
               <h2 class="inline-block text-2xl text-blue-500 font-bold uppercase tracking-widest">Your Cart 
                 <button class="block w-full pb-1 mt-4 text-lg text-center text-white font-bold bg-red-500  rounded-full"
-                    @click="goTo(1)">Edit Cart</button>
+                    @click="goTo(1, earnerPercentage)">Edit Cart</button>
                   </h2>                    
               
               <ul role="list" class="divide-y divide-gray-100">
@@ -138,7 +143,8 @@ watch(earnerPercentage, (percentage) => {
                 <p class="text-gray-400 font-bold text-lg">The earner is the person who pickups up and completes your order. 
                   The percentage that you pay them will affect the quality and speed of your order completion. 
                   You are free to place an order with a large discount but there is no guarantee that your order will be picked up by an earner. You will pay the
-                  Non-Refundable Service Fee if you place an order, regardless of if your order is picked up or not. If you want your order completed reasonably, stick with the default minimum {{  defaultEarnerPercentage }}%.
+                  Non-Refundable Service Fee if you place an order, regardless of if your order is picked up or not. If you want your order completed reasonably,
+                   stick with the default minimum {{  props.defaultEarnerPercentage }}%.
                 </p>
               </div>
               <div class="w-auto p-2">
@@ -171,10 +177,13 @@ watch(earnerPercentage, (percentage) => {
           <div class="grid md:grid-cols-2 gap-4 md:w-4/6 mx-auto text-xl  text-center md:mt-0 mt-5">
             <div class="md:py-4">
               <div class="text-white">
-                <p class=" mb-4"><span class="text-blue-300 font-bold">Original Item Subtotal:</span><br/>{{itemSubtotal.toFixed(2)}} USD</p>
-                <p><span class="text-blue-300 font-bold">Estimated {{globalJson.estimatedTax}}% Tax: <br/></span>
-                  {{orderTax.toFixed(2)}} USD </p>
+                <p><span class="text-blue-300 font-bold">Item Subtotal + Estimated {{Number(globalJson.estimatedTax)}}% Tax: <br/></span>
+                  {{(Number(orderTax) + Number(itemSubtotal)).toFixed(2)}} USD </p>
                   <p class=" mt-4"><span class="text-blue-300 font-bold">Items Cost After Incentive:</span><br/>{{costAfterIncentive.toFixed(2)}} USD</p>
+                  <p class=" mt-4"><span class="text-blue-300 font-bold">Earner Incentive:</span><br/>
+                    <span v-if="earnerPercentage>0" class="text-green-500 font-bold">+{{(Number(earnerPercentage)*Number(1/100)*Number(Number(orderTax) + Number(itemSubtotal))).toFixed(2)}} USD</span>
+                    <span v-if="earnerPercentage<=0" class="text-red-500 font-bold">{{(Number(earnerPercentage)*Number(1/100)*Number(Number(orderTax) + Number(itemSubtotal))).toFixed(2)}} USD</span>
+                  </p>
                </div>
             </div>
             <div class="md:py-4">
@@ -191,12 +200,12 @@ watch(earnerPercentage, (percentage) => {
         </div>
           <div class="md:w-2/3 mx-auto">
           <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
-            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="goTo(2)">Back To Locker Info</button>
-            <button v-if="itemSubtotal < Number(globalJson.minLockerOrder) ||  isNaN(costAfterIncentive)" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Min. Order is {{ globalJson.minLockerOrder }} USD</button>
-            <button v-if="!(itemSubtotal < Number(globalJson.minLockerOrder)) && !isNaN(costAfterIncentive)"  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="next()">Continue To Payment</button>
+            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="emit('back', earnerPercentage)">Back To Locker Info</button>
+            <button v-if="itemSubtotal < Number(globalJson.minLockerOrder) ||  isNaN(costAfterIncentive)" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Min. Order Subtotal is {{ globalJson.minLockerOrder }} USD</button>
+            <button v-if="!(itemSubtotal < Number(globalJson.minLockerOrder)) && !isNaN(costAfterIncentive)"  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="emit('next', earnerPercentage)">Continue</button>
           </div>
         </div>
-
+      </div>
 </template>
 
 <style scoped>

@@ -1,15 +1,18 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+const props = defineProps(['lockerInfo', 'orderNotes', 'moneroAddress'])
 const emit = defineEmits(['next', 'back'])
 function next(){
-  emit('next', lockerInfo.value)
+  emit('next', lockerInfo.value, orderNotes.value, moneroAddress.value)
 }
 function back(){
-  emit('back', lockerInfo.value)
+  emit('back', lockerInfo.value, orderNotes.value, moneroAddress.value)
 }
 const lockerName = ref('')
 const type = ref('')
 const lockerZipcode = ref('')
+const orderNotes = ref('')
+const moneroAddress = ref('')
 const allready = computed(() => {
   if(lockerName.value.length < 2){
     return false
@@ -20,13 +23,17 @@ const allready = computed(() => {
   if(type.value === ''){
     return false
   }
+  if(moneroAddress.value.length < 80){
+    return false
+  }
 return true
 })
-const props = defineProps(['lockerInfo'])
 onMounted(() => {
   lockerName.value = props.lockerInfo.lockerName
   type.value = props.lockerInfo.type
   lockerZipcode.value = props.lockerInfo.lockerZipcode
+  orderNotes.value = props.orderNotes
+  moneroAddress.value = props.moneroAddress
 })
 const lockerInfo = computed(() => {
   return {
@@ -106,7 +113,18 @@ const lockerInfo = computed(() => {
                         </div>
                       </div>
                     </fieldset>
-
+                    </div>
+                    <div class="md:col-span-8">
+                      <label class="block text-xl font-medium leading-6 text-white">Monero Refund Address</label>
+                      <div class="mt-2">
+                        <textarea maxlength="250" v-model="moneroAddress" rows="2" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6" />
+                      </div>
+                    </div>
+                    <div class="md:col-span-8">
+                      <label class="block text-xl font-medium leading-6 text-white">General Order Notes</label>
+                      <div class="mt-2">
+                        <textarea maxlength="250" v-model="orderNotes" rows="3" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6" />
+                      </div>
                     </div>
 
                   </div>

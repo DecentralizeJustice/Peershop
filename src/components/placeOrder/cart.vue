@@ -217,7 +217,7 @@ onMounted(() => {
             </div>
             </div>
           <div>
-            <p class="text-blue-600 font-bold text-3xl mb-1 mt-6 md:mt-3">Order Total:</p>
+            <p class="text-blue-600 font-bold text-3xl mb-1 mt-6 md:mt-3">Base Order Total:</p>
             <p  class="text-2xl">{{(itemSubtotal+orderTax+Number(globalJson.myServiceFeeBase)+ Number(globalJson.shopperBond)).toFixed(2)}} USD</p></div>
         </div>
 

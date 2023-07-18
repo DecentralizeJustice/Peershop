@@ -47,7 +47,21 @@ exports.handler = async (event, context) => {
     }
     cleanedInfo.cart = parsed.cart
 
-    console.log(cleanedInfo, infoList)
+    let itemSubtotal = 0
+
+    for (const item of cleanedInfo.cart) {
+      itemSubtotal += Number(Number(item.quantity)*Number(item.price))
+    }
+
+    const orderTax = Number(itemSubtotal)*Number(infoList.estimatedTax)*Number(1/100)
+    const subtotal = Number(orderTax) + Number(itemSubtotal)
+
+    const discountAmount = Number(subtotal* (Number(cleanedInfo.earnerIncintive) * Number(1/100)))
+
+    const costAfterIncentive = subtotal + discountAmount
+    const paymentDue = Number((Number(costAfterIncentive)+Number(infoList.myServiceFeeBase)+ Number(infoList.shopperBond)).toFixed(2))
+    
+    console.log(paymentDue)
 /*     if (parsed.purchase !== '12month' && parsed.purchase !== '1week' && parsed.purchase !== '3month') {
       return {
         statusCode: 500,

@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     await passphraseArraySchema.validateAsync(parsed.passphraseArray)
     cleanedInfo.passphraseArray = parsed.passphraseArray
 
-    const orderNotesSchema = Joi.string().required().max(600)
+    const orderNotesSchema = Joi.string().required().max(600).allow('')
     await orderNotesSchema.validateAsync(parsed.orderNotes)
     cleanedInfo.orderNotes = parsed.orderNotes
 
@@ -60,28 +60,13 @@ exports.handler = async (event, context) => {
 
     const costAfterIncentive = subtotal + discountAmount
     const paymentDue = Number((Number(costAfterIncentive)+Number(infoList.myServiceFeeBase)+ Number(infoList.shopperBond)).toFixed(2))
-    
-    console.log(paymentDue)
-/*     if (parsed.purchase !== '12month' && parsed.purchase !== '1week' && parsed.purchase !== '3month') {
-      return {
-        statusCode: 500,
-        body: ''
-      }
-    } */
-    /* const numberArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
-    await numberArraySchema.validateAsync(parsed.numberArray)
-    const numberArray = parsed.numberArray.toString()
+
     const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
-    const priceDictionary = {
-      '1week': 10,
-      '3month': 45,
-      '12month': 120
-    } */
-/*     const response = await axios.post(
+    const response = await axios.post(
           storeAddress,
           {
-              'amount': priceDictionary[parsed.purchase],
-              'speedPolicy': 'MediumSpeed',
+              'amount': paymentDue,
+              'speedPolicy': 'LowSpeed',
               'checkout': {
                   'paymentMethods': [
                       'XMR'
@@ -90,8 +75,7 @@ exports.handler = async (event, context) => {
                   'redirectAutomatically': true
               },
               'metadata': { 
-                numberArray: numberArray,
-                purchase: parsed.purchase,
+                info: cleanedInfo,
                 timestamp: Date.now()
                }
           },
@@ -102,14 +86,10 @@ exports.handler = async (event, context) => {
               }
           }
       ) 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response.data)
-    } */
-    return {
-      statusCode: 200,
-      body: ''
-    }
+  return {
+    statusCode: 200,
+    body: JSON.stringify(response.data)
+  } 
   } catch (error) {
     console.log(error)
     return {
@@ -117,94 +97,4 @@ exports.handler = async (event, context) => {
       body: ''
     }
   }
- 
-}
-async function process1month(parsed) {
-
-  const numberArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
-  await numberArraySchema.validateAsync(parsed.numberArray)
-  const numberArray = parsed.numberArray.toString()
-
-  const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
-  const response = await axios.post(
-          storeAddress,
-          {
-              'amount': '15',
-              'speedPolicy': 'MediumSpeed',
-              'checkout': {
-                  'paymentMethods': [
-                      'XMR'
-                  ],
-                  'redirectURL': 'https://phantomphone.app/login',
-                  'redirectAutomatically': true
-              },
-              'metadata': { 
-                numberArray: numberArray,
-                purchase: {
-                  serviceType: '1month',
-                },
-                timestamp: Date.now()
-               }
-          },
-          {
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': BTCpayKey
-              }
-          }
-  )
-  return response
-  
-}
-async function process1Service(parsed) {
-
-  const numberArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
-  await numberArraySchema.validateAsync(parsed.numberArray)
-  const numberArray = parsed.numberArray.toString()
-
-  const serviceSchema = Joi.string().required().min(4).max(40)
-  await serviceSchema.validateAsync(parsed.purchaseInfo.service)
-
-  let serviceCorrect = false
-  for (let element of Object.keys(serviceList)) {
-    if (element === parsed.purchaseInfo.service) {
-      serviceCorrect = true
-      break
-    }
-  }
-  if (!serviceCorrect) {
-    throw new Error('Service is not correct')
-  }
-  const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
-  const response = await axios.post(
-          storeAddress,
-          {
-              'amount': serviceList[parsed.purchaseInfo.service].price,
-              'speedPolicy': 'MediumSpeed',
-              'checkout': {
-                  'paymentMethods': [
-                      'XMR'
-                  ],
-                  'redirectURL': 'https://phantomphone.app/login',
-                  'redirectAutomatically': true
-              },
-              'metadata': { 
-                numberArray: numberArray,
-                purchase: {
-                  serviceType: '1service',
-                  service: parsed.purchaseInfo.service,
-                  price: serviceList[parsed.purchaseInfo.service].price
-                },
-                timestamp: Date.now()
-               }
-          },
-          {
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': BTCpayKey
-              }
-          }
-  )
-  return response
-  
 }

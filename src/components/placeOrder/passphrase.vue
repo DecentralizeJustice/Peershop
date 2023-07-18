@@ -30,20 +30,12 @@ async function submit() {
     lockerInfo: props.lockerInfo,
     earnerIncintive: props.earnerIncintive
   })
-  console.log(results)
+  window.location.href = results.data.checkoutLink
 }
 const purchaseInfo = `This passphrase is how you will access your order,  
 so protect it like a password. After you press continue, you will be taken to a payment portal. 
-After your payment has 3 confirmations, you can use this passphrase to check on your order.`
-/* async function goToBTCPay() {
-  buttonDisabled.value = true
-  const results = await axios.post('/.netlify/functions/submitOrder',
-  {
-    purchaseInfo: props.purchaseInfo,
-    numberArray: toRaw(numberArray.value)
-  })
-  window.location.href = results.data.checkoutLink
-} */
+After your payment has 7 confirmations, you can use this passphrase to check on your order.`
+
 onMounted(() => {
   getPassphrase()
 })

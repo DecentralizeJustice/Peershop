@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ref, toRaw, onMounted } from 'vue'
 import { getRandomInt, numberArrayToWordArray } from '@/assets/misc.js'
 const emit = defineEmits(['back'])
-const props = defineProps(['lockerInfo', 'orderNotes', 'moneroAddress', 'passphraseArray'])
+const props = defineProps(['lockerInfo', 'orderNotes', 'moneroAddress', 'passphraseArray', 'cart', 'earnerIncintive'])
 const numberArray = ref([])
 const wordArray = ref([])
 // const buttonDisabled = ref(false)
@@ -20,6 +20,17 @@ async function getPassphrase() {
     numberArray.value = props.passphraseArray
   }
 
+}
+async function submit() {
+  const results = await axios.post('/.netlify/functions/submitLockerOrder', { 
+    passphraseArray: numberArray.value,
+    orderNotes: props.orderNotes,
+    moneroAddress: props.moneroAddress,
+    cart: props.cart,
+    lockerInfo: props.lockerInfo,
+    earnerIncintive: props.earnerIncintive
+  })
+  console.log(results)
 }
 const purchaseInfo = `This passphrase is how you will access your order,  
 so protect it like a password. After you press continue, you will be taken to a payment portal. 
@@ -68,7 +79,7 @@ const what1 = `After your order is approved and is in the orderbook, earners hav
         <div class="md:w-2/3 mx-auto">
           <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
             <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="emit('back', numberArray)">Back To Summary</button>
-            <button  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="">Continue to BTCPay Server</button>
+            <button  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="submit">Continue to BTCPay Server</button>
           </div>
         </div>
       </div> 

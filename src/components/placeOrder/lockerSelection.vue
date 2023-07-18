@@ -85,7 +85,7 @@ const lockerInfo = computed(() => {
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
                           <input maxlength="20"
-                          v-model="lockerZipcode" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          v-model="lockerZipcode" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                       </div>
                     </div>
@@ -115,7 +115,7 @@ const lockerInfo = computed(() => {
                     </fieldset>
                     </div>
                     <div class="md:col-span-8">
-                      <label class="block text-xl font-medium leading-6 text-white">Monero Refund Address</label>
+                      <label class="block text-xl font-medium leading-6 text-white">Your Monero Refund Address</label>
                       <div class="mt-2">
                         <textarea maxlength="250" v-model="moneroAddress" rows="2" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6" />
                       </div>

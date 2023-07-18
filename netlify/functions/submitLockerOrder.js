@@ -4,26 +4,50 @@ const axios = require("axios")
 const Joi = require("joi")
 const fs = require('fs')
 const path = require("path")
-const pathServiceList = path.resolve("./src/assets/serviceList.json")
-const serviceList = JSON.parse(fs.readFileSync(pathServiceList, 'utf8'))
+let infoList = path.resolve("./src/assets/globalInfo.json")
+infoList = JSON.parse(fs.readFileSync(infoList, 'utf8'))
 exports.handler = async (event, context) => {
   try {
     const params = event.body
     const parsed = JSON.parse(params)
-    if (parsed.purchaseInfo.serviceType === '1service') {
-      const returnInfo = await process1Service(parsed)
-      return {
-        statusCode: 200,
-        body: JSON.stringify(returnInfo.data)
-      }
+    const cleanedInfo = {}
+
+    const passphraseArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
+    await passphraseArraySchema.validateAsync(parsed.passphraseArray)
+    cleanedInfo.passphraseArray = parsed.passphraseArray
+
+    const orderNotesSchema = Joi.string().required().max(600)
+    await orderNotesSchema.validateAsync(parsed.orderNotes)
+    cleanedInfo.orderNotes = parsed.orderNotes
+
+    const moneroAddressSchema = Joi.string().required().max(600)
+    await moneroAddressSchema.validateAsync(parsed.moneroAddress)
+    cleanedInfo.moneroAddress = parsed.moneroAddress
+
+    const earnerIncintiveSchema = Joi.number().integer().required().max(100).min(-100)
+    await earnerIncintiveSchema.validateAsync(parsed.earnerIncintive)
+    cleanedInfo.earnerIncintive = parsed.earnerIncintive
+
+    const lockerInfoschema = Joi.object({
+      lockerName: Joi.string().required().max(500),
+      type: Joi.string().required().valid('Amazon Locker','Amazon Hub Counter+'),
+      lockerZipcode: Joi.number().integer().required().max(99999999).min(999)
+    })
+    await lockerInfoschema.validateAsync(parsed.lockerInfo)
+    cleanedInfo.lockerInfo = parsed.lockerInfo
+
+    const itemschema = Joi.object({
+      itemLink: Joi.string().required().max(600),
+      price: Joi.number().required().max(99999).min(.01),
+      quantity: Joi.number().integer().required().max(999).min(1),
+      notes: Joi.string().max(600).allow('')
+    })
+    for (const item of parsed.cart) {
+      await itemschema.validateAsync(item)
     }
-    if (parsed.purchaseInfo.serviceType === '1month') {
-      const returnInfo = await process1month(parsed)
-      return {
-        statusCode: 200,
-        body: JSON.stringify(returnInfo.data)
-      }
-    }
+    cleanedInfo.cart = parsed.cart
+
+    console.log(cleanedInfo, infoList)
 /*     if (parsed.purchase !== '12month' && parsed.purchase !== '1week' && parsed.purchase !== '3month') {
       return {
         statusCode: 500,
@@ -69,7 +93,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(response.data)
     } */
     return {
-      statusCode: 500,
+      statusCode: 200,
       body: ''
     }
   } catch (error) {

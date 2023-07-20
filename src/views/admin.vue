@@ -1,31 +1,112 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+const allOrders = ref([])
+const needApprovalIndex = ref(-1)
 async function getAll() {
   try {
     const results = await axios.post('/.netlify/functions/adminGetAllOrders')
+    allOrders.value = results.data
   } catch (error) {
     console.log(error)
   }
-
 }
 onMounted(() => {
   getAll()
 })
+const needApprovalOrders = computed(() => {
+  const orders = []
+  allOrders.value.forEach(element => {
+    if(element.status[element.status.length - 1] === 'pending approval') {
+      orders.push(element)
+    }
+  })
+  return orders
+})
+function selectOrder(input){
+  if(needApprovalIndex.value === input){
+    needApprovalIndex.value = -1
+    return
+  }
+  needApprovalIndex.value = input
+}
 </script>
 
 <template>
 <section class="bg-gray-800 overflow-hidden">
-  <div class="container mx-auto px-4">
-    <div class="relative md:pb-8 md:max-w-3xl mx-auto bg-gray-900 overflow-hidden rounded-3xl">
-      <div class="absolute top-1/2 left-1/2 min-w-max transform -translate-x-1/2 -translate-y-1/2">
-        <div class="absolute bg-gradient-radial-dark w-full h-full"></div><img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685928443/landingpage/pattern-dark.png" alt="">
-      </div>
+  <div class="">
+    <div class="relative md:pb-8 w-2/3 mx-auto bg-gray-900 overflow-hidden">
       <div class="relative"><img class="mb-8 mx-auto" src="" alt="">
-        <div class="md:max-w-md mx-auto">
+        <div class="mx-auto">
           <div  class="mb-10 text-center">
-            <h2 class="font-heading mb-4 text-4xl md:text-5xl text-white font-black tracking-tight">Orders Need Approval</h2>
-            <p class="text-gray-400 font-bold">Please enter your 8 word passphrase below:</p>
+            <h4 class="font-heading mb-4 text-4xl md:text-2xl text-white font-black tracking-tight">Orders That Need Approval</h4>
+            <div class="">
+              <div class="flex flex-wrap -m-5" v-for="(order, index) in needApprovalOrders" :key="order.orderId">
+                <div class="w-full p-3 my-3" v-if="index === needApprovalIndex">
+                  <a class="block p-10 m-5 bg-gray-800 rounded-3xl text-left" >
+                  <div class="flex flex-wrap -m-2">
+                    <div class="flex-1 p-2 overflow-y-auto break-words">
+                      <h3 class="font-heading mb-4 text-xl text-white"  @click="selectOrder(index)">{{order.orderId}}</h3>
+                      <p class="text-white">
+                        <span class="text-4xl">Meta Data:</span> 
+<!--                           <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info">
+                            {{dataKey}}: {{ data }}
+                            
+                          </li> -->
+                          <p>Locker Info: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.lockerInfo">
+                            {{dataKey}}: {{ data }}
+                            
+                          </li>{{  }}</p>
+                          <p>Order Notes: {{ order.allOrderInformation.orderInfo.metadata.info.orderNotes }}</p>
+                          <p>Earner Incintive: {{ order.allOrderInformation.orderInfo.metadata.info.earnerIncintive }}%</p>
+                          <p>Monero Address: {{ order.allOrderInformation.orderInfo.metadata.info.moneroAddress }}</p>
+                          <p>Cart: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.cart">
+                            {{dataKey}}: {{ data }}
+                            
+                          </li>{{  }}</p>
+                          <p>Constants: <br/>{{ order.allOrderInformation.orderInfo.metadata.constants }}</p>
+                          
+<!--                         <li v-for="(value, key) in order">
+                          {{key}}: {{ value }}
+                        </li> -->
+                      </p>
+                      <p class="text-white mt-5">
+                          <span class="text-4xl">Payment Info:</span> 
+                          <li v-for="(paymentData) in order.allOrderInformation.paymentInfo">
+                            <li v-for="(paymentDataInfo, paymentDataKey) in paymentData">
+                              {{paymentDataKey}}: {{ paymentDataInfo }}
+                            </li>
+                          </li>
+                        
+<!--                         <li v-for="(value, key) in order">
+                          {{key}}: {{ value }}
+                        </li> -->
+                      </p>
+                    </div>
+                    <div class="w-full" @click="selectOrder(index)">
+                      <svg width="24" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.07928 15.8198L12.3093 15.8198L17.9193 15.8198C18.8793 15.8198 19.3593 14.6598 18.6793 13.9798L13.4993 8.79983C12.6693 7.96983 11.3193 7.96983 10.4893 8.79983L8.51928 10.7698L5.30927 13.9798C4.63927 14.6598 5.11928 15.8198 6.07928 15.8198Z" fill="#374151"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </div>
+                <div class="w-full p-3 my-3" v-if="index !== needApprovalIndex">
+                  <a class="block p-10 bg-gray-800 rounded-3xl text-left" @click="selectOrder(index)" >
+                  <div class="flex flex-wrap -m-2">
+                    <div class="flex-1 p-2">
+                      <h3 class="font-heading text-xl text-white font-black">{{ order.orderId }}</h3>
+                    </div>
+                    <div class="w-auto p-2">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.9207 8.18018H11.6907H6.08072C5.12072 8.18018 4.64073 9.34018 5.32073 10.0202L10.5007 15.2002C11.3307 16.0302 12.6807 16.0302 13.5107 15.2002L15.4807 13.2302L18.6907 10.0202C19.3607 9.34018 18.8807 8.18018 17.9207 8.18018Z" fill="#374151"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              </div>
+        </div>
           </div>
 <!--             <div class="flex flex-wrap -m-3 mb-5">
               <div class="w-full p-3 mx-6 md:mx-0 flex flex-col items-left" v-for="index in 8" :key="index">

@@ -71,12 +71,13 @@ exports.handler = async (event, context) => {
                   'paymentMethods': [
                       'XMR'
                   ],
-                  'redirectURL': 'https://phantomphone.app/login',
+                  'redirectURL': 'https://peer.anonshop.app/login',
                   'redirectAutomatically': true
               },
               'metadata': { 
                 info: cleanedInfo,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                constants: infoList
                }
           },
           {
@@ -94,7 +95,7 @@ exports.handler = async (event, context) => {
     console.log(error)
     return {
       statusCode: 500,
-      body: ''
+      body: error
     }
   }
 }

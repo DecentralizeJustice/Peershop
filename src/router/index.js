@@ -4,6 +4,7 @@ import placeOrder from "../views/placeOrder.vue"
 import Login from "../views/login.vue"
 import faq from "../views/faq.vue"
 import messageMe from "../views/messageMe.vue"
+import admin from "../views/admin.vue"
 /* const User = {
   template: `
     <div class="user">
@@ -40,7 +41,12 @@ const router = createRouter({
       path: "/faq",
       name: "faq",
       component: faq
-    }  
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: admin
+    }    
   ],
 })
 

@@ -84,7 +84,7 @@ const lockerInfo = computed(() => {
                       <label for="pendingItemLink" class="block text-xl font-medium text-white">Location Zipcode</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input maxlength="20"
+                          <input max="99999"
                           v-model="lockerZipcode" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                       </div>

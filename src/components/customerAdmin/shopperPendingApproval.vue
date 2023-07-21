@@ -1,12 +1,14 @@
 <script setup>
 import axios from 'axios';
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed, watch, toRef } from 'vue'
+const emit = defineEmits(['refresh'])
 const message = ref('')
 const customChatDiv = ref(null)
 const props = defineProps({
   orderData: Object
 })
-const orderData = ref({})
+
+const orderData = toRef(props, 'orderData')
 function waitforme(millisec) {
     return new Promise(resolve => {
         setTimeout(() => { resolve('') }, millisec);
@@ -21,17 +23,6 @@ async function initialSetup() {
     console.log(error)
   }
 }
-async function refresh() {
-/*   const results = await axios.post('/.netlify/functions/getOrderInfo', 
-  { passphrase: orderData.value.passphrase.split(",") })
-  orderData.value = results.data
-  await getCorrectRentalMessages()
-  await waitforme(500)
-  const div = customChatDiv.value
-  div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
-  const div2 = customChatDiv2.value
-  div2.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" }) */
-}
 async function sendMessage() {
   await axios.post('/.netlify/functions/sendCustomerMessage',
   { 
@@ -41,7 +32,13 @@ async function sendMessage() {
     to: 'dgoon' 
   })
   message.value = ''
-  await refresh()
+  refresh()
+}
+async function refresh(){
+  emit('refresh')
+  await waitforme(500)
+  const div = customChatDiv.value
+  div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
 }
 function localTime(epoch) {
   var timestamp = epoch;
@@ -64,14 +61,13 @@ function getChatImage(sender) {
   return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1687402881/landingpage/avatars/african-man.svg'
 }
 onMounted(() => {
-  orderData.value = props.orderData
-  console.log(orderData)
+  console.log(orderData.value)
   initialSetup()
 })
 </script>
 
 <template>
-<section class="bg-gray-800 overflow-hidden" v-if="Object.keys(orderData).length > 0">
+<section class="bg-gray-800 overflow-hidden">
   <div class="container mx-auto px-4">
     <div class="relative p-10 bg-gray-900 overflow-hidden rounded-3xl">
       <div class="absolute top-1/2 left-1/2 min-w-max transform -translate-x-1/2 -translate-y-1/2">
@@ -109,7 +105,7 @@ onMounted(() => {
             <textarea class="appearance-none px-2 md:px-6 my-5 py-5 w-full text-lg text-gray-500 font-bold bg-gray-900 placeholder-gray-500 outline-none focus:ring-4 focus:ring-blue-200 rounded-3xl" type="text" rows="4" placeholder="Enter your message"
             v-model="message"></textarea>
             <div class="flex flex-wrap my-1">
-              <div class="w-full lg:w-1/2 p-2"><button @click='refresh' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
+              <div class="w-full lg:w-1/2 p-2"><button @click="refresh" class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
                 <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
               </div>
               </div>

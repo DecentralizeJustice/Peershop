@@ -124,7 +124,8 @@ watch(
   </div>
 </section>
 <section> 
-  <shopperPendingApproval :orderData="orderData" v-if="Object.keys(orderData).length > 0"/>
+  <shopperPendingApproval :orderData="orderData" v-if="Object.keys(orderData).length > 0"
+    @refresh="signIn"/>
 </section>
 </template>
 

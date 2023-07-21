@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ref, onMounted, computed } from 'vue'
 const allOrders = ref([])
+const message = ref('')
 const needApprovalIndex = ref(-1)
 async function getAll() {
   try {
@@ -30,6 +31,30 @@ function selectOrder(input){
   }
   needApprovalIndex.value = input
 }
+async function sendMessage() {
+  await axios.post('/.netlify/functions/adminSendMessage',
+   { 
+    passphrase: 'ff', 
+    message: message.value, 
+    sender: 'dgoon' 
+  })
+  message.value = ''
+  // await refresh()
+}
+function localTime(epoch) {
+  var timestamp = epoch;
+  var date = new Date(timestamp);
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  var day =  date.getDate()
+  var month = date.getMonth() + 1
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm + ' ' + day + '/' + month
+  return strTime;
+}
 </script>
 
 <template>
@@ -39,7 +64,7 @@ function selectOrder(input){
       <div class="relative"><img class="mb-8 mx-auto" src="" alt="">
         <div class="mx-auto">
           <div  class="mb-10 text-center">
-            <h4 class="font-heading mb-4 text-4xl md:text-2xl text-white font-black tracking-tight">Orders That Need Approval</h4>
+            <h4 class="mb-4 text-4xl md:text-2xl text-white  tracking-tight">Orders That Need Approval</h4>
             <div class="">
               <div class="flex flex-wrap -m-5" v-for="(order, index) in needApprovalOrders" :key="order.orderId">
                 <div class="w-full p-3 my-3" v-if="index === needApprovalIndex">
@@ -53,18 +78,26 @@ function selectOrder(input){
                             {{dataKey}}: {{ data }}
                             
                           </li> -->
-                          <p>Locker Info: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.lockerInfo">
+                          <p class="my-5">Locker Info: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.lockerInfo">
                             {{dataKey}}: {{ data }}
                             
                           </li>{{  }}</p>
-                          <p>Order Notes: {{ order.allOrderInformation.orderInfo.metadata.info.orderNotes }}</p>
-                          <p>Earner Incintive: {{ order.allOrderInformation.orderInfo.metadata.info.earnerIncintive }}%</p>
-                          <p>Monero Address: {{ order.allOrderInformation.orderInfo.metadata.info.moneroAddress }}</p>
-                          <p>Cart: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.cart">
+                          <p class="my-5">Order Notes: {{ order.allOrderInformation.orderInfo.metadata.info.orderNotes }}</p>
+                          <p class="my-5">Earner Incintive: {{ order.allOrderInformation.orderInfo.metadata.info.earnerIncintive }}%</p>
+                          <p class="my-5">Monero Return Address: {{ order.allOrderInformation.orderInfo.metadata.info.moneroAddress }}</p>
+                          <p class="my-5">Cart: 
+                            <li v-for="(data, index) in order.allOrderInformation.orderInfo.metadata.info.cart" class="my-5">
+                            {{index + 1}}: 
+                              <li v-for="(data1, index1) in data">
+                                {{index1}}: {{ data1 }}
+                                </li>
+                            </li>
+                          </p>
+                          <p class="my-5">Constants: <br/>
+                            <li class="my-2" v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.constants">
                             {{dataKey}}: {{ data }}
                             
-                          </li>{{  }}</p>
-                          <p>Constants: <br/>{{ order.allOrderInformation.orderInfo.metadata.constants }}</p>
+                          </li></p>
                           
 <!--                         <li v-for="(value, key) in order">
                           {{key}}: {{ value }}
@@ -82,6 +115,47 @@ function selectOrder(input){
                           {{key}}: {{ value }}
                         </li> -->
                       </p>
+                      <div class="mt-8">
+                        <div class="flex flex-wrap items-center">
+                          <div class="w-full py-4">
+                            <div class="md:max-w-md mx-auto">
+                              <div class="rounded shadow-lg">
+                              <div class="px-6 py-4 bg-gray-900" >
+                                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Just Shopper Chat</div>
+                                <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
+                                <div v-for="(message, index) in order.shopperChat">
+                                  <div class="chat"
+                                  :class="{ 'chat-start':  message.sender === 'dgoon', 
+                                  'chat-end':  message.sender !== 'dgoon' }">
+                                    <div class="chat-image avatar">
+                                      <div class="w-10 rounded-full">
+                                        <!-- <img :src="getChatImage(message.sender)" /> -->
+                                      </div>
+                                    </div>
+                                    <div class="chat-header text-white">
+                                      {{ message.sender }}
+                                    
+                                    </div>
+                                    <div class="chat-bubble break-words text-white">{{ message.message }} </div>
+                                    <div class="chat-footer text-white">
+                                      Sent at {{localTime(message.timestamp)}}
+                                    </div>
+                                  </div>
+                              </div>
+                                    
+                            </div>
+                            <textarea class="appearance-none px-2 md:px-6 my-5 py-5 w-full text-lg text-gray-500 font-bold bg-gray-900 placeholder-gray-500 outline-none focus:ring-4 focus:ring-blue-200 rounded-3xl" type="text" rows="4" placeholder="Enter your message"
+                            v-model="message"></textarea>
+                            <div class="flex flex-wrap my-1">
+                              <div class="w-full lg:w-1/2 p-2"><button @click='' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
+                                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
+                              </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="w-full" @click="selectOrder(index)">
                       <svg width="24" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +165,7 @@ function selectOrder(input){
                   </div>
                 </a>
               </div>
-                <div class="w-full p-3 my-3" v-if="index !== needApprovalIndex">
+                <div class="w-full p-3 m-5" v-if="index !== needApprovalIndex">
                   <a class="block p-10 bg-gray-800 rounded-3xl text-left" @click="selectOrder(index)" >
                   <div class="flex flex-wrap -m-2">
                     <div class="flex-1 p-2">

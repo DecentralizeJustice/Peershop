@@ -12,11 +12,16 @@ exports.handler = async (event) => {
     const info = await collection.findOne({
       shopperPassphrase: passphrase
     })
-    console.log(info)
+    // console.log(info)
+    // console.log(info.allOrderInformation)
     const userSafeInfo = {
       type: 'shopper',
+      orderId: info.orderId,
       status: info.status,
-      chat: info.shopperChat
+      chat: info.shopperChat,
+      orderInfo: info.allOrderInformation.orderInfo.metadata,
+      paymentInfo: info.allOrderInformation.paymentInfo
+
     }
     return {
         statusCode: 200,

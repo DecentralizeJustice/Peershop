@@ -79,7 +79,7 @@ onMounted(() => {
             <div class="md:max-w-md mx-auto">
               <div class="max-w-sm rounded shadow-lg">
               <div class="px-6 py-4 bg-gray-800" >
-                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Customer Support Chat</div>
+                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Support Chat</div>
                 <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
                 <div v-for="(message, index) in orderData.chat" :key="message.timestamp">
                   <div class="chat"
@@ -112,44 +112,56 @@ onMounted(() => {
             </div>
             </div>
           </div>
-<!--           <div class="w-full md:w-1/2 p-8 ">
-              <div class="md:max-w-md mx-auto">
-                <div class="max-w-sm rounded shadow-lg">
-                <div class="px-6 py-4 bg-gray-800" >
-                  <div class="rounded-md font-bold mb-2 text-center mb-5 bg-blue-500 text-white py-4">
-                    <div class="text-xl px-5">{{ serviceInfo.serviceInfo.purchase.service }} 1 Month Whole Service Rental</div>
-                    <div class="text-2xl mt-3">Number: {{  phoneNumber }}</div>
+          <div class="w-full md:w-1/2 break-words">
+              <div class="px-10 mx-auto">
+                <div class="rounded shadow-lg">
+                <div class=" bg-gray-800" >
+                  <div class="font-bold mb-2 text-center mb-5 bg-blue-500 text-white py-4">
+                    <div class="text-xl px-5">Order Info</div>
                   </div>
-                  <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv2">
-                  <div class="text-white text-center text-xl" v-if="rentalPhoneMessages.length === 0">
-                    No Messages from {{ serviceInfo.serviceInfo.purchase.service }}
-                  </div>
-                  <div v-for="(message) in rentalPhoneMessages" v-if="rentalPhoneMessages.length !== 0">
-                    <div class="chat chat-start">
-                      <div class="chat-image avatar">
-                        <div class="w-10 rounded-full">
-                          <img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1687389222/landingpage/avatars/bot.svg" />
-                        </div>
-                      </div>
-                      <div class="chat-header text-white">
-                        {{ message.from }}
+                  <div style="height: 60vh;" class="overflow-auto px-5" ref="customChatDiv2">
+                  <div class="text-white text-left text-xl">
+                    <p> Order Name: {{ orderData.orderId }} </p>
+                    <p> Order Status: {{  orderData.status[orderData.status.length - 1]}} </p> 
+                    <p class="mb-10"> Order Summary:  <br/>
+                      Cart:<br/>
+                      <p v-for="(item, index) in orderData.orderInfo.info.cart">
+                        Item {{index + 1}}: <li v-for="(thing, key) in item">
+                                              {{ key}}: {{ thing }}
+                                            </li>
+                                          </p>
+                      Locker Info:<br/>
+                      
+                        <li v-for="(thing, key) in orderData.orderInfo.info.lockerInfo">
+                                              {{ key}}: {{ thing }}
+                                            </li>
+                      Order Notes: {{ orderData.orderInfo.info.orderNotes }} <br/>
+                      Monero Refund Address: {{ orderData.orderInfo.info.moneroAddress }} <br/>
+                      Earner Incintive: {{ orderData.orderInfo.info.earnerIncintive }} <br/>
+                                          
+                    </p>
+                    <p>
+                      Constants: <li v-for="(thing, key) in orderData.orderInfo.constants">
+                                              {{ key}}: {{ thing }}
+                                            </li>
+                    </p>
+                    <p>Payment Info: <br/>
+                      <p v-for="(payment, key) in orderData.paymentInfo">
+                          <li v-for="(thing, key) in payment">
+                                              {{ key}}: {{ thing }}
+                                            </li>
+                      </p>
+                    </p>
                     
-                      </div>
-                      <div class="chat-bubble break-words">{{ message.text }} </div>
-                      <div class="chat-footer text-white">
-                        Sent at {{ localTime(message.sentStamp) }}
-                      </div>
-                    </div>
-                </div>
+                    <br/>
+                  </div>
+
                      
               </div>
-              <div class="flex flex-wrap my-1">
-                <div class="w-full lg:w-1/2 p-2"><button @click='refresh' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                  </div>
                 </div>
               </div>
               </div>
-            </div> -->
+            </div>
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { ref, onMounted, computed } from 'vue'
 const allOrders = ref([])
 const message = ref('')
 const needApprovalIndex = ref(-1)
+const approvalCounter = ref(0)
 async function getAll() {
   try {
     const results = await axios.post('/.netlify/functions/adminGetAllOrders')
@@ -31,15 +32,27 @@ function selectOrder(input){
   }
   needApprovalIndex.value = input
 }
-async function sendMessage() {
+async function approveOrder(orderId) {
+  if(approvalCounter.value < 6){ approvalCounter.value +=1;console.log('only have:' + approvalCounter.value ); return;}
+  await axios.post('/.netlify/functions/adminApproveOrder',
+   { 
+    orderId: orderId
+  })
+  approvalCounter.value = 0
+  await refresh()
+}
+async function sendMessage(orderId) {
   await axios.post('/.netlify/functions/adminSendMessage',
    { 
-    passphrase: 'ff', 
-    message: message.value, 
-    sender: 'dgoon' 
+    orderId: orderId, 
+    message: message.value,
+    chat: 'shopper'
   })
   message.value = ''
-  // await refresh()
+  await refresh()
+}
+async function refresh(){
+  await getAll()
 }
 function localTime(epoch) {
   var timestamp = epoch;
@@ -67,7 +80,22 @@ function localTime(epoch) {
             <h4 class="mb-4 text-4xl md:text-2xl text-white  tracking-tight">Orders That Need Approval</h4>
             <div class="">
               <div class="flex flex-wrap -m-5" v-for="(order, index) in needApprovalOrders" :key="order.orderId">
+                <div class="w-full p-3 m-5" v-if="index !== needApprovalIndex">
+                  <a class="block p-10 bg-gray-800 rounded-3xl text-left" @click="selectOrder(index)" >
+                  <div class="flex flex-wrap -m-2">
+                    <div class="flex-1 p-2">
+                      <h3 class="font-heading text-xl text-white font-black">{{ order.orderId }}</h3>
+                    </div>
+                    <div class="w-auto p-2">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.9207 8.18018H11.6907H6.08072C5.12072 8.18018 4.64073 9.34018 5.32073 10.0202L10.5007 15.2002C11.3307 16.0302 12.6807 16.0302 13.5107 15.2002L15.4807 13.2302L18.6907 10.0202C19.3607 9.34018 18.8807 8.18018 17.9207 8.18018Z" fill="#374151"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </div>
                 <div class="w-full p-3 my-3" v-if="index === needApprovalIndex">
+
                   <a class="block p-10 m-5 bg-gray-800 rounded-3xl text-left" >
                   <div class="flex flex-wrap -m-2">
                     <div class="flex-1 p-2 overflow-y-auto break-words">
@@ -78,7 +106,8 @@ function localTime(epoch) {
                             {{dataKey}}: {{ data }}
                             
                           </li> -->
-                          <p class="my-5">Locker Info: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.lockerInfo">
+                          <p class="my-5">Locker Info: <li v-for="(data, dataKey) in order.allOrderInformation.orderInfo.metadata.info.lockerInfo" 
+                            :key="data.orderId">
                             {{dataKey}}: {{ data }}
                             
                           </li>{{  }}</p>
@@ -147,8 +176,8 @@ function localTime(epoch) {
                             <textarea class="appearance-none px-2 md:px-6 my-5 py-5 w-full text-lg text-gray-500 font-bold bg-gray-900 placeholder-gray-500 outline-none focus:ring-4 focus:ring-blue-200 rounded-3xl" type="text" rows="4" placeholder="Enter your message"
                             v-model="message"></textarea>
                             <div class="flex flex-wrap my-1">
-                              <div class="w-full lg:w-1/2 p-2"><button @click='' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
+                              <div class="w-full lg:w-1/2 p-2"><button @click='refresh' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
+                                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage(order.orderId)' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
                               </div>
                               </div>
                             </div>
@@ -156,7 +185,11 @@ function localTime(epoch) {
                           </div>
                         </div>
                       </div>
+                      <div class="flex flex-wrap my-1">
+                          <div class="w-full lg:w-1/2 p-2"><button @click='approveOrder(order.orderId)' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Approve Order</button></div>
+                      </div>
                     </div>
+                    
                     <div class="w-full" @click="selectOrder(index)">
                       <svg width="24" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.07928 15.8198L12.3093 15.8198L17.9193 15.8198C18.8793 15.8198 19.3593 14.6598 18.6793 13.9798L13.4993 8.79983C12.6693 7.96983 11.3193 7.96983 10.4893 8.79983L8.51928 10.7698L5.30927 13.9798C4.63927 14.6598 5.11928 15.8198 6.07928 15.8198Z" fill="#374151"></path>
@@ -165,41 +198,10 @@ function localTime(epoch) {
                   </div>
                 </a>
               </div>
-                <div class="w-full p-3 m-5" v-if="index !== needApprovalIndex">
-                  <a class="block p-10 bg-gray-800 rounded-3xl text-left" @click="selectOrder(index)" >
-                  <div class="flex flex-wrap -m-2">
-                    <div class="flex-1 p-2">
-                      <h3 class="font-heading text-xl text-white font-black">{{ order.orderId }}</h3>
-                    </div>
-                    <div class="w-auto p-2">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.9207 8.18018H11.6907H6.08072C5.12072 8.18018 4.64073 9.34018 5.32073 10.0202L10.5007 15.2002C11.3307 16.0302 12.6807 16.0302 13.5107 15.2002L15.4807 13.2302L18.6907 10.0202C19.3607 9.34018 18.8807 8.18018 17.9207 8.18018Z" fill="#374151"></path>
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              </div>
+
               </div>
         </div>
           </div>
-<!--             <div class="flex flex-wrap -m-3 mb-5">
-              <div class="w-full p-3 mx-6 md:mx-0 flex flex-col items-left" v-for="index in 8" :key="index">
-                <div v-if="index === wrongWord + 1" class="text-red-500 text-center text-lg font-bold">{{index}} is Not a Valid Word!</div>
-                <label class="block mb-2 text-sm text-gray-400 font-bold" for="signInDarkReversePatternInput3-1">{{ index }}.</label>
-                <input class="appearance-none px-6 py-3.5 md:w-full text-lg text-gray-500 font-bold bg-gray-800 placeholder-gray-500 outline-none border border-gray-700 focus:ring-4 focus:ring-blue-200 rounded-full" v-model="passphraseWords[index-1]" :placeholder='getPassphraseInputLabels(index) + " Word"'>
-              </div>
-              <div class="w-full p-3 mt-2">
-                <div class="flex flex-wrap md:justify-end -m-2">
-                  <div class="w-full md:p-2 p-5">
-                    <button v-if='!allEntered' class="w-full block px-8 py-3.5 text-lg text-center text-white font-bold bg-slate-700 rounded-full" @click="">Sign In</button>
-                    <button v-if="allEntered" class="w-full block px-8 py-3.5 text-lg text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full" @click="signIn()">Sign In</button>
-                  </div>
-                </div>
-              </div>
-              <div class="w-full p-3">
-                <p class="text-gray-600 text-center font-bold"><span>Don’t have an account? </span><br/><a class="text-blue-500 hover:text-blue-600 font-bold" href="/">Purchase A Phone PLan</a></p>
-              </div>
-            </div> -->
         </div>
       </div>
     </div>

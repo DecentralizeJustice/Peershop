@@ -28,3 +28,4 @@ dist-ssr
 netlify/functions/getAll.js
 netlify/functions/adminGetAllOrders.js
 netlify/functions/adminSendMessage.js
+netlify/functions/adminApproveOrder.js

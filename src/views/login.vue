@@ -4,8 +4,8 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 import words from '@/assets/bip39Wordlist.txt?raw'
-import OneMonthLong from '@/components/1monthLongTermAccount.vue'
-import OneServiceShort from '@/components/1serviceShortTermAccount.vue'
+import shopperPendingApproval from '@/components/customerAdmin/shopperPendingApproval.vue'
+
 const passphraseWords = ref(["", "", "", "", "", "", "", ""])
 const wrongWord = ref(999)
 const orderData = ref({})
@@ -26,7 +26,7 @@ function getPassphraseInputLabels(i) {
 }
 async function signIn() {
   try {
-      const numberArray = []
+    const numberArray = []
     for (let index = 0; index < 8; index++) {
       const element = passphraseWords.value[index]
       const number = wordToNumber(element)
@@ -37,18 +37,16 @@ async function signIn() {
       }
       numberArray.push(number)
     }
-    const results = await axios.post('/.netlify/functions/getOrderInfo', { passphrase: numberArray })
+    const results = await axios.post('/.netlify/functions/login', { passphrase: numberArray })
     if (results.data === null) {
       orderDoesNotExist.value = true
       throw new Error('Order does not exist')
     }
-    
     orderData.value = results.data
-    console.log(orderData.value.allOrderInformation.orderInfo.metadata.purchase.serviceType)
+    orderData.value.passphrase = numberArray
   } catch (error) {
     console.log(error)
   }
-
 }
 function wordToNumber(word) {
   const wordArray = words.split(/\r?\n/)
@@ -126,136 +124,8 @@ watch(
   </div>
 </section>
 <section> 
-  <OneServiceShort :orderData="orderData" v-if="Object.keys(orderData).length !== 0 && orderData.allOrderInformation.orderInfo.metadata.purchase.serviceType === '1service'"/>
-  <OneMonthLong :orderData="orderData" v-if="Object.keys(orderData).length !== 0 && orderData.allOrderInformation.orderInfo.metadata.purchase.serviceType === '1month'"/>
+  <shopperPendingApproval :orderData="orderData" v-if="Object.keys(orderData).length > 0"/>
 </section>
-<!-- <section class="bg-gray-800 overflow-hidden" v-if="Object.keys(orderData).length !== 0">
-  <div class="container mx-auto px-4">
-    <div class="relative p-10 bg-gray-900 overflow-hidden rounded-3xl">
-      <div class="absolute top-1/2 left-1/2 min-w-max transform -translate-x-1/2 -translate-y-1/2">
-        <div class="absolute bg-gradient-radial-dark w-full h-full"></div><img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685928443/landingpage/pattern-dark.png" alt="">
-      </div>
-      <div class="relative z-10">
-        <div class="flex flex-wrap items-center -m-8">
-          <div class="w-full md:w-1/2 p-8 ">
-            <div class="md:max-w-md mx-auto">
-              <div class="max-w-sm rounded shadow-lg">
-              <div class="px-6 py-4 bg-gray-800" >
-                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Customer Support Chat</div>
-                <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
-                <div v-for="(message, index) in orderData.customerChat" :key="message.timestamp">
-                  <div class="chat"
-                  :class="{ 'chat-start':  message.sender === 'dgoon', 
-                  'chat-end':  message.sender !== 'dgoon' }">
-                    <div class="chat-image avatar">
-                      <div class="w-10 rounded-full">
-                        <img :src="getChatImage(message.sender)" />
-                      </div>
-                    </div>
-                    <div class="chat-header text-white">
-                      {{ message.sender }}
-                    
-                    </div>
-                    <div class="chat-bubble break-words">{{ message.message }} </div>
-                    <div class="chat-footer text-white">
-                      Sent at {{localTime(message.timestamp)}}
-                    </div>
-                  </div>
-              </div>
-                     
-            </div>
-            <textarea class="appearance-none px-2 md:px-6 my-5 py-5 w-full text-lg text-gray-500 font-bold bg-gray-900 placeholder-gray-500 outline-none focus:ring-4 focus:ring-blue-200 rounded-3xl" type="text" rows="4" placeholder="Enter your message"
-            v-model="message"></textarea>
-            <div class="flex flex-wrap my-1">
-              <div class="w-full lg:w-1/2 p-2"><button @click='refresh' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
-              </div>
-              </div>
-            </div>
-            </div>
-          </div>
-          <div class="w-full md:w-1/2 p-8 " v-if="serviceInfo.serviceInfo.purchase.serviceType === '1month'">
-              <div class="md:max-w-md mx-auto">
-                <div class="max-w-sm rounded shadow-lg">
-                <div class="px-6 py-4 bg-gray-800" >
-                  <div class="rounded-md font-bold mb-2 text-center mb-5 bg-blue-500 text-white py-4">
-                    <div class="text-xl px-5">{{ serviceInfo.serviceInfo.purchase.service }} 1 Month Whole Service Rental</div>
-                    <div class="text-2xl mt-3">Number: {{  phoneNumber }}</div>
-                  </div>
-                  <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv2">
-                  <div class="text-white text-center text-xl" v-if="rentalPhoneMessages.length === 0">
-                    No Messages from {{ serviceInfo.serviceInfo.purchase.service }}
-                  </div>
-                  <div v-for="(message) in rentalPhoneMessages" v-if="rentalPhoneMessages.length !== 0">
-                    <div class="chat chat-start">
-                      <div class="chat-image avatar">
-                        <div class="w-10 rounded-full">
-                          <img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1687389222/landingpage/avatars/bot.svg" />
-                        </div>
-                      </div>
-                      <div class="chat-header text-white">
-                        {{ message.from }}
-                    
-                      </div>
-                      <div class="chat-bubble break-words">{{ message.text }} </div>
-                      <div class="chat-footer text-white">
-                        Sent at {{ localTime(message.sentStamp) }}
-                      </div>
-                    </div>
-                </div>
-                     
-              </div>
-              <div class="flex flex-wrap my-1">
-                <div class="w-full lg:w-1/2 p-2"><button @click='refresh' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
-          <div class="w-full md:w-1/2 p-8 " v-if="serviceInfo.serviceInfo.purchase.serviceType === '1service'">
-              <div class="md:max-w-md mx-auto">
-                <div class="max-w-sm rounded shadow-lg">
-                <div class="px-6 py-4 bg-gray-800">
-                  <div class="rounded-md font-bold mb-2 text-center mb-5 bg-blue-500 text-white py-4">
-                    <div class="text-xl px-5">{{ serviceInfo.serviceInfo.purchase.service }} 1 day & 1 Service Rental</div>
-                    <div class="text-2xl mt-3">Number: {{ phoneNumber}}</div>
-                  </div>
-                  <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv2">
-                  <div class="text-white text-center text-xl" v-if="rentalPhoneMessages.length === 0">
-                    No Messages from {{ serviceInfo.serviceInfo.purchase.service }}
-                  </div>
-                  <div v-for="(message) in rentalPhoneMessages" v-if="rentalPhoneMessages.length !== 0">
-                    <div class="chat chat-start">
-                      <div class="chat-image avatar">
-                        <div class="w-10 rounded-full">
-                          <img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1687389222/landingpage/avatars/bot.svg" />
-                        </div>
-                      </div>
-                      <div class="chat-header text-white">
-                        {{ message.from }}
-                    
-                      </div>
-                      <div class="chat-bubble break-words">{{ message.text }} </div>
-                      <div class="chat-footer text-white">
-                        Sent at {{ localTime(message.sentStamp) }}
-                      </div>
-                    </div>
-                </div>
-                     
-              </div>
-              <div class="flex flex-wrap my-1">
-                <div class="w-full lg:w-1/2 p-2"><button @click='refresh' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section> -->
 </template>
 
 <style scoped>

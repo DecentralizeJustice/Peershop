@@ -1,11 +1,8 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, computed, watch } from 'vue'
-const phoneNumber = ref('')
-const rentalPhoneMessages = ref([])
 const message = ref('')
 const customChatDiv = ref(null)
-const customChatDiv2 = ref(null)
 const props = defineProps({
   orderData: Object
 })
@@ -17,26 +14,15 @@ function waitforme(millisec) {
 }
 async function initialSetup() {
   try {
-    await getCorrectRentalMessages()
     await waitforme(500)
     const div = customChatDiv.value
     div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
-    const div2 = customChatDiv2.value
-    div2.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
   } catch (error) {
     console.log(error)
   }
 }
-async function getCorrectRentalMessages() {
-  let results = {}
-  results = await axios.post('/.netlify/functions/getCorrectRentalSoloRentalMessages',
-    { passphrase: orderData.value.passphrase.split(",") })
-  rentalPhoneMessages.value = results.data.messages
-  phoneNumber.value = results.data.phoneNumber
-  return
-}
 async function refresh() {
-  const results = await axios.post('/.netlify/functions/getOrderInfo', 
+/*   const results = await axios.post('/.netlify/functions/getOrderInfo', 
   { passphrase: orderData.value.passphrase.split(",") })
   orderData.value = results.data
   await getCorrectRentalMessages()
@@ -44,14 +30,15 @@ async function refresh() {
   const div = customChatDiv.value
   div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
   const div2 = customChatDiv2.value
-  div2.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
+  div2.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" }) */
 }
 async function sendMessage() {
-  await axios.post('/.netlify/functions/sendCustomerChat',
-   { 
-    passphrase: orderData.value.passphrase.split(","), 
-    message: message.value, 
-    sender: 'customer' 
+  await axios.post('/.netlify/functions/sendCustomerMessage',
+  { 
+    passphrase: orderData.value.passphrase, 
+    message: message.value,
+    sender: 'shopper',
+    to: 'dgoon' 
   })
   message.value = ''
   await refresh()
@@ -76,20 +63,15 @@ function getChatImage(sender) {
   }
   return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1687402881/landingpage/avatars/african-man.svg'
 }
-const serviceInfo = computed(() => {
-  return {
-    chosenPhone: orderData.value.chosenPhone,
-    serviceInfo: orderData.value.allOrderInformation.orderInfo.metadata
-  }
-})
 onMounted(() => {
   orderData.value = props.orderData
+  console.log(orderData)
   initialSetup()
 })
 </script>
 
 <template>
-<section class="bg-gray-800 overflow-hidden" v-if="Object.keys(orderData).length !== 0">
+<section class="bg-gray-800 overflow-hidden" v-if="Object.keys(orderData).length > 0">
   <div class="container mx-auto px-4">
     <div class="relative p-10 bg-gray-900 overflow-hidden rounded-3xl">
       <div class="absolute top-1/2 left-1/2 min-w-max transform -translate-x-1/2 -translate-y-1/2">
@@ -103,7 +85,7 @@ onMounted(() => {
               <div class="px-6 py-4 bg-gray-800" >
                 <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Customer Support Chat</div>
                 <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
-                <div v-for="(message, index) in orderData.customerChat" :key="message.timestamp">
+                <div v-for="(message, index) in orderData.chat" :key="message.timestamp">
                   <div class="chat"
                   :class="{ 'chat-start':  message.sender === 'dgoon', 
                   'chat-end':  message.sender !== 'dgoon' }">
@@ -134,7 +116,7 @@ onMounted(() => {
             </div>
             </div>
           </div>
-          <div class="w-full md:w-1/2 p-8 ">
+<!--           <div class="w-full md:w-1/2 p-8 ">
               <div class="md:max-w-md mx-auto">
                 <div class="max-w-sm rounded shadow-lg">
                 <div class="px-6 py-4 bg-gray-800" >
@@ -171,7 +153,7 @@ onMounted(() => {
                 </div>
               </div>
               </div>
-            </div>
+            </div> -->
         </div>
       </div>
 

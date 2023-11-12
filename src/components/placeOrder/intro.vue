@@ -6,10 +6,11 @@ const enabled0 = ref(false)
 const enabled1 = ref(false)
 const enabled2 = ref(false)
 const enabled3 = ref(false)
+const enabled4 = ref(false)
 const requirements = [
 {
     title: 'Check Order Regularly',
-    text: `Your required to check on your order every day.`
+    text: `Your required to check on your order every other day.`
   },
   {
     title: 'Ships from Amazon',
@@ -21,8 +22,12 @@ const requirements = [
   },
   {
     title: 'Variable Pricing',
-    text: `Since we do not have native Amazon support, our pricing is just an estimate. You might pay more or less.`
+    text: `Since we do not have native Amazon support, our pricing is just an estimate. You might pay more.`
   },
+  {
+    title: 'Size & Weight Constraints',
+    text: `Here are the other limits for items that can be shipped: https://shorturl.at/kBPRS`
+  }
 ]
 function next(){
   emit('next')
@@ -38,6 +43,9 @@ const allready = computed(() => {
     return false
   }
   if(!enabled3.value){
+    return false
+  }
+  if(!enabled4.value){
     return false
   }
   return true
@@ -98,6 +106,16 @@ const allready = computed(() => {
                     <SwitchLabel as="span" class="ml-3 text-sm" style="">
                       <h4 class="font-medium  text-3xl text-blue-500">{{ requirements[3].title }}</h4>
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[3].text }}</p>
+                    </SwitchLabel>
+                  </SwitchGroup>
+                  
+                  <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
+                    <Switch v-model="enabled4" :class="[enabled4 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
+                      <span aria-hidden="true" :class="[enabled4 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+                    </Switch>
+                    <SwitchLabel as="span" class="ml-3 text-sm" style="">
+                      <h4 class="font-medium  text-3xl text-blue-500">{{ requirements[4].title }}</h4>
+                      <p class="text-white text-xl mt-4 text-left">{{ requirements[4].text }}</p>
                     </SwitchLabel>
                   </SwitchGroup>
               </div>

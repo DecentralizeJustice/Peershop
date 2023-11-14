@@ -14,7 +14,7 @@ const lockerZipcode = ref('')
 const orderNotes = ref('')
 const moneroAddress = ref('')
 const allready = computed(() => {
-  if(lockerName.value.length < 2){
+  if(lockerName.value.length < 0){
     return false
   }
   if(lockerZipcode.value.length < 3){

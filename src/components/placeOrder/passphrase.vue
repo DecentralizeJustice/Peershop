@@ -22,6 +22,7 @@ async function getPassphrase() {
 
 }
 async function submit() {
+  console.log('ran')
   const results = await axios.post('/.netlify/functions/submitLockerOrder', { 
     passphraseArray: numberArray.value,
     orderNotes: props.orderNotes,
@@ -30,6 +31,7 @@ async function submit() {
     lockerInfo: props.lockerInfo,
     earnerIncintive: props.earnerIncintive
   })
+  console.log(results)
   window.location.href = results.data.checkoutLink
 }
 const purchaseInfo = `This passphrase is how you will access your order,  

@@ -29,9 +29,9 @@ exports.handler = async (event, context) => {
     cleanedInfo.earnerIncintive = parsed.earnerIncintive
 
     const lockerInfoschema = Joi.object({
-      lockerName: Joi.string().required().max(500),
+      lockerName: Joi.string().max(500),
       type: Joi.string().required().valid('Amazon Locker','Amazon Hub Counter+'),
-      lockerZipcode: Joi.number().integer().required().max(99999999).min(999)
+      lockerZipcode: Joi.number().integer().required().max(99999999).min(99)
     })
     await lockerInfoschema.validateAsync(parsed.lockerInfo)
     cleanedInfo.lockerInfo = parsed.lockerInfo

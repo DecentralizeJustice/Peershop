@@ -20,9 +20,6 @@ const allready = computed(() => {
   if(lockerZipcode.value.length < 3){
     return false
   }
-  if(type.value === ''){
-    return false
-  }
   if(moneroAddress.value.length < 80){
     return false
   }

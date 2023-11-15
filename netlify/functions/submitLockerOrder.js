@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
 
     const lockerInfoschema = Joi.object({
       lockerName: Joi.string().max(500).allow(null, ''),
-      type: Joi.string().required().valid('Amazon Locker','Amazon Hub Counter+'),
+      type: Joi.string().allow(null, '').valid('Amazon Locker','Amazon Hub Counter+'),
       lockerZipcode: Joi.number().integer().required().max(99999999).min(99)
     })
     await lockerInfoschema.validateAsync(parsed.lockerInfo)

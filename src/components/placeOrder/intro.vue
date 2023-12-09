@@ -26,8 +26,8 @@ const requirements = [
     text: `Since we do not have native Amazon support, our pricing is just an estimate. You might pay more.`
   },
   {
-    title: 'Size & Weight Constraints',
-    text: `Here are the other limits for items that can be shipped: https://shorturl.at/kBPRS`
+    title: 'Other Constraints',
+    text: `Here are the other limits for items that can be shipped: https://shorturl.at/eiqF2`
   },
   {
     title: 'Privacy Flexibility',
@@ -38,9 +38,6 @@ function next(){
   emit('next')
 }
 const allready = computed(() => {
-  if(!enabled0.value){
-    return false
-  }
   if(!enabled1.value){
     return false
   }
@@ -53,9 +50,6 @@ const allready = computed(() => {
   if(!enabled4.value){
     return false
   }
-  if(!enabled5.value){
-    return false
-  }
   return true
 })
 
@@ -66,21 +60,23 @@ const allready = computed(() => {
           <div class="w-full md:w-1/2 p-8 ">
             <div class="md:max-w-md mx-auto text-center">
               <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Anon Shop Intro</span>
-                    <p class="mb-8 mt-2 text-2xl text-left text-white">Anon shop is a peer-to-peer marketplace that 
-                      allows you to shop on Amazon anonymously.
-                      You place an order to an Amazon locker (or hub counter) near you. Another person from the Monero Community then arranges your item(s) to be delivered to the locker.
-                      Once you pick your items up and are satisfied, the funds are released to the correct party.
+                    <p class="mb-8 mt-2 text-2xl text-left text-white">
+                      Anon shop is a peer-to-peer marketplace that 
+                      allows you to shop on Amazon using wishlist and Monero.
+                      You first create a wish list on Amazon. You then place your order here.
+                      Another person from the Monero Community then arranges for your order to be completed.
+                      Once your items arrived, the funds are released to the correct party.
                     </p>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
-                      Our platform has a novel design, but is very secure. Please read more about how we work and click the toggle boxes next to the order requirements. 
-                      After that you can continue to place a order.
+                      Please read more about how we work and click the toggle boxes next to the order requirements. 
+                      After that you can continue to place a order. <br/><br/>Here is a video on how to make a amazon wishlist: https://www.youtube.com/watch?v=qo7NgqCHbK0 
                     </p>
             </div>
           </div>
           <div class="w-full md:w-1/2 p-8">
             <div class="md:max-w-md mx-auto text-center items-center ">
                   <h3 class="font-heading text-4xl text-white font-black tracking-tight mb-10">Order Requirements</h3>
-                  <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
+<!--                   <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
                     <Switch v-model="enabled0" :class="[enabled0 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
                       <span aria-hidden="true" :class="[enabled0 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
                     </Switch>
@@ -88,7 +84,7 @@ const allready = computed(() => {
                       <h4 class="font-medium  text-3xl text-blue-500">{{ requirements[0].title }}</h4>
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[0].text }}</p>
                     </SwitchLabel>
-                  </SwitchGroup>
+                  </SwitchGroup> -->
                   <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
                     <Switch v-model="enabled1" :class="[enabled1 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
                       <span aria-hidden="true" :class="[enabled1 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
@@ -126,7 +122,7 @@ const allready = computed(() => {
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[4].text }}</p>
                     </SwitchLabel>
                   </SwitchGroup>
-                  <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
+<!--                   <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
                     <Switch v-model="enabled5" :class="[enabled5 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
                       <span aria-hidden="true" :class="[enabled5 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
                     </Switch>
@@ -134,7 +130,7 @@ const allready = computed(() => {
                       <h4 class="font-medium  text-3xl text-blue-500">{{ requirements[5].title }}</h4>
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[5].text }}</p>
                     </SwitchLabel>
-                  </SwitchGroup>
+                  </SwitchGroup> -->
               </div>
           </div>
           <div class="w-full p-2 justify center">

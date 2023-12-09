@@ -1,7 +1,6 @@
 {
-    "myServiceFeeBase": 3,
-    "minLockerOrder": 35,
-    "estimatedTax": 8,
-    "shopperBond": 1,
-    "earnerBond": 5
+    "myServiceFeeBasePercent": 3,
+    "minLockerOrderUSD": 35,
+    "earnerBondPercent": 5,
+    "bufferPercentage": 5
 }

@@ -3,13 +3,16 @@ import { ref, computed, onMounted } from 'vue'
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 import globalJson from '@/assets/globalInfo.json'
 const emit = defineEmits(['next', 'back'])
-const props = defineProps(['cart'])
-const pendingItemLink = ref('')
-const pendingItemPrice = ref(0)
-const pendingItemQuantity = ref(0)
-const pendingItemNotes = ref('')
+const props = defineProps(['wishListInfo'])
+const wishListLink = ref('')
+const listTotal = ref(0)
+const listQuantity = ref(0)
+const shippingCost = ref(0)
+const tip = ref(0)
+const xmrRefundAddress = ref(0)
+const orderNotes = ref('')
 
-const cart = ref([])
+const wishListInfo = ref({})
 
 const linkError = ref(false)
 const amountError = ref(false)
@@ -21,59 +24,14 @@ function next(){
 function back(){
   emit('back', cart.value)
 }
-function addToCart() {
-  if(pendingItemLink.value.length < 4 || pendingItemLink.value.length > 1000){
-    linkError.value = true
-    return
-  }
-  linkError.value = false
-
-  pendingItemPrice.value = Math.round((Number(pendingItemPrice.value)+ Number.EPSILON) * 100) / 100
-  if(pendingItemPrice.value < .01 || pendingItemPrice.value > 5000 ){
-    amountError.value = true
-    return
-  }
-  amountError.value = false
-
-  pendingItemQuantity.value = Number(pendingItemQuantity.value).toFixed(0)
-  if(pendingItemQuantity.value < 1 || pendingItemQuantity.value > 100){
-    quantityError.value = true
-    return
-  }
-  quantityError.value = false
-
-  cart.value.push(
-    {
-    itemLink: pendingItemLink.value,
-    price: Number(pendingItemPrice.value),
-    quantity: Number(pendingItemQuantity.value),
-    notes: pendingItemNotes.value
-    }
-  )
-  pendingItemLink.value = '',
-  pendingItemPrice.value = 0,
-  pendingItemQuantity.value = 1,
-  pendingItemNotes.value = ''
-}
 const allready = computed(() => {
-  if(itemSubtotal.value > Number(globalJson.minLockerOrder)){
+  if(true){
     return true
   }
   return false
 })
-
-const itemSubtotal = computed(() => {
-  let subtotal = Number(0)
-  cart.value.forEach(element => {
-    subtotal += (element.quantity * element.price)
-  });
-  return subtotal
-})
-const orderTax = computed(() => {
-  return itemSubtotal.value*Number(globalJson.estimatedTax)*Number(1/100)
-})
 onMounted(() => {
-  cart.value = props.cart
+  // cart.value = props.cart
 })
 </script>
 
@@ -88,7 +46,7 @@ onMounted(() => {
                       <label for="pendingItemLink" class="block text-xl font-medium text-white">Amazon Wish List Link</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="pendingItemLink" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" maxlength="500"/>
+                          <input v-model="wishListLink" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" maxlength="500"/>
                         </div>
                         <div v-if="linkError" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                           <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
@@ -97,11 +55,11 @@ onMounted(() => {
                       <p class="mt-2 text-sm text-red-600" v-if="linkError">Not a valid link.</p>
                     </div>
 
-                    <div class="md:col-span-4">
-                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Estimated Order Total</label>
+                    <div class="md:col-span-3">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Order Total</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="pendingItemPrice" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          <input v-model="listTotal" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                         <div v-if="amountError" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                           <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
@@ -112,11 +70,11 @@ onMounted(() => {
                       </div>
                       <p class="mt-2 text-sm text-red-600" v-if="amountError">Not Valid Amount</p>
                     </div>
-                    <div class="md:col-span-6">
-                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Total Quantity of Items in List</label>
+                    <div class="md:col-span-5">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Total Quantity of Items</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="pendingItemQuantity" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          <input v-model="listQuantity" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                       </div>
                       <p class="mt-2 text-sm text-red-600" v-if="quantityError">Not Valid Quantity</p>
@@ -127,7 +85,7 @@ onMounted(() => {
                       <label for="pendingItemLink" class="block text-xl font-medium text-white">Shipping Cost</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="pendingItemQuantity" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          <input v-model="shippingCost" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                           <span class="text-gray-500 sm:text-sm" id="price-currecy">USD</span>
@@ -139,10 +97,10 @@ onMounted(() => {
                       <label for="pendingItemLink" class="block text-xl font-medium text-white">Tip</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="pendingItemQuantity" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          <input v-model="tip" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                          <span class="text-gray-500 sm:text-sm" id="price-currecy">USD</span>
+                          <span class="text-gray-500 sm:text-sm" id="price-currecytip">USD</span>
                         </div>
                       </div>
                       <p class="mt-2 text-sm text-red-600" v-if="quantityError">Not Valid Quantity</p>
@@ -151,14 +109,14 @@ onMounted(() => {
                     <div class="col-span-full">
                       <label class="block text-xl font-medium leading-6 text-white">Your XMR Refund Address</label>
                       <div class="mt-2">
-                        <textarea maxlength="150" v-model="pendingItemNotes" rows="2" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
+                        <textarea maxlength="150" v-model="xmrRefundAddress" rows="2" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
                       </div>
                       <p class="mt-3 text-sm leading-6 text-gray-400"></p>
                     </div>
                     <div class="col-span-full">
                       <label class="block text-xl font-medium leading-6 text-white">Order Notes (optional)</label>
                       <div class="mt-2">
-                        <textarea maxlength="150" v-model="pendingItemNotes" rows="2" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
+                        <textarea maxlength="150" v-model="wishListInfo " rows="2" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" />
                       </div>
                       <p class="mt-3 text-sm leading-6 text-gray-400"></p>
                     </div>
@@ -172,21 +130,21 @@ onMounted(() => {
           <div class="grid md:grid-cols-2 gap-4 md:w-4/6 mx-auto text-xl  text-center md:mt-0 mt-5">
             <div class="md:py-4">
               <div class="text-white">
-                <p class=" mb-4"><span class="text-blue-300 font-bold">Amazon Total:</span><br/>~{{itemSubtotal.toFixed(2)}} USD</p>
+                <p class=" mb-4"><span class="text-blue-300 font-bold">Amazon Total:</span><br/>~{{0}} USD</p>
                 <p><span class="text-blue-300 font-bold">Buffer ({{globalJson.bufferPercentage}}%): <br/></span>
-                  {{orderTax.toFixed(2)}} USD </p>
+                  {{}} USD </p>
                </div>
             </div>
             <div class="md:py-4">
               <div class="text-white">
                 <p class=" mb-4"><span class="text-blue-300 font-bold">Service Fee:</span><br/>{{globalJson.myServiceFeeBase}} USD</p>
-                <p><span class="text-blue-300 font-bold">Tip:</span><br/>{{(Number(globalJson.shopperBond)).toFixed(2)}} USD</p>
+                <p><span class="text-blue-300 font-bold">Tip:</span><br/>{{(Number(0)).toFixed(2)}} USD</p>
               </div>
             </div>
             </div>
           <div>
             <p class="text-blue-600 font-bold text-3xl mb-1 mt-6 md:mt-3">Total Due:</p>
-            <p  class="text-2xl">{{(itemSubtotal+orderTax+Number(globalJson.myServiceFeeBase)+ Number(globalJson.shopperBond)).toFixed(2)}} USD</p></div>
+            <p  class="text-2xl">{{(0).toFixed(2)}} USD</p></div>
         </div>
 
         </div>

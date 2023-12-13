@@ -196,7 +196,7 @@ onMounted(() => {
           <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
             <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="back()">Back To Intro</button>
             <button v-if="!allready" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">{{ buttonError }}</button>
-            <button v-if="allready"  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="next()">Continue To Locker Info</button>
+            <button v-if="allready"  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="next()">Continue To Order Summary</button>
           </div>
         </div>
 

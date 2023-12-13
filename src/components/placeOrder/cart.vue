@@ -27,12 +27,6 @@ function back(){
   saveCartInfo()
   emit('back', wishListInfo.value)
 }
-const allready = computed(() => {
-  if(false){
-    return true
-  }
-  return false
-})
 function saveCartInfo (){
   wishListInfo.value.wishListLink = wishListLink.value
   wishListInfo.value.listTotal = listTotal.value
@@ -43,13 +37,13 @@ function saveCartInfo (){
   wishListInfo.value.orderNotes = orderNotes.value
 }
 function loadCartInfo(cartInfo){
-  wishListLink.value = cartInfo.wishListLink
+  wishListLink.value = cartInfo.wishListLink || ''
   listTotal.value = cartInfo.listTotal || 0
   listQuantity.value  = cartInfo.listQuantity || 0
   shippingCost.value = cartInfo.shippingCost || 0
   tip.value = cartInfo.tip || 0
-  xmrRefundAddress.value = cartInfo.xmrRefundAddress
-  orderNotes.value = cartInfo.orderNotes
+  xmrRefundAddress.value = cartInfo.xmrRefundAddress || ''
+  orderNotes.value = cartInfo.orderNotes || ''
 }
 const serviceFeeUSD = computed(() => {
   const percent = Number(globalJson.myServiceFeeBasePercent*listTotal.value*.01).toFixed(2)
@@ -58,6 +52,27 @@ const serviceFeeUSD = computed(() => {
     return percent
   }
   return flat
+})
+const buttonError = computed(() => {
+  if(wishListLink.value.length<4){
+    return 'Wishlist Link Incomplete'
+  }
+  if(listTotal.value<1){
+    return 'Order Total Too Low'
+  }
+  if(listQuantity.value<1){
+    return 'List Quantity Too Low'
+  }
+  if(xmrRefundAddress.value.length<45){
+    return 'XMR Refund Address Error'
+  }
+  return 'Ready to go'
+})
+const allready = computed(() => {
+  if(buttonError.value === 'Ready to go'){
+    return true
+  }
+  return false
 })
 onMounted(() => {
   loadCartInfo(props.wishListInfo)
@@ -180,7 +195,7 @@ onMounted(() => {
           <div class="md:w-2/3 mx-auto">
           <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
             <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="back()">Back To Intro</button>
-            <button v-if="!allready" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">Min. Order is {{ globalJson.minLockerOrder }} USD</button>
+            <button v-if="!allready" disabled class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-slate-500  rounded-full">{{ buttonError }}</button>
             <button v-if="allready"  class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="next()">Continue To Locker Info</button>
           </div>
         </div>

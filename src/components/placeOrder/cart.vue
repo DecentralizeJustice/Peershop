@@ -44,10 +44,10 @@ function saveCartInfo (){
 }
 function loadCartInfo(cartInfo){
   wishListLink.value = cartInfo.wishListLink
-  listTotal.value = cartInfo.listTotal
-  listQuantity.value  = cartInfo.listQuantity
-  shippingCost.value = cartInfo.shippingCost
-  tip.value = cartInfo.tip
+  listTotal.value = cartInfo.listTotal || 0
+  listQuantity.value  = cartInfo.listQuantity || 0
+  shippingCost.value = cartInfo.shippingCost || 0
+  tip.value = cartInfo.tip || 0
   xmrRefundAddress.value = cartInfo.xmrRefundAddress
   orderNotes.value = cartInfo.orderNotes
 }
@@ -173,7 +173,7 @@ onMounted(() => {
             </div>
           <div>
             <p class="text-blue-600 font-bold text-3xl mb-1 mt-6 md:mt-3">Total Due:</p>
-            <p  class="text-2xl">{{(0).toFixed(2)}} USD</p></div>
+            <p  class="text-2xl">{{(Number(tip)+Number(listTotal*globalJson.bufferPercentage*.01)+Number(serviceFeeUSD)+Number(listTotal)).toFixed(2)}} USD</p></div>
         </div>
 
         </div>

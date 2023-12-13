@@ -1,5 +1,6 @@
 {
     "myServiceFeeBasePercent": 3,
+    "minServiceFeeUSD": 5,
     "minLockerOrderUSD": 35,
     "earnerBondPercent": 5,
     "bufferPercentage": 5

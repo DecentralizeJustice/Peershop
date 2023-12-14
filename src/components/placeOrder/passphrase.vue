@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ref, toRaw, onMounted } from 'vue'
 import { getRandomInt, numberArrayToWordArray } from '@/assets/misc.js'
 const emit = defineEmits(['back'])
-const props = defineProps(['lockerInfo', 'orderNotes', 'moneroAddress', 'passphraseArray', 'cart', 'earnerIncintive'])
+const props = defineProps(['passphraseArray', 'wishListInfo'])
 const numberArray = ref([])
 const wordArray = ref([])
 // const buttonDisabled = ref(false)
@@ -43,7 +43,7 @@ onMounted(() => {
 })
 const what = `After you place your order, I will approve it before it goes into our orderbook.This approval process can take up
 to 24 hours.`
-const what1 = `After your order is approved and is in the orderbook, earners have the oppurtunity to select and complete your order. Your order will stay in the order book for a week before being canceled and returned to you, if no one picks it up. You can add funds to your order to encourage earners to select it.`
+const what1 = `After your order is approved and is in the orderbook, earners have the opportunity to select and complete your order. Your order will stay in the order book for a ~week before being canceled and returned to you, if no one picks it up.`
 </script>
 
 <template>

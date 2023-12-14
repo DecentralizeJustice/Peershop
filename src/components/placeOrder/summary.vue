@@ -27,7 +27,7 @@ onMounted(() => {
           <div class="flex flex-col justify-content:start h-full bg-gray-800 rounded-3xl max-h-[36rem] overflow-y-auto mt-6">
             <div class="px-4 md:px-8 py-5 text-white">
                   <div>
-                  <p class="text-left text-lg my-2 mt-4 break-all">Wish List Link: {{ wishListInfo.wishListLink }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">Wish List Link: <br/>{{ wishListInfo.wishListLink }}</p>
                   <p class="text-left text-lg my-2 break-all">Wish List Total: {{ wishListInfo.listTotal }} USD</p>
                   <p class="text-left text-lg my-2 break-all">List Item Quantity: {{ wishListInfo.listQuantity }}</p>
                   <p class="text-left text-lg my-2 break-all">Shipping Cost: {{ wishListInfo.shippingCost }} USD</p>

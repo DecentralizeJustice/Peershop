@@ -6,6 +6,7 @@ import summary1 from "@/components/placeOrder/summary.vue"
 import passphrase from "@/components/placeOrder/passphrase.vue"
 const step = ref(0)
 const wishListInfo = ref({})
+const passphraseArray = ref([])
 function introNext() {
   step.value += 1
 }
@@ -46,7 +47,7 @@ function goTo(step1) {
           @next="summaryNext" @back="summaryBack"
           @goTo="goTo"/>
           <passphrase v-if='step === 3' @back="passphraseBack" 
-          :passphraseArray="passphraseArray"
+          :passphraseArray="passphraseArray" :wishListInfo="wishListInfo"
           />
           
         </div>

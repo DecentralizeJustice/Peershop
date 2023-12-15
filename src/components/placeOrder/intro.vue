@@ -15,7 +15,7 @@ const requirements = [
   },
   {
     title: 'Ships from Amazon.com',
-    text: `All of your items must ship Directly from Amazon, United States. No digital products. Only physical items can be ordered.`
+    text: `All of your items must ship Directly from Amazon.com(United States site). No digital products. Only physical items can be ordered.`
   },
   {
     title: 'Good Supply',

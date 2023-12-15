@@ -8,15 +8,16 @@ let infoList = path.resolve("./src/assets/globalInfo.json")
 infoList = JSON.parse(fs.readFileSync(infoList, 'utf8'))
 exports.handler = async (event, context) => {
   try {
+
     const params = event.body
     const parsed = JSON.parse(params)
     const cleanedInfo = {}
-
     const passphraseArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
     await passphraseArraySchema.validateAsync(parsed.passphraseArray)
     cleanedInfo.passphraseArray = parsed.passphraseArray
-
-    const orderNotesSchema = Joi.string().required().max(600).allow('')
+    console.log('rannnfdsfnn')
+    console.log(BTCpayKey,BTCpayStore)
+    /* const orderNotesSchema = Joi.string().required().max(600).allow('')
     await orderNotesSchema.validateAsync(parsed.orderNotes)
     cleanedInfo.orderNotes = parsed.orderNotes
 
@@ -59,13 +60,13 @@ exports.handler = async (event, context) => {
     const discountAmount = Number(subtotal* (Number(cleanedInfo.earnerIncintive) * Number(1/100)))
 
     const costAfterIncentive = subtotal + discountAmount
-    const paymentDue = Number((Number(costAfterIncentive)+Number(infoList.myServiceFeeBase)+ Number(infoList.shopperBond)).toFixed(2))
+    const paymentDue = Number((Number(costAfterIncentive)+Number(infoList.myServiceFeeBase)+ Number(infoList.shopperBond)).toFixed(2)) */
 
     const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
     const response = await axios.post(
           storeAddress,
           {
-              'amount': paymentDue,
+              'amount': 23,
               'speedPolicy': 'LowSpeed',
               'checkout': {
                   'paymentMethods': [

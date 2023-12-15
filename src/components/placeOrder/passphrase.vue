@@ -25,11 +25,7 @@ async function submit() {
   console.log('ran')
   const results = await axios.post('/.netlify/functions/submitLockerOrder', { 
     passphraseArray: numberArray.value,
-    orderNotes: props.orderNotes,
-    moneroAddress: props.moneroAddress,
-    cart: props.cart,
-    lockerInfo: props.lockerInfo,
-    earnerIncintive: props.earnerIncintive
+    wishListInfo: props.wishListInfo
   })
   console.log(results)
   window.location.href = results.data.checkoutLink
@@ -41,9 +37,8 @@ After your payment has 7 confirmations, you can use this passphrase to check on 
 onMounted(() => {
   getPassphrase()
 })
-const what = `After you place your order, I will approve it before it goes into our orderbook.This approval process can take up
-to 24 hours.`
-const what1 = `After your order is approved and is in the orderbook, earners have the opportunity to select and complete your order. Your order will stay in the order book for a ~week before being canceled and returned to you, if no one picks it up.`
+const what = `After you place your order, it goes into our orderbook.`
+const what1 = `After your order is in the orderbook, earners have the opportunity to select and complete your order. Your order will stay in the order book for around a week before being canceled and returned to you, if no one picks it up.`
 </script>
 
 <template>

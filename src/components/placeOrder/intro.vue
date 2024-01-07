@@ -22,16 +22,16 @@ const requirements = [
     text: `Your Items should be in good stock. Good stock is generally 2+ in stock.`
   },
   {
+    title: 'Only 1 of each item.',
+    text: `You may only order one of each item on your list. All items on list must have a quanitty of one, and be unique.`
+  },
+  {
     title: 'Variable Pricing',
     text: `Since we do not have native Amazon support, our pricing is just an estimate. You might pay more.`
   },
   {
     title: 'Other Constraints',
     text: `Here are the other limits for items that can be shipped: https://shorturl.at/eiqF2`
-  },
-  {
-    title: 'Privacy Flexibility',
-    text: `Some lockers/pickup require the Amazon app to use. You should be open to this option.`
   },
 ]
 function next(){
@@ -48,6 +48,9 @@ const allready = computed(() => {
     return false
   }
   if(!enabled4.value){
+    return false
+  }
+  if(!enabled5.value){
     return false
   }
   return true
@@ -122,7 +125,7 @@ const allready = computed(() => {
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[4].text }}</p>
                     </SwitchLabel>
                   </SwitchGroup>
-<!--                   <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
+                  <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
                     <Switch v-model="enabled5" :class="[enabled5 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
                       <span aria-hidden="true" :class="[enabled5 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
                     </Switch>
@@ -130,7 +133,7 @@ const allready = computed(() => {
                       <h4 class="font-medium  text-3xl text-blue-500">{{ requirements[5].title }}</h4>
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[5].text }}</p>
                     </SwitchLabel>
-                  </SwitchGroup> -->
+                  </SwitchGroup>
               </div>
           </div>
           <div class="w-full p-2 justify center">

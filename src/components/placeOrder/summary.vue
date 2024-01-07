@@ -49,7 +49,7 @@ onMounted(() => {
             <div class="md:max-w-md mx-auto text-center">
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
                       Peer Shop allows people to spend/acquire Monero without using a centralized exchange. 
-                      This requires you to be informed on how the system works. some common questions can be found in our faq section. 
+                      This requires you to be informed on how the system works. Some common questions can be found in our faq section. 
                       Once your ready, continue to get your passphrase and pay.
                     </p>
 

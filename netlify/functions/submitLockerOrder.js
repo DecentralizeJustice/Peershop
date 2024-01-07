@@ -8,58 +8,52 @@ let infoList = path.resolve("./src/assets/globalInfo.json")
 infoList = JSON.parse(fs.readFileSync(infoList, 'utf8'))
 exports.handler = async (event, context) => {
   try {
+
     const params = event.body
     const parsed = JSON.parse(params)
+
     const cleanedInfo = {}
 
-    const passphraseArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
+    const passphraseArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0)).required()
     await passphraseArraySchema.validateAsync(parsed.passphraseArray)
     cleanedInfo.passphraseArray = parsed.passphraseArray
+ 
+    const wishListLinkSchema = Joi.string().required().max(600).allow('')
+    await wishListLinkSchema.validateAsync(parsed.wishListInfo.wishListLink)
+    cleanedInfo.wishListLink = parsed.wishListInfo.wishListLink
 
-    const orderNotesSchema = Joi.string().required().max(600).allow('')
-    await orderNotesSchema.validateAsync(parsed.orderNotes)
-    cleanedInfo.orderNotes = parsed.orderNotes
+    const listTotalSchema = Joi.number().precision(3).max(100000).min(0).required()
+    await listTotalSchema.validateAsync(parsed.wishListInfo.listTotal)
+    cleanedInfo.listTotal = parsed.wishListInfo.listTotal
 
-    const moneroAddressSchema = Joi.string().required().max(600)
-    await moneroAddressSchema.validateAsync(parsed.moneroAddress)
-    cleanedInfo.moneroAddress = parsed.moneroAddress
+    const listQuantitySchema = Joi.number().integer().required().max(100000).min(0)
+    await listQuantitySchema.validateAsync(parsed.wishListInfo.listQuantity)
+    cleanedInfo.listQuantity = parsed.wishListInfo.listQuantity
 
-    const earnerIncintiveSchema = Joi.number().integer().required().max(100).min(-100)
-    await earnerIncintiveSchema.validateAsync(parsed.earnerIncintive)
-    cleanedInfo.earnerIncintive = parsed.earnerIncintive
+    const shippingCostSchema = Joi.number().precision(3).max(100000).min(0)
+    await shippingCostSchema.validateAsync(parsed.wishListInfo.shippingCost)
+    cleanedInfo.shippingCost= parsed.wishListInfo.shippingCost
 
-    const lockerInfoschema = Joi.object({
-      lockerName: Joi.string().max(500).allow(null, ''),
-      type: Joi.string().allow(null, '').valid('Amazon Locker','Amazon Hub Counter+'),
-      lockerZipcode: Joi.number().integer().required().max(99999999).min(99)
-    })
-    await lockerInfoschema.validateAsync(parsed.lockerInfo)
-    cleanedInfo.lockerInfo = parsed.lockerInfo
+    const tipSchema = Joi.number().precision(3).max(100000).min(0)
+    await tipSchema.validateAsync(parsed.wishListInfo.tip)
+    cleanedInfo.tip= parsed.wishListInfo.tip
 
-    const itemschema = Joi.object({
-      itemLink: Joi.string().required().max(600),
-      price: Joi.number().required().max(99999).min(.01),
-      quantity: Joi.number().integer().required().max(999).min(1),
-      notes: Joi.string().max(600).allow('')
-    })
-    for (const item of parsed.cart) {
-      await itemschema.validateAsync(item)
-    }
-    cleanedInfo.cart = parsed.cart
+    const xmrRefundAddress = Joi.string().required().max(600).min(0)
+    await xmrRefundAddress.validateAsync(parsed.wishListInfo.xmrRefundAddress)
+    cleanedInfo.xmrRefundAddress = parsed.ishListInfo.xmrRefundAddress
 
-    let itemSubtotal = 0
+    const orderNotesSchema = Joi.string().max(600).allow('')
+    await orderNotesSchema.validateAsync(parsed.wishListInfo.orderNotes)
+    cleanedInfo.orderNotes = parsed.wishListInfo.orderNotes
 
-    for (const item of cleanedInfo.cart) {
-      itemSubtotal += Number(Number(item.quantity)*Number(item.price))
+    const flat = infoList.minServiceFeeUSD
+    let serviceFeeUSD = flat
+    const percent = Number(infoList.myServiceFeeBasePercent*cleanedInfo.listTotal.value*.01).toFixed(2)
+    if (percent > flat) {
+      serviceFeeUSD = percent 
     }
 
-    const orderTax = Number(itemSubtotal)*Number(infoList.estimatedTax)*Number(1/100)
-    const subtotal = Number(orderTax) + Number(itemSubtotal)
-
-    const discountAmount = Number(subtotal* (Number(cleanedInfo.earnerIncintive) * Number(1/100)))
-
-    const costAfterIncentive = subtotal + discountAmount
-    const paymentDue = Number((Number(costAfterIncentive)+Number(infoList.myServiceFeeBase)+ Number(infoList.shopperBond)).toFixed(2))
+    const paymentDue = Number((Number(cleanedInfo.tip)+Number(cleanedInfo.listTotal*infoList.bufferPercentage*.01)+Number(serviceFeeUSD)+Number(cleanedInfo.listTotal)).toFixed(2))
 
     const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
     const response = await axios.post(

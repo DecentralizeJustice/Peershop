@@ -42,10 +42,11 @@ const people = [
                 <table class="min-w-full divide-y divide-gray-700">
                   <thead>
                     <tr>
-                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Name</th>
-                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Title</th>
-                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Email</th>
-                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Role</th>
+                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">USD/XMR</th>
+                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Cost To You(USD)</th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">XMR You Will Recieve</th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Number of Items</th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Type</th>
                       <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                         <span class="sr-only">Edit</span>
                       </th>
@@ -57,9 +58,10 @@ const people = [
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.title }}</td>
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.email }}</td>
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.role }}</td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.role }}</td>
                       <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                         <a href="#" class="text-indigo-400 hover:text-indigo-300"
-                          >Edit<span class="sr-only">, {{ person.name }}</span></a
+                          >Select This Order<span class="sr-only">, {{ person.name }}</span></a
                         >
                       </td>
                     </tr>

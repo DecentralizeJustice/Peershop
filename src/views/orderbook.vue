@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
+import axios from 'axios';
 const statuses = {
   Complete: 'text-green-700 bg-green-50 ring-green-600/20',
   'In progress': 'text-gray-600 bg-gray-50 ring-gray-500/10',
@@ -10,6 +11,15 @@ const statuses = {
 const people = [
 { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
 ]
+async function getOrders() {
+  console.log('ran')
+  const results = await axios.post('/.netlify/functions/getOrderBook', { 
+  })
+  console.log(results.data)
+}
+onMounted(() => {
+  getOrders()
+})
 </script>
 
 <template>

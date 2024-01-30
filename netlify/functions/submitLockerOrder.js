@@ -40,7 +40,7 @@ exports.handler = async (event, context) => {
 
     const xmrRefundAddress = Joi.string().required().max(600).min(0)
     await xmrRefundAddress.validateAsync(parsed.wishListInfo.xmrRefundAddress)
-    cleanedInfo.xmrRefundAddress = parsed.ishListInfo.xmrRefundAddress
+    cleanedInfo.xmrRefundAddress = parsed.wishListInfo.xmrRefundAddress
 
     const orderNotesSchema = Joi.string().max(600).allow('')
     await orderNotesSchema.validateAsync(parsed.wishListInfo.orderNotes)

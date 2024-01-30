@@ -7,13 +7,8 @@ function goTo(step){
   emit('goTo', step)
 }
 const orderEarnerInfoExpanded = ref(false)
-const serviceFeeUSD = computed(() => {
-  const percent = Number(globalJson.myServiceFeeBasePercent*props.wishListInfo.listTotal.value*.01).toFixed(2)
-  const flat = globalJson.minServiceFeeUSD
-  if (percent > flat) {
-    return percent
-  }
-  return flat
+const total = computed(() => {
+  return  (Number(wishListInfo.listTotal)+Number(globalJson.budgetOrderServiceFeePercent*wishListInfo.listTotal*.01)+Number(globalJson.shopperBond)-Number(wishListInfo.discount*.01*wishListInfo.listTotal)).toFixed(2) 
 })
 
 onMounted(() => {
@@ -29,15 +24,13 @@ onMounted(() => {
                   <div>
                   <p class="text-left text-lg my-2 mt-4 break-all">Wish List Link: <br/>{{ wishListInfo.wishListLink }}</p>
                   <p class="text-left text-lg my-2 break-all">Wish List Total: {{ wishListInfo.listTotal }} USD</p>
-                  <p class="text-left text-lg my-2 break-all">List Item Quantity: {{ wishListInfo.listQuantity }}</p>
-                  <p class="text-left text-lg my-2 break-all">Shipping Cost: {{ wishListInfo.shippingCost }} USD</p>
-                  <p class="text-left text-lg my-2 break-all">Tip: {{ wishListInfo.tip}} USD</p>
+                  <p class="text-left text-lg my-2 break-all">Total Discount: {{ wishListInfo.discount }} USD</p>
                   <p class="text-left text-lg my-2 break-all mt-4">Order Notes:<br/> 
                     <span v-if="wishListInfo.orderNotes.length > 0">{{wishListInfo.orderNotes}}</span> 
                     <span v-if="wishListInfo.orderNotes.length < 1">None</span> 
                   </p>
                   <p class="text-left text-lg my-2 break-all mt-4">Monero Refund Address:<br/> {{wishListInfo.xmrRefundAddress}}</p>
-                  <p class="text-left text-lg my-2 break-all">Total Due: {{(Number(wishListInfo.tip)+Number(wishListInfo.listTotal*globalJson.bufferPercentage*.01)+Number(serviceFeeUSD)+Number(wishListInfo.listTotal)).toFixed(2)}} USD</p>  
+                  <p class="text-left text-lg my-2 break-all">Total Due:  {{(Number(wishListInfo.listTotal)+Number(globalJson.budgetOrderServiceFeePercent*wishListInfo.listTotal*.01)+Number(globalJson.shopperBond)-Number(wishListInfo.discount*.01*wishListInfo.listTotal)).toFixed(2)}} USD</p>  
                 </div>
 
             </div>

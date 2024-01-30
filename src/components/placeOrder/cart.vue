@@ -1,14 +1,12 @@
 <script setup>
-import { ref, computed, onMounted, toRaw } from 'vue'
+import { ref, computed, onMounted, toRaw, watch } from 'vue'
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 import globalJson from '@/assets/globalInfo.json'
 const emit = defineEmits(['next', 'back'])
 const props = defineProps(['wishListInfo'])
 const wishListLink = ref('')
 const listTotal = ref(0)
-const listQuantity = ref(0)
-const shippingCost = ref(0)
-const tip = ref(0)
+const discount = ref(0)
 const xmrRefundAddress = ref('')
 const orderNotes = ref('')
 
@@ -16,8 +14,6 @@ const wishListInfo = ref({})
 
 const linkError = ref(false)
 const amountError = ref(false)
-const quantityError = ref(false)
-const tipError = ref(false)
 
 function next(){
   saveCartInfo()
@@ -30,38 +26,23 @@ function back(){
 function saveCartInfo (){
   wishListInfo.value.wishListLink = wishListLink.value
   wishListInfo.value.listTotal = listTotal.value
-  wishListInfo.value.listQuantity = listQuantity.value 
-  wishListInfo.value.shippingCost = shippingCost.value
-  wishListInfo.value.tip = tip.value
+  wishListInfo.value.discount = discount.value
   wishListInfo.value.xmrRefundAddress = xmrRefundAddress.value
   wishListInfo.value.orderNotes = orderNotes.value
 }
 function loadCartInfo(cartInfo){
   wishListLink.value = cartInfo.wishListLink || ''
   listTotal.value = cartInfo.listTotal || 0
-  listQuantity.value  = cartInfo.listQuantity || 0
-  shippingCost.value = cartInfo.shippingCost || 0
-  tip.value = cartInfo.tip || 0
+  discount.value  = cartInfo.discount || 0
   xmrRefundAddress.value = cartInfo.xmrRefundAddress || ''
   orderNotes.value = cartInfo.orderNotes || ''
 }
-const serviceFeeUSD = computed(() => {
-  const percent = Number(globalJson.myServiceFeeBasePercent*listTotal.value*.01).toFixed(2)
-  const flat = globalJson.minServiceFeeUSD
-  if (percent > flat) {
-    return percent
-  }
-  return flat
-})
 const buttonError = computed(() => {
-  if(wishListLink.value.length<4){
+  if(wishListLink.value.length<8){
     return 'Wishlist Link Incomplete'
   }
-  if(listTotal.value<1){
+  if(listTotal.value<globalJson.minBudgetOrder){
     return 'Order Total Too Low'
-  }
-  if(listQuantity.value<1){
-    return 'List Quantity Too Low'
   }
   if(xmrRefundAddress.value.length<45){
     return 'XMR Refund Address Error'
@@ -76,6 +57,15 @@ const allready = computed(() => {
 })
 onMounted(() => {
   loadCartInfo(props.wishListInfo)
+})
+watch(discount, async () => {
+  discount.value = Math.round(discount.value)
+  if (discount.value < 0) {
+    discount.value = 0
+  }
+  if (discount.value > 10) {
+    discount.value = 10
+  }
 })
 </script>
 
@@ -114,18 +104,9 @@ onMounted(() => {
                       </div>
                       <p class="mt-2 text-sm text-red-600" v-if="amountError">Not Valid Amount</p>
                     </div>
-                    <div class="md:col-span-5">
-                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Total Quantity of Items</label>
-                      <div class="relative mt-2 rounded-md shadow-sm">
-                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="listQuantity" type="number"  min="1" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
-                        </div>
-                      </div>
-                      <p class="mt-2 text-sm text-red-600" v-if="quantityError">Not Valid Quantity</p>
-                    </div>
 
 
-                    <div class="md:col-span-4">
+<!--                     <div class="md:col-span-4">
                       <label for="pendingItemLink" class="block text-xl font-medium text-white">Shipping Cost</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
@@ -136,18 +117,18 @@ onMounted(() => {
                         </div>
                       </div>
                       <p class="mt-2 text-sm text-red-600" v-if="quantityError">Not Valid Quantity</p>
-                    </div>
+                    </div> -->
                     <div class="md:col-span-4">
-                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Earner Tip</label>
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">% Discount</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input v-model="tip" type="number" min="0" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          <input v-model="discount" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6"/>
                         </div>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                          <span class="text-gray-500 sm:text-sm">USD</span>
+                          <span class="text-gray-500 sm:text-sm">%</span>
                         </div>
                       </div>
-                      <p class="mt-2 text-sm text-red-600" v-if="tipError">Not Valid Tip</p>
+                      <!-- <p class="mt-2 text-sm text-red-600" v-if="tipError">Not Valid Tip</p> -->
                     </div>
 
                     <div class="col-span-full">
@@ -175,20 +156,21 @@ onMounted(() => {
             <div class="md:py-4">
               <div class="text-white">
                 <p class=" mb-4"><span class="text-blue-300 font-bold">Amazon Fees Total:</span><br/>~{{Number(listTotal).toFixed(2)}} USD</p>
-                <p><span class="text-blue-300 font-bold">Buffer ({{globalJson.bufferPercentage}}%): <br/></span>
-                  {{Number(listTotal*globalJson.bufferPercentage*.01).toFixed(2)}} USD </p>
+               </div>
+               <div class="text-white">
+                <p class=" mb-4"><span class="text-blue-300 font-bold">Shopper Bond:</span><br/>{{Number(globalJson.shopperBond).toFixed(2)}} USD</p>
                </div>
             </div>
             <div class="md:py-4">
               <div class="text-white">
-                <p class=" mb-4"><span class="text-blue-300 font-bold">Service Fee:</span><br/>{{serviceFeeUSD}} USD</p>
-                <p><span class="text-blue-300 font-bold">Tip:</span><br/>{{(Number(tip)).toFixed(2)}} USD</p>
+                <p class=" mb-4"><span class="text-blue-300 font-bold">Market Fee:</span><br/>{{(listTotal*globalJson.budgetOrderServiceFeePercent*.01).toFixed(2)}} USD</p>
+                <p><span class="text-blue-300 font-bold">Discount (USD):</span><br/>~{{((discount*.01*listTotal)).toFixed(2)}} USD</p>
               </div>
             </div>
             </div>
           <div>
             <p class="text-blue-600 font-bold text-3xl mb-1 mt-6 md:mt-3">Total Due:</p>
-            <p  class="text-2xl">{{(Number(tip)+Number(listTotal*globalJson.bufferPercentage*.01)+Number(serviceFeeUSD)+Number(listTotal)).toFixed(2)}} USD</p></div>
+            <p  class="text-2xl">{{(Number(listTotal)+Number(globalJson.budgetOrderServiceFeePercent*listTotal*.01)+Number(globalJson.shopperBond)-Number(discount*.01*listTotal)).toFixed(2)}} USD</p></div>
         </div>
 
         </div>

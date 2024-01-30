@@ -26,17 +26,10 @@ exports.handler = async (event, context) => {
     await listTotalSchema.validateAsync(parsed.wishListInfo.listTotal)
     cleanedInfo.listTotal = parsed.wishListInfo.listTotal
 
-    const listQuantitySchema = Joi.number().integer().required().max(100000).min(0)
-    await listQuantitySchema.validateAsync(parsed.wishListInfo.listQuantity)
-    cleanedInfo.listQuantity = parsed.wishListInfo.listQuantity
+    const discountSchema = Joi.number().integer().required().max(10).min(0)
+    await discountSchema.validateAsync(parsed.wishListInfo.discount)
+    cleanedInfo.discount = parsed.wishListInfo.discount
 
-    const shippingCostSchema = Joi.number().precision(3).max(100000).min(0)
-    await shippingCostSchema.validateAsync(parsed.wishListInfo.shippingCost)
-    cleanedInfo.shippingCost= parsed.wishListInfo.shippingCost
-
-    const tipSchema = Joi.number().precision(3).max(100000).min(0)
-    await tipSchema.validateAsync(parsed.wishListInfo.tip)
-    cleanedInfo.tip= parsed.wishListInfo.tip
 
     const xmrRefundAddress = Joi.string().required().max(600).min(0)
     await xmrRefundAddress.validateAsync(parsed.wishListInfo.xmrRefundAddress)
@@ -46,14 +39,11 @@ exports.handler = async (event, context) => {
     await orderNotesSchema.validateAsync(parsed.wishListInfo.orderNotes)
     cleanedInfo.orderNotes = parsed.wishListInfo.orderNotes
 
-    const flat = infoList.minServiceFeeUSD
-    let serviceFeeUSD = flat
-    const percent = Number(infoList.myServiceFeeBasePercent*cleanedInfo.listTotal.value*.01).toFixed(2)
-    if (percent > flat) {
-      serviceFeeUSD = percent 
-    }
-
-    const paymentDue = Number((Number(cleanedInfo.tip)+Number(cleanedInfo.listTotal*infoList.bufferPercentage*.01)+Number(serviceFeeUSD)+Number(cleanedInfo.listTotal)).toFixed(2))
+    const paymentDue = 
+    (Number(cleanedInfo.listTotal)+
+    Number(infoList.budgetOrderServiceFeePercent*cleanedInfo.listTotal*.01)
+    +Number(infoList.shopperBond)
+    -Number(cleanedInfo.discount*.01*cleanedInfo.listTotal)).toFixed(2);
 
     const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
     const response = await axios.post(

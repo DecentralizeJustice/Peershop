@@ -23,7 +23,7 @@ async function getPassphrase() {
 }
 async function submit() {
   console.log('ran')
-  const results = await axios.post('/.netlify/functions/submitLockerOrder', { 
+  const results = await axios.post('/.netlify/functions/submitBudgetOrder', { 
     passphraseArray: numberArray.value,
     wishListInfo: props.wishListInfo
   })

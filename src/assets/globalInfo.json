@@ -6,5 +6,7 @@
     "estimatedTax": 8,
     "lockerMinFee": 10,
     "lockerPercentage": 10,
-    "minLockerOrder": 35
+    "minLockerOrder": 35,
+    "addressMinFee": 15,
+    "addressPercentage": 15
 }

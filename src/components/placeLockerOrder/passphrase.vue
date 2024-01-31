@@ -37,8 +37,8 @@ After your payment has 7 confirmations, you can use this passphrase to check on 
 onMounted(() => {
   getPassphrase()
 })
-const what = `After you place your order, it goes into our orderbook.`
-const what1 = `After your order is in the orderbook, earners have the opportunity to select and complete your order. Your order will stay in the order book for around a week before being canceled and returned to you, if no one picks it up.`
+const what = `After you place your order, I will process it and get back to you within 24 hours.`
+//const what1 = `After your order is in the orderbook, earners have the opportunity to select and complete your order. Your order will stay in the order book for around a week before being canceled and returned to you, if no one picks it up.`
 </script>
 
 <template>
@@ -48,8 +48,8 @@ const what1 = `After your order is in the orderbook, earners have the opportunit
               <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">What Happens Next?</span>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">{{ what }}
                     </p>
-                    <p class="mb-8 mt-2 text-2xl text-left text-white">{{ what1 }}
-                    </p>
+<!--                     <p class="mb-8 mt-2 text-2xl text-left text-white">{{ what1 }}
+                    </p> -->
             </div>
           </div>
           <div class="w-full md:w-1/2 p-8">

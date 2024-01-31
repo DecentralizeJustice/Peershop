@@ -15,6 +15,7 @@ const lockerInfo = ref({
 })
 const moneroAddress= ref('')
 const orderNotes= ref('')
+const tip = ref(0)
 function introNext() {
   step.value += 1
 }
@@ -32,20 +33,26 @@ function lockerBack(lockerInfo6, orderNotes6, moneroAddress6){
   moneroAddress.value = moneroAddress6
   step.value += -1
 }
-function lockerNext(){
+function lockerNext(lockerInfo6, orderNotes6, moneroAddress6){
+  lockerInfo.value = lockerInfo6
+  orderNotes.value = orderNotes6
+  moneroAddress.value = moneroAddress6
   step.value += 1
 }
-function summaryBack(){
+function summaryBack(tip2){
+  tip.value = tip2
   step.value += -1
 }
-function summaryNext(){
+function summaryNext(tip2){
+  tip.value = tip2
   step.value += 1
 }
 function passphraseBack(pass) {
   passphraseArray.value = pass
   step.value += -1
 }
-function goTo(step1) {
+function goTo(step1, tip2) {
+  tip.value = tip2
   step.value = step1
 }
 </script>
@@ -58,6 +65,7 @@ function goTo(step1) {
         <div class="flex flex-wrap items-center -m-8">
           
           <intro v-if='step === 0' @next="introNext"/>
+
           <cartComp v-if='step === 1' @next="cartNext" @back="cartBack" 
           :cart="cart"/>
 
@@ -65,11 +73,14 @@ function goTo(step1) {
           @next="lockerNext" @back="lockerBack" :lockerInfo="lockerInfo"/>
 
 
-          <summary1 v-if='step === 3' :cart="cart"
+          <summary1 v-if='step === 3' :cart="cart" :orderNotes="orderNotes" :moneroAddress="moneroAddress" :lockerInfo="lockerInfo"
           @next="summaryNext" @back="summaryBack"
-          @goTo="goTo"/>
-          <passphrase v-if='step === 4' @back="passphraseBack" 
-          :passphraseArray="passphraseArray" :wishListInfo="wishListInfo"
+          @goTo="goTo" :tip="tip"/>
+
+
+
+          <passphrase v-if='step === 4' @back="passphraseBack" :cart="cart" :orderNotes="orderNotes" :moneroAddress="moneroAddress" :lockerInfo="lockerInfo"
+          :passphraseArray="passphraseArray" :tip="tip"
           />
           
         </div>

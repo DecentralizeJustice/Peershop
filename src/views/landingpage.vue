@@ -74,7 +74,7 @@ const messageArray = ref([])
             <h1 class="font-heading mb-6 text-5xl text-white font-black tracking-tight"><span>Spend Monero at Amazon </span><span class="text-blue-500">Anonymously</span><span></span></h1>
             <p class="mb-8 text-xl text-gray-500 font-bold">Cryptographically Secure, Anonymous, and Bonded peer-to-peer system!</p>
             <div class="flex flex-wrap justify-center -m-2">
-              <div class="w-full md:w-auto p-2"><a href="/placeOrder"
+              <div class="w-full md:w-auto p-2"><a href="/placeviporder"
                 class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full">Place Order</a></div>
               <div class="w-full md:w-auto p-2"><a class="block w-full px-4 py-2.5 text-sm text-center text-gray-400 font-bold bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:ring-gray-600 rounded-full" 
                 target="_blank" rel="noopener noreferrer" href="">Watch Video</a></div>

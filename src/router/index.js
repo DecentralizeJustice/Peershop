@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/landingpage.vue"
 import placeOrder from "../views/placeOrder.vue"
+import placeVipOrder from "../views/placeVipOrder.vue"
 import Login from "../views/login.vue"
 import faq from "../views/faq.vue"
 import orderbook from "../views/orderbook.vue"
@@ -52,7 +53,12 @@ const router = createRouter({
       path: "/admin",
       name: "admin",
       component: admin
-    }    
+    },
+    {
+      path: "/placeviporder",
+      name: "placeviporder",
+      component: placeVipOrder
+    }      
   ],
 })
 

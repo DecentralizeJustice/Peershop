@@ -1,9 +1,10 @@
 <script setup>
 import axios from 'axios';
-import { ref, toRaw, onMounted } from 'vue'
+import globalJson from '@/assets/globalInfo.json'
+import { ref, toRaw, onMounted, computed } from 'vue'
 import { getRandomInt, numberArrayToWordArray } from '@/assets/misc.js'
 const emit = defineEmits(['back'])
-const props = defineProps(['passphraseArray', 'wishListInfo'])
+const props = defineProps(['passphraseArray','cart', 'lockerInfo', 'orderNotes', 'moneroAddress', 'tip'])
 const numberArray = ref([])
 const wordArray = ref([])
 // const buttonDisabled = ref(false)
@@ -21,14 +22,62 @@ async function getPassphrase() {
   }
 
 }
+const itemSubtotal = computed(() => {
+  let subtotal = Number(0)
+  props.cart.forEach(element => {
+    subtotal += (element.quantity * element.price)
+  });
+  return subtotal
+})
+
+const orderTax = computed(() => {
+  return itemSubtotal.value*Number(globalJson.estimatedTax)*.01
+})
+const serviceFee = computed(() => {
+  const minfee = Number(globalJson.lockerMinFee)
+  const percentFee = Number(itemSubtotal.value)*Number(globalJson.lockerPercentage)*.01
+  if(minfee > percentFee){ 
+    return minfee
+  }
+  else{
+    return percentFee
+  }
+})
 async function submit() {
-  console.log('ran')
-  const results = await axios.post('/.netlify/functions/submitBudgetOrder', { 
-    passphraseArray: numberArray.value,
-    wishListInfo: props.wishListInfo
-  })
-  console.log(results)
-  window.location.href = results.data.checkoutLink
+  const itemList = []
+  for (const thing of toRaw(props.cart)) {
+    let item = {}
+    item.link = thing.itemLink
+    item.description = thing.notes
+    item.cost = thing.price
+    item.quantity = thing.quantity
+    itemList.push(item)
+  }
+  const metadata =   
+    { 
+      numberArray: toRaw(numberArray.value), 
+      itemList: toRaw(itemList),
+      lockerZipcode: toRaw(props.lockerInfo.lockerZipcode),
+      lockerName: toRaw(props.lockerInfo.lockerName),
+      extraNotes: toRaw(props.orderNotes),
+      type: 'firstLockerOrder',
+      amount: (Number(orderTax.value)+Number(itemSubtotal.value)+Number(serviceFee.value)+Number(props.tip)).toFixed(2),
+      taxAmount: orderTax.value,
+      orderSubtotal: itemSubtotal.value,
+      bondUSD: Number(0),
+      serviceFeeUSD: serviceFee.value,
+      extraAmountUSD: props.tip,
+      refundAddress: props.moneroAddress,
+      discountPercent: 0,
+      discountPossible: false,
+      country: toRaw(props.lockerInfo.lockerName)
+    }
+    const results = await axios.post('/.netlify/functions/createBTCPayInvoice', 
+    { amount: metadata.amount, 
+      metadata: metadata
+    })
+   console.log(results)
+   window.location.href = results.data.checkoutLink
 }
 const purchaseInfo = `This passphrase is how you will access your order,  
 so protect it like a password. After you press continue, you will be taken to a payment portal. 

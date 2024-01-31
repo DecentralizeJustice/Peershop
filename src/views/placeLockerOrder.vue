@@ -1,21 +1,38 @@
 <script setup>
 import { ref, toRaw } from 'vue'
-import intro from "@/components/placeVipOrder/intro.vue"
-import cartComp from "@/components/placeVipOrder/cart.vue"
-import summary1 from "@/components/placeVipOrder/summary.vue"
-import passphrase from "@/components/placeVipOrder/passphrase.vue"
+import intro from "@/components/placeLockerOrder/intro.vue"
+import cartComp from "@/components/placeLockerOrder/cart.vue"
+import lockerSelection from "@/components/placeLockerOrder/lockerSelection.vue"
+import summary1 from "@/components/placeLockerOrder/summary.vue"
+import passphrase from "@/components/placeLockerOrder/passphrase.vue"
 const step = ref(0)
-const wishListInfo = ref({})
+const cart = ref([])
 const passphraseArray = ref([])
+const lockerInfo = ref({
+  lockerName: '',
+  lockerZipcode: '',
+  type: ''
+})
+const moneroAddress= ref('')
+const orderNotes= ref('')
 function introNext() {
   step.value += 1
 }
 function cartBack(cart1){
-  wishListInfo.value = toRaw(cart1)
+  cart.value = toRaw(cart1)
   step.value += -1
 }
 function cartNext(cart1){
-  wishListInfo.value = toRaw(cart1)
+  cart.value = toRaw(cart1)
+  step.value += 1
+}
+function lockerBack(lockerInfo6, orderNotes6, moneroAddress6){
+  lockerInfo.value = lockerInfo6
+  orderNotes.value = orderNotes6
+  moneroAddress.value = moneroAddress6
+  step.value += -1
+}
+function lockerNext(){
   step.value += 1
 }
 function summaryBack(){
@@ -42,11 +59,16 @@ function goTo(step1) {
           
           <intro v-if='step === 0' @next="introNext"/>
           <cartComp v-if='step === 1' @next="cartNext" @back="cartBack" 
-          :wishListInfo="wishListInfo"/>
-          <summary1 v-if='step === 2' :wishListInfo="wishListInfo"
+          :cart="cart"/>
+
+          <lockerSelection v-if='step === 2' :orderNotes="orderNotes" :moneroAddress="moneroAddress"
+          @next="lockerNext" @back="lockerBack" :lockerInfo="lockerInfo"/>
+
+
+          <summary1 v-if='step === 3' :cart="cart"
           @next="summaryNext" @back="summaryBack"
           @goTo="goTo"/>
-          <passphrase v-if='step === 3' @back="passphraseBack" 
+          <passphrase v-if='step === 4' @back="passphraseBack" 
           :passphraseArray="passphraseArray" :wishListInfo="wishListInfo"
           />
           

@@ -2,5 +2,9 @@
     "budgetOrderServiceFeePercent": 2,
     "earnerBond": 5,
     "shopperBond": 5,
-    "minBudgetOrder": 40
+    "minBudgetOrder": 40,
+    "estimatedTax": 8,
+    "lockerMinFee": 10,
+    "lockerPercentage": 10,
+    "minLockerOrder": 35
 }

@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <ul class="flex items-center justify-center">
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300 " href="/messageMe">Message Me</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/faq">FAQ</a></li>
-                <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/orderbook">Order Book</a></li>
+                <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/placelockerorder">Locker Order</a></li>
+                <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/placeaddressorder">Address Order</a></li>
 <!--                 <li class="mr-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Solutions</a></li>
                 <li class="mr-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Resources</a></li>
                 <li><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Pricing</a></li> -->
@@ -107,7 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <ul>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/messageMe">Message Me</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/faq">FAQ</a></li>
-                <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/orderbook">Order Book</a></li>
+                <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/placelockerorder">Locker Order</a></li>
+                <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/placeaddressorder">Address Order</a></li>
 <!--                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Solutions</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Resources</a></li>
                 <li><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Pricing</a></li> -->

@@ -72,12 +72,12 @@ const messageArray = ref([])
           </div>
           <div class="relative max-w-lg"><span class="inline-block mb-3 text-sm text-blue-500 font-bold uppercase tracking-widest">Anon Shop</span>
             <h1 class="font-heading mb-6 text-5xl text-white font-black tracking-tight"><span>Spend Monero </span><span class="text-blue-500">Anywhere!</span><span></span></h1>
-            <p class="mb-8 text-xl text-gray-500 font-bold">Cryptographically Secure, Anonymous, and Bonded peer-to-peer system!</p>
+            <p class="mb-8 text-xl text-gray-500 font-bold">A Quick and Easy bridge between Monero and Amazon!</p>
             <div class="flex flex-wrap justify-center -m-2">
               <div class="w-full md:w-auto p-2"><a href="/placelockerorder"
                 class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full">Place Order</a></div>
               <div class="w-full md:w-auto p-2"><a class="block w-full px-4 py-2.5 text-sm text-center text-gray-400 font-bold bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:ring-gray-600 rounded-full" 
-                target="_blank" rel="noopener noreferrer" href="">Watch Video</a></div>
+                target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=sI2TPYrrXE8&t">Watch Video</a></div>
             </div>
           </div>
         </div>

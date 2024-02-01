@@ -119,7 +119,7 @@ watch(
                 </div>
               </div>
               <div class="w-full p-3">
-                <p class="text-gray-600 text-center font-bold"><span>Don’t have an account? </span><br/><a class="text-blue-500 hover:text-blue-600 font-bold" href="/">Purchase A Phone PLan</a></p>
+                <p class="text-gray-600 text-center font-bold"><span>Don’t have a login? </span><br/><a class="text-blue-500 hover:text-blue-600 font-bold" href="/">Place an Order</a></p>
               </div>
             </div>
         </div>

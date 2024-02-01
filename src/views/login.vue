@@ -47,7 +47,7 @@ async function signIn() {
     orderData.value = results.data
     orderData.value.passphrase = numberArray
     orderData.value.messageArray = results1.data.messageArray
-    componentKey.value += 1
+    componentKey.value += .000000000000001
   } catch (error) {
     console.log(error)
   }

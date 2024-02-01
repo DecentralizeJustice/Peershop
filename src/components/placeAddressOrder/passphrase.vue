@@ -4,7 +4,7 @@ import globalJson from '@/assets/globalInfo.json'
 import { ref, toRaw, onMounted, computed } from 'vue'
 import { getRandomInt, numberArrayToWordArray } from '@/assets/misc.js'
 const emit = defineEmits(['back'])
-const props = defineProps(['passphraseArray','cart', 'lockerInfo', 'orderNotes', 'moneroAddress', 'tip'])
+const props = defineProps(['passphraseArray','cart', 'addressInfo', 'orderNotes', 'moneroAddress', 'tip'])
 const numberArray = ref([])
 const wordArray = ref([])
 // const buttonDisabled = ref(false)
@@ -34,8 +34,8 @@ const orderTax = computed(() => {
   return itemSubtotal.value*Number(globalJson.estimatedTax)*.01
 })
 const serviceFee = computed(() => {
-  const minfee = Number(globalJson.lockerMinFee)
-  const percentFee = Number(itemSubtotal.value)*Number(globalJson.lockerPercentage)*.01
+  const minfee = Number(globalJson.addressMinFee)
+  const percentFee = Number(itemSubtotal.value)*Number(globalJson.addressPercentage)*.01
   if(minfee > percentFee){ 
     return minfee
   }
@@ -57,10 +57,8 @@ async function submit() {
     { 
       numberArray: toRaw(numberArray.value), 
       itemList: toRaw(itemList),
-      lockerZipcode: toRaw(props.lockerInfo.lockerZipcode),
-      lockerName: toRaw(props.lockerInfo.lockerName),
       extraNotes: toRaw(props.orderNotes),
-      type: 'firstLockerOrder',
+      type: 'firstAddressOrder',
       amount: (Number(orderTax.value)+Number(itemSubtotal.value)+Number(serviceFee.value)+Number(props.tip)).toFixed(2),
       taxAmount: orderTax.value,
       orderSubtotal: itemSubtotal.value,
@@ -70,7 +68,14 @@ async function submit() {
       refundAddress: props.moneroAddress,
       discountPercent: 0,
       discountPossible: false,
-      country: toRaw(props.lockerInfo.lockerName)
+      addressInfo: {
+        zipcode: props.addressInfo.zipcode,
+        city: props.addressInfo.city,
+        streetAddress: props.addressInfo.street,
+        fullname: props.addressInfo.name,
+        country: props.addressInfo.country,
+        aptNumber: props.addressInfo.aptNumber
+      }
     }
     const results = await axios.post('/.netlify/functions/createBTCPayInvoice', 
     { amount: metadata.amount, 

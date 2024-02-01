@@ -138,6 +138,30 @@ onMounted(async() => {
             <p style="text-indent: 2em;">Zipcode: {{ orderData.orders[0].addressInfo.zipcode }}</p>
             <p style="text-indent: 2em;">Country: {{ orderData.orders[0].addressInfo.country }}</p>
                   </div>
+
+
+                  <div class="text-white text-left text-xl"
+                  >
+                  <p v-if="orderData.orders[0].lockerName">
+                    <br/>
+                    Locker Name:<br/> {{ orderData.orders[0].lockerName }}</p>
+                  </div>
+
+                  <div class="text-white text-left text-xl"
+                  >
+                  <p v-if="orderData.orders[0].lockerZipcode">
+                    <br/>
+                    Locker Zipcode:<br/> {{ orderData.orders[0].lockerZipcode }}</p>
+                  </div>
+                  <div class="text-white text-left text-xl"
+                  >
+                  <p v-if="orderData.orders[0].country">
+                    <br/>
+                    Country:<br/> {{ orderData.orders[0].country }}</p>
+                  </div>
+
+
+
                   <br/>
                   <div class="text-white text-left text-xl py-3">
                     <p> Notes:</p>

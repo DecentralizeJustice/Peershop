@@ -26,7 +26,7 @@
           <div class="w-auto p-1.5"><a class="flex items-center justify-center w-10 h-10 bg-gray-700 rounded-full" href="https://bitcointalk.org/index.php?topic=5422392.msg61324168#msg61324168"><img style='width: 60%;height: auto;' src="https://res.cloudinary.com/dylevfpbl/image/upload/v1686544551/landingpage/bitcoins.svg" alt=""></a></div>
         
         </div>
-        <p class="text-gray-500 text-center font-bold"><span>Ⓒ Copyright. All rights reserved by </span><a class="text-blue-500 hover:text-blue-600">Phantom Phone</a></p>
+        <p class="text-gray-500 text-center font-bold"><span>Ⓒ Copyright. All rights reserved by </span><a class="text-blue-500 hover:text-blue-600">Anon Shop</a></p>
       </div>
     </div>
   </div>

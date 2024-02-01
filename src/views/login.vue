@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+const componentKey = ref(0)
 import words from '@/assets/bip39Wordlist.txt?raw'
 import shopperPendingApproval from '@/components/customerAdmin/shopperPendingApproval.vue'
 
@@ -37,13 +38,16 @@ async function signIn() {
       }
       numberArray.push(number)
     }
-    const results = await axios.post('/.netlify/functions/login', { passphrase: numberArray })
+    const results = await axios.post('/.netlify/functions/login', { accountPhrase: numberArray })
     if (results.data === null) {
       orderDoesNotExist.value = true
       throw new Error('Order does not exist')
     }
+    const results1 = await axios.post('/.netlify/functions/getMessageArray', { chatID: results.data.orders[0].chatID })
     orderData.value = results.data
     orderData.value.passphrase = numberArray
+    orderData.value.messageArray = results1.data.messageArray
+    componentKey.value += 1
   } catch (error) {
     console.log(error)
   }
@@ -125,7 +129,7 @@ watch(
 </section>
 <section> 
   <shopperPendingApproval :orderData="orderData" v-if="Object.keys(orderData).length > 0"
-    @refresh="signIn"/>
+    @refresh="signIn" :key="componentKey"/>
 </section>
 </template>
 

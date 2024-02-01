@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref, onMounted, computed, watch, toRef } from 'vue'
 const emit = defineEmits(['refresh'])
 const message = ref('')
+const messageArray = ref([])
 const customChatDiv = ref(null)
 const props = defineProps({
   orderData: Object
@@ -24,12 +25,11 @@ async function initialSetup() {
   }
 }
 async function sendMessage() {
-  await axios.post('/.netlify/functions/sendCustomerMessage',
+  await axios.post('/.netlify/functions/sendMessage',
   { 
-    passphrase: orderData.value.passphrase, 
+    chatID: orderData.value.orders[0].chatID, 
     message: message.value,
-    sender: 'shopper',
-    to: 'dgoon' 
+    sender: 'shopper'
   })
   message.value = ''
   refresh()
@@ -37,8 +37,6 @@ async function sendMessage() {
 async function refresh(){
   emit('refresh')
   await waitforme(500)
-  const div = customChatDiv.value
-  div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
 }
 function localTime(epoch) {
   var timestamp = epoch;
@@ -60,8 +58,7 @@ function getChatImage(sender) {
   }
   return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1687402881/landingpage/avatars/african-man.svg'
 }
-onMounted(() => {
-  console.log(orderData.value)
+onMounted(async() => {
   initialSetup()
 })
 </script>
@@ -79,24 +76,23 @@ onMounted(() => {
             <div class="md:max-w-md mx-auto">
               <div class="max-w-sm rounded shadow-lg">
               <div class="px-6 py-4 bg-gray-800" >
-                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Support Chat</div>
+                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Chat</div>
                 <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
-                <div v-for="(message, index) in orderData.chat" :key="message.timestamp">
+                <div v-for="(message, index) in orderData.messageArray" :key="message.timestamp">
                   <div class="chat"
-                  :class="{ 'chat-start':  message.sender === 'dgoon', 
-                  'chat-end':  message.sender !== 'dgoon' }">
+                  :class="{ 'chat-start':  message.from === 'dgoon', 
+                  'chat-end':  message.from !== 'dgoon' }">
                     <div class="chat-image avatar">
                       <div class="w-10 rounded-full">
-                        <img :src="getChatImage(message.sender)" />
+                        <img :src="getChatImage(message.from)" />
                       </div>
                     </div>
                     <div class="chat-header text-white">
-                      {{ message.sender }}
-                    
+                      {{ message.from }}
                     </div>
                     <div class="chat-bubble break-words">{{ message.message }} </div>
                     <div class="chat-footer text-white">
-                      Sent at {{localTime(message.timestamp)}}
+                      Sent at {{localTime(message.sent)}}
                     </div>
                   </div>
               </div>
@@ -112,7 +108,7 @@ onMounted(() => {
             </div>
             </div>
           </div>
-          <div class="w-full md:w-1/2 break-words">
+<!--           <div class="w-full md:w-1/2 break-words">
               <div class="px-10 mx-auto">
                 <div class="rounded shadow-lg">
                 <div class=" bg-gray-800" >
@@ -161,7 +157,7 @@ onMounted(() => {
                 </div>
               </div>
               </div>
-            </div>
+            </div> -->
         </div>
       </div>
 

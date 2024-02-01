@@ -75,7 +75,7 @@ const messageArray = ref([])
             <p class="mb-8 text-xl text-gray-500 font-bold">A Quick and Easy bridge between Monero and Amazon!</p>
             <div class="flex flex-wrap justify-center -m-2">
               <div class="w-full md:w-auto p-2"><a href="/placelockerorder"
-                class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full">Place Order</a></div>
+                class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600  rounded-full">Place Locker Order</a></div>
               <div class="w-full md:w-auto p-2"><a class="block w-full px-4 py-2.5 text-sm text-center text-gray-400 font-bold bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:ring-gray-600 rounded-full" 
                 target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=sI2TPYrrXE8&t">Watch Video</a></div>
             </div>
@@ -91,60 +91,51 @@ const messageArray = ref([])
       <div class="absolute bg-gradient-radial-dark-light w-full h-full"></div><img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685927797/landingpage/pattern-dark-light.png" alt=""></div>
     <div class="relative">
       <div class="mb-12 max-w-2xl mx-auto text-center">
-        <h2 class="font-heading text-4xl md:text-5xl text-gray-100 font-black tracking-tight">Choose a Rental that works for You!</h2>
+        <h2 class="font-heading text-4xl md:text-5xl text-gray-100 font-black tracking-tight">Choose the Best Service for You!</h2>
       </div>
       <div class="flex flex-wrap -m-4">
         <div class="w-full md:w-1/3 p-4">
           <div class="flex flex-col justify-between p-8 h-full bg-gray-900 rounded-3xl">
-            <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-blue-500 font-bold uppercase tracking-widest">1 day and 1 Service</span>
-              <h2 class="font-heading text-4xl text-white font-black tracking-tight">~$1.50/service</h2>
-              <p class="mb-8 text-sm text-gray-700 font-bold">Verify One Service with 1 Day Access</p>
+            <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-blue-500 font-bold uppercase tracking-widest">Locker Delivery</span>
+              <h2 class="font-heading text-4xl text-white font-black tracking-tight">15% (Min 15) USD</h2>
+              <p class="mb-8 text-sm text-gray-700 font-bold">Deliver to a Amazon Locker/Counter Near You</p>
               <ul>
                 <li class="flex items-center mb-4">
-                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Only Works for The  1 Service You Chose</p>
+                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">No Address Needed</p>
                 </li>
                 <li class="flex items-center mb-4">
-                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">You Have 1 day to verify 1 service</p>
+                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">3 Days To Pickup Order</p>
                 </li>
                 <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Works for Google Voice, Twitter, Telegram etc...</p>
-                </li>
-                <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">All Day Access Gives you Multiple Tries to Verify</p>
-                </li>
-                <li class="flex items-center">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="font-bold text-gray-100">Meant for One Time Verification Needs</p>
+                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Item Must Ship From Amazon</p>
                 </li>
 
 
               </ul></div>
             <div class="flex-initial">
               <div class="flex flex-wrap -m-2">
-                <div class="w-full p-2"><router-link class="block w-full px-8 py-3.5 text-lg text-center text-gray-100 font-bold bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-400 rounded-full" to="/checkout1service">Purchase</router-link></div>
+                <div class="w-full p-2"><router-link class="block w-full px-8 py-3.5 text-lg text-center text-gray-100 font-bold bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-400 rounded-full" to="/placelockerorder">Place Locker Order</router-link></div>
               </div>
             </div>
           </div>
         </div>
         <div class="w-full md:w-1/3 p-4">
           <div class="flex flex-col justify-between p-8 h-full bg-blue-500 rounded-3xl">
-            <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-white font-bold uppercase tracking-widest">1 Service Long Term Rental</span>
-              <h2 class="font-heading text-4xl text-white font-black tracking-tight"><span>~$4</span><span class="text-xl text-blue-400 font-bold">/month</span></h2>
-              <p class="mb-8 text-sm text-blue-200 font-bold">Billed 6 months A Time</p>
+            <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-white font-bold uppercase tracking-widest">Address Delivery</span>
+              <h2 class="font-heading text-4xl text-white font-black tracking-tight"><span>~15% (Min 15) USD</span></h2>
+              <p class="mb-8 text-sm text-blue-200 font-bold">Deliver Any Item to Any Address</p>
               <ul>
 <!--                 <li class="flex items-center mb-4">
                 <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">80% Discount for 3 Month Commitment</p>
                 </li> -->
                 <li class="flex items-center mb-4">
-                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Unlimited Text</p>
+                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Requires Address</p>
                 </li>
                 <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Verify 1 Service</p>
+                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Works on Any site like Amazon, Ebay, etc.</p>
                 </li>
                 <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Only Way To Ensure Account Security</p>
-                </li>
-                <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Great for Verifying Multiple Services for Short Term Access</p>
+                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Super Flexible Service</p>
                 </li>
 
 
@@ -152,42 +143,36 @@ const messageArray = ref([])
               </ul></div>
             <div class="flex-initial">
               <div class="flex flex-wrap -m-2">
-                <div class="w-full p-2"><router-link class="block w-full px-8 py-3.5 text-lg text-center text-blue-500 font-bold bg-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 rounded-full" to="/">Sold Out</router-link></div>
+                <div class="w-full p-2"><router-link class="block w-full px-8 py-3.5 text-lg text-center text-blue-500 font-bold bg-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 rounded-full" to="/placeaddressorder">Place Address Order</router-link></div>
               </div>
             </div>
           </div>
         </div>
         <div class="w-full md:w-1/3 p-4">
           <div class="flex flex-col justify-between p-8 h-full bg-gray-900 rounded-3xl">
-            <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-blue-500 font-bold uppercase tracking-widest">1 Month Rental</span>
-              <h2 class="font-heading text-4xl text-white font-black tracking-tight">$15/mo</h2>
-              <p class="mb-8 text-sm text-gray-700 font-bold">Billed 1 Month At A Time</p>
+            <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-blue-500 font-bold uppercase tracking-widest">Save up to 10%</span>
+              <h2 class="font-heading text-4xl text-white font-black tracking-tight">Up To 10% Discount</h2>
+              <p class="mb-8 text-sm text-gray-700 font-bold">Peer to Peer Savings</p>
               <ul>
 <!--                 <li class="flex items-center mb-4">
                 <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">87% Discount for 1 Year Commitment</p>
                 </li> -->
                 <li class="flex items-center mb-4">
-                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">200 Texts a Month</p>
+                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Pick Your Own Discount</p>
                 </li>
                 <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">6 Months for 12 a month and 1 year for 120 USD</p>
+                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Wait and Save on Amazon Wish List Orders</p>
                 </li>
                 <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Can be extended for Multiple Months</p>
+                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Earners Pickup Order</p>
                 </li>
 
-                <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="font-bold text-gray-100">Extra Text Available for Purchase</p>
-                </li>
-                <li class="flex items-center mb-4">
-                  <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="font-bold text-gray-100">Great for Long Term Account Access</p>
-                </li>
 
               </ul></div>
             <div class="flex-initial">
               <div class="flex flex-wrap -m-2">
-                <div class="w-full p-2"><router-link class="block w-full px-8 py-3.5 text-lg text-center text-gray-100 font-bold bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-400 rounded-full" to="/checkout1month">
-                  Purchase</router-link></div>
+                <div class="w-full p-2"><router-link class="block w-full px-8 py-3.5 text-lg text-center text-gray-100 font-bold bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-400 rounded-full" to="">
+                  Coming Soon</router-link></div>
               </div>
             </div>
           </div>
@@ -202,8 +187,8 @@ const messageArray = ref([])
     <div class="flex flex-wrap lg:items-center -m-8">
       <div class="w-full md:w-1/2 p-8">
         <div class="md:max-w-md"><span class="inline-block mb-4 text-sm text-blue-500 font-bold uppercase tracking-widest">How it works</span>
-          <h2 class="font-heading mb-6 text-4xl md:text-5xl text-gray-100 font-black tracking-tight" contenteditable="false">A Real Phone that works with Most Online Services</h2>
-          <p class="mb-5 text-gray-500 font-bold">I have built a open &amp; private system that gives you the ability to use platforms that requires a phone number privately. My phones are real phones and work on most platforms!</p>
+          <h2 class="font-heading mb-6 text-4xl md:text-5xl text-gray-100 font-black tracking-tight" contenteditable="false">Spend Your Monero Anywhere</h2>
+          <p class="mb-5 text-gray-500 font-bold">I have built a open &amp; private system that gives you the ability to spend Monero on any website. I have processed hundreds of orders with great flexibility and customer service.</p>
 <!--           <div class="flex flex-wrap -m-2">
             <div class="w-full md:w-auto p-2"><a class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 rounded-full">Coming Soon</a></div>
           </div> -->
@@ -229,8 +214,8 @@ const messageArray = ref([])
                     <div class="w-px h-24 bg-gray-700"></div>
                   </div>
                   <div class="flex-1 p-4">
-                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Purchase Rental</h3>
-                    <p class="text-gray-500 font-bold">Purchase a rental for use. We offer different time commitments and price points. </p>
+                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Place Order</h3>
+                    <p class="text-gray-500 font-bold">You place your order on this website.</p>
                   </div>
                 </div>
               </div>
@@ -247,8 +232,8 @@ const messageArray = ref([])
                     <div class="w-px h-24 bg-gray-700"></div>
                   </div>
                   <div class="flex-1 p-4">
-                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Give Your Rental Number</h3>
-                    <p class="text-gray-500 font-bold">If a service such as twitter, telegram, or signal ask for your phone number, you give your rental number instead.</p>
+                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">I Message You</h3>
+                    <p class="text-gray-500 font-bold">I have a built in chat into Anon Shop. Using this chat, I will keep you updated on your order.</p>
                   </div>
                 </div>
               </div>
@@ -265,8 +250,8 @@ const messageArray = ref([])
                     <div class="md:hidden w-px h-24 bg-gray-700"></div>
                   </div>
                   <div class="flex-1 p-4">
-                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Stay Private and Safe</h3>
-                    <p class="text-gray-500 font-bold">Your phone rental protects you from spam and hacks while preserving your privacy. </p>
+                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Your Order Arrives</h3>
+                    <p class="text-gray-500 font-bold">Your order arrives. If you need to return it or need any other help, I can also help at this point. </p>
                   </div>
                 </div>
               </div>

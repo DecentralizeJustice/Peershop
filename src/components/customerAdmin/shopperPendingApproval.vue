@@ -137,40 +137,6 @@ onMounted(async() => {
             <p style="text-indent: 2em;">City: {{ orderData.orders[0].addressInfo.city }}</p>
             <p style="text-indent: 2em;">Zipcode: {{ orderData.orders[0].addressInfo.zipcode }}</p>
             <p style="text-indent: 2em;">Country: {{ orderData.orders[0].addressInfo.country }}</p>
-                    
-                  
-<!--                     <p> Order Status: {{  orderData.status[orderData.status.length - 1]}} </p> 
-                    <p class="mb-10"> Order Summary:  <br/>
-                      Cart:<br/>
-                      <p v-for="(item, index) in orderData.orderInfo.info.cart">
-                        Item {{index + 1}}: <li v-for="(thing, key) in item">
-                                              {{ key}}: {{ thing }}
-                                            </li>
-                                          </p>
-                      Locker Info:<br/>
-                      
-                        <li v-for="(thing, key) in orderData.orderInfo.info.lockerInfo">
-                                              {{ key}}: {{ thing }}
-                                            </li>
-                      Order Notes: {{ orderData.orderInfo.info.orderNotes }} <br/>
-                      Monero Refund Address: {{ orderData.orderInfo.info.moneroAddress }} <br/>
-                      Earner Incintive: {{ orderData.orderInfo.info.earnerIncintive }} <br/>
-                                          
-                    </p>
-                    <p>
-                      Constants: <li v-for="(thing, key) in orderData.orderInfo.constants">
-                                              {{ key}}: {{ thing }}
-                                            </li>
-                    </p>
-                    <p>Payment Info: <br/>
-                      <p v-for="(payment, key) in orderData.paymentInfo">
-                          <li v-for="(thing, key) in payment">
-                                              {{ key}}: {{ thing }}
-                                            </li>
-                      </p>
-                    </p>
-                    
-                    <br/> -->
                   </div>
                   <br/>
                   <div class="text-white text-left text-xl py-3">
@@ -200,10 +166,7 @@ onMounted(async() => {
                   <div class="text-white text-left text-xl py-3">
                     <p> Refund Address:</p>
                     <p>{{orderData.orders[0].refundAddress}}</p>
-                  </div>
-
-
-                     
+                  </div>  
               </div>
                 </div>
               </div>

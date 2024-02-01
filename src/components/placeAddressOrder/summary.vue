@@ -7,8 +7,8 @@ import box3 from '@/assets/svg/box3.svg'
 import box4 from '@/assets/svg/box4.svg'
 import box5 from '@/assets/svg/box5.svg'
 const emit = defineEmits(['back', 'goTo', 'next'])
-const props = defineProps(['cart', 'lockerInfo', 'orderNotes', 'moneroAddress', 'tip'])
-const lockerInfo = ref({})
+const props = defineProps(['cart', 'addressInfo', 'orderNotes', 'moneroAddress', 'tip'])
+const addressInfo = ref({})
 const cart = ref([])
 const orderNotes = ref('')
 const tip = ref(0)
@@ -38,13 +38,13 @@ const orderTax = computed(() => {
 })
 onMounted(() => {
   cart.value = props.cart
-  lockerInfo.value = props.lockerInfo
+  addressInfo.value = props.addressInfo
   orderNotes.value = props.orderNotes
   tip.value = props.tip
 })
 const serviceFee = computed(() => {
-  const minfee = Number(globalJson.lockerMinFee)
-  const percentFee = Number(itemSubtotal.value)*Number(globalJson.lockerPercentage)*.01
+  const minfee = Number(globalJson.addressMinFee)
+  const percentFee = Number(itemSubtotal.value)*Number(globalJson.addressPercentage)*.01
   if(minfee > percentFee){ 
     return minfee
   }
@@ -66,12 +66,15 @@ watch(tip, async () => {
             <div class="px-4 md:px-8 py-5 text-white">
               <h2 class="inline-block text-2xl text-blue-500 font-bold uppercase tracking-widest">General Info 
                 <button class="block w-full pb-1 mt-4 text-lg text-center text-white font-bold bg-red-500  rounded-full"
-                    @click="goTo(2)">Edit General Info</button>
+                    @click="goTo(2,tip)">Edit General Info</button>
                   </h2> 
                   <div>
-                  <p class="text-left text-lg my-2 mt-4 break-all">Locker Name: {{ lockerInfo.lockerName }}</p>
-                  <p class="text-left text-lg my-2 break-all">Locker Zipcode: {{ lockerInfo.lockerZipcode }}</p>
-                  <p class="text-left text-lg my-2 break-all">Locker Type: {{ lockerInfo.type }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">Name: {{ addressInfo.name }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">Street: {{ addressInfo.street }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">Apt or Suite #: {{ addressInfo.aptNumber }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">City: {{ addressInfo.city }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">Zipcode: {{ addressInfo.zipcode }}</p>
+                  <p class="text-left text-lg my-2 mt-4 break-all">Country: {{ addressInfo.country }}</p>
                   <p class="text-left text-lg my-2 break-all mt-4">Monero Refund Address:<br/> {{moneroAddress}}</p>
                   <p class="text-left text-lg my-2 break-all mt-4">Order Notes:<br/> 
                     <span v-if="orderNotes.length > 0">{{orderNotes}}</span> 
@@ -153,8 +156,8 @@ watch(tip, async () => {
         </div>
           <div class="md:w-2/3 mx-auto">
           <div class="container py-10 px-10 flex flex-col items-center grid md:grid-cols-2 gap-12 ">
-            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="emit('back', tip)">Back To Locker Info</button>
-            <button   class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="emit('next', tip)">Continue</button>
+            <button  class="mx-auto block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full" @click="goTo(2,tip)">Back To Address Info</button>
+            <button   class=" mx-auto  block w-full px-4 py-2.5 text-lg text-center text-white font-bold bg-green-600  rounded-full" @click="goTo(4,tip)">Continue</button>
           </div>
         </div>
       </div>

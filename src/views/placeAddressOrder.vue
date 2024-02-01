@@ -42,14 +42,6 @@ function addressNext(addressInfo6, orderNotes6, moneroAddress6){
   moneroAddress.value = moneroAddress6
   step.value += 1
 }
-function summaryBack(tip2){
-  tip.value = tip2
-  step.value += -1
-}
-function summaryNext(tip2){
-  tip.value = tip2
-  step.value += 1
-}
 function passphraseBack(pass) {
   passphraseArray.value = pass
   step.value += -1

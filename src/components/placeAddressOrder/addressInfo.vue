@@ -1,42 +1,51 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-const props = defineProps(['lockerInfo', 'orderNotes', 'moneroAddress'])
+const props = defineProps(['addressInfo', 'orderNotes', 'moneroAddress'])
 const emit = defineEmits(['next', 'back'])
 function next(){
-  emit('next', lockerInfo.value, orderNotes.value, moneroAddress.value)
+  emit('next', addressInfo.value, orderNotes.value, moneroAddress.value)
 }
 function back(){
-  emit('back', lockerInfo.value, orderNotes.value, moneroAddress.value)
+  emit('back', addressInfo.value, orderNotes.value, moneroAddress.value)
 }
-const lockerName = ref('')
-const type = ref('')
-const lockerZipcode = ref('')
+const name= ref('')
+const street = ref('')
+const aptNumber = ref('')
+const city = ref('')
+const zipcode = ref('')
+const country = ref('')
 const orderNotes = ref('')
 const moneroAddress = ref('')
 const allready = computed(() => {
-  if(lockerName.value.length < 0){
+/*   if(lockerName.value.length < 0){
     return false
   }
   if(lockerZipcode.value.length < 3){
     return false
-  }
+  } */
   if(moneroAddress.value.length < 80){
     return false
   }
 return true
 })
 onMounted(() => {
-  lockerName.value = props.lockerInfo.lockerName
-  type.value = props.lockerInfo.type
-  lockerZipcode.value = props.lockerInfo.lockerZipcode
+  name.value = props.addressInfo.name
+  street.value = props.addressInfo.street
+  aptNumber.value = props.addressInfo.aptNumber
+  city.value = props.addressInfo.city
+  zipcode.value = props.addressInfo.zipcode
+  country.value = props.addressInfo.country
   orderNotes.value = props.orderNotes
   moneroAddress.value = props.moneroAddress
 })
-const lockerInfo = computed(() => {
+const addressInfo = computed(() => {
   return {
-    lockerName: lockerName.value,
-    type: type.value,
-    lockerZipcode: lockerZipcode.value
+    name: name.value,
+    street: street.value,
+    aptNumber: aptNumber.value,
+    city: city.value,
+    zipcode: zipcode.value,
+    country: country.value
   }
 })
 </script>
@@ -45,21 +54,9 @@ const lockerInfo = computed(() => {
           
           <div class="w-full md:w-1/2 p-8 ">
             <div class="md:max-w-md mx-auto text-center mb-6">
-              <span class="inline-block mb-2 text-lg text-blue-500 font-bold uppercase tracking-widest">Locker Selection</span>
+              <span class="inline-block mb-2 text-lg text-blue-500 font-bold uppercase tracking-widest">Address Info</span>
                     <p class="mb-1 mt-2 text-2xl text-left text-white">
-                      You can have your order delivered to an Amazon Locker or Amazon Hub Counter+. You can find delivery locations here:<br/> 
-                      <p class="text-blue-500"><a href="https://www.amazon.com/ulp" target="_blank" rel="noopener noreferrer"
-                      class="text-blue-500  font-bold text-2xl dark:text-blue-500 hover:underline">Amazon Delivery Locations</a></p> 
-                    </p>
-            </div>
-            <div class="md:max-w-md mx-auto text-center mt-12">
-              <span class=" text-blue-300 inline-block mb-2 text-lg text-white font-bold uppercase tracking-widest">Locker Notes</span>
-                    <p class="mb-1 mt-2 text-xl text-left text-white">
-                      <span class="text-2xl font-semibold text-blue-500">Phone Usage:</span><br/> Some lockers require a phone to access. This is noted on the Amazon Delivery Location page. 
-                    </p>
-                    <p class="mb-1 mt-3 text-xl text-left text-white">
-                      <span class="text-2xl font-semibold text-blue-500">Extra Fees:</span><br/> Some lockers might be full and/or require an extra delivery fee. You should be ok with traveling to another location, waiting, or  
-                      paying extra.
+                      You can have your order delivered to any address.<br/> 
                     </p>
             </div>
           </div>
@@ -69,48 +66,57 @@ const lockerInfo = computed(() => {
                   <div class="grid md:grid-cols-8 gap-y-8 gap-x-10">
 
                     <div class="md:col-span-8">
-                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Locker Name & Country</label>
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Name</label>
                       <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input maxlength="60" v-model="lockerName" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                          <input maxlength="60" v-model="name" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="md:col-span-8">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Street Address or P.O. Box</label>
+                      <div class="relative mt-2 rounded-md shadow-sm">
+                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
+                          <input maxlength="60" v-model="street" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="md:col-span-8">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Apt, suite, unit, building, floor, etc.</label>
+                      <div class="relative mt-2 rounded-md shadow-sm">
+                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
+                          <input maxlength="60" v-model="aptNumber" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="md:col-span-8">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">City</label>
+                      <div class="relative mt-2 rounded-md shadow-sm">
+                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
+                          <input maxlength="60" v-model="city" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                        </div>
+                      </div>
+                    </div>
+                    
+
+                    <div class="md:col-span-8">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Zipcode</label>
+                      <div class="relative mt-2 rounded-md shadow-sm">
+                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
+                          <input maxlength="60"
+                          v-model="zipcode"  class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="md:col-span-8">
+                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Country</label>
+                      <div class="relative mt-2 rounded-md shadow-sm">
+                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
+                          <input maxlength="60" v-model="country" type="text" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
                         </div>
                       </div>
                     </div>
 
-                    <div class="md:col-span-8">
-                      <label for="pendingItemLink" class="block text-xl font-medium text-white">Locker Zipcode</label>
-                      <div class="relative mt-2 rounded-md shadow-sm">
-                        <div class="flex rounded-md bg-white/5 ring-1 ring-inset ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500">
-                          <input max="99999"
-                          v-model="lockerZipcode" type="number" class="flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="md:col-span-8">
-                    <fieldset>
-                      <div class="space-y-5">
-                        <div class="relative flex items-start">
-                          <div class="flex h-6 items-center">
-                            <input v-model='type' type="radio" value="Amazon Hub Counter+"
-                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
-                          </div>
-                          <div class="ml-3 text-lg leading-6">
-                            <label for="candidates" class="font-medium text-white">Amazon Hub Counter+</label>
-                          </div>
-                        </div>
-                        <div class="relative flex items-start">
-                          <div class="flex h-6 items-center">
-                            <input  type="radio" v-model='type' value="Amazon Locker"
-                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
-                          </div>
-                          <div class="ml-3 text-lg leading-6">
-                            <label for="candidates" class="font-medium text-white">Amazon Locker</label>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                    </div>
                     <div class="md:col-span-8">
                       <label class="block text-xl font-medium leading-6 text-white">Your Monero Refund Address</label>
                       <div class="mt-2">

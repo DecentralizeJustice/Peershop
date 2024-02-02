@@ -39,6 +39,7 @@ async function signIn() {
       numberArray.push(number)
     }
     const results = await axios.post('/.netlify/functions/login', { accountPhrase: numberArray })
+    console.log(results)
     if (results.data === null) {
       orderDoesNotExist.value = true
       throw new Error('Order does not exist')
@@ -49,6 +50,7 @@ async function signIn() {
     orderData.value.messageArray = results1.data.messageArray
     componentKey.value += .000000000000001
   } catch (error) {
+    orderDoesNotExist.value = true
     console.log(error)
   }
 }
@@ -102,7 +104,7 @@ watch(
           </div>
           <div v-if="orderDoesNotExist" class="mb-10 text-center" >
               <h2  class="font-heading mb-4 text-4xl md:text-4xl text-red-500 font-black">Your Order Does Not Exist. Check your
-              passphrase or message me <a class='text-blue-500' href="/messageMe">here!</a> Transactions take 3 blockes to confirm.</h2>
+              passphrase or message me <a class='text-blue-500' href="/messageMe">here!</a> Transactions take 3 blocks to confirm.</h2>
             </div>
             <div class="flex flex-wrap -m-3 mb-5">
               <div class="w-full p-3 mx-6 md:mx-0 flex flex-col items-left" v-for="index in 8" :key="index">

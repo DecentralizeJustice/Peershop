@@ -2,19 +2,22 @@
 import { ref } from 'vue'
 const faq = [
   {
-    question: 'Where are your phones located?',
-    answer: `Our phones are located in the United States.
-    We can only offer US phone numbers at this time also.`
+    question: 'Do you support pgp keys?',
+    answer: `Yes, our pgp key is below. We only support pgp encryption for package forwarding services. You should place an ship to an address order and use the pgp key to encrypt your real order info after you place an order. If you have any questions just place an order and ask in the chat.
+
+-----BEGIN PGP PUBLIC KEY BLOCK----- mQENBGR7a3IBCAC2PXhLM0QtXYXaEFBluUdEr2x+X23c2G2FCM6isVMW3hsWcdhw zWYnwCkqsG5/LjJ+N/jVQPTbzuw0KaZunIOofhSEncFzchlaJYRYaZUu0dEiB30y jhL9qUavZM0ItM10GAuQPanfCGu+fIGi6u/ReGhJLnayhXOm8uJZ/zZCvCtnRLZ+ wqgWg8dxQJ835lp1tuv43lvGoN7/iiy/q2pOQM+jpDbY7GMQtCBXEdBXj6xo6f8L /+m1JpNEIgHt0EH5wuGJa5/3bVxoF9lD1yPoaNx1/AVc3oJaBHEHDaUiICbfUy/L sakmKaB7w2HWFjQ8chz+OYo9li3K+oEs8XsRABEBAAG0GWFub25zaG9wKCk8bm9u QGdtYWlsLmNvbT6JAVcEEwEIAEEWIQRnaTbI9fiMt3VgIUFd1S8ldI/oXwUCZHtr cgIbLwUJA8O4VgULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRBd1S8ldI/o X2VCB/9H5UQXnxIAfFwGDAVQAXUt0qsRLDZkTzP6t/pe1IfGiL9yhf3CP0K17Xpk t9UeKUOT9Eh4Sx6m7bwbbPJYAAwjeJsHMogAp4Z4w1jZT9yTvvPhH71b0HAJa5wz EwpwhgjlfzLomBWJ7P7UYoOAjTlYo1DcmJV+vsrVZctS/CXLZGWdGGOIq5IU1bQ/ 974vTh8M2X9QqJPCwkq+ZIEJ9YqnrDmInNQsp5cj63nfwxjSjX/fvLrJdR3qS6Ym GvuZDlXea0jQmguqeDCWk+FOiJwdJO7E13+JijyGBn/IHUsG1btq0BGEWOQWjGij rIuyWTobPbr6x1qUJjlYdZxLaUEE =b95u -----END PGP PUBLIC KEY BLOCK-----`
   },
   {
-    question: 'What happens when your rental period ends?',
-    answer: 'When your rental period ends, we remove the sim card from the phone and we then delete your chat history soon after that from our database. '
+    question: 'Your website list tax as 8%, but the tax is not that high.',
+    answer: 'Yes, we assume a higher than average tax on items to not waste time asking for more funds. If you want an exact tax simply ask us after your order is placed.'
   },
   {
-    question: `How do you renew a rental?`,
-    answer: `In order to renew you simply hit the renew button 5 days before your rental period ends. 
-    This button can be found in your account after you sign in.
-    `
+    question: `How fast is your service?`,
+    answer: `We try our best to process all orders within 24 hours. `
+  },
+  {
+    question: `Do you offer refunds/returns?`,
+    answer: `Due to Amazon return scams, you must make an account and use a gift recipient to make a return. If you would like to have a gift receipt added, please shoot us a message after you place your order. If there is a problem with your order and your order can not be placed, We can issue you a refund.`
   }
 ]
 const selectedQuestion = ref(-1)

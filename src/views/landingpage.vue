@@ -123,7 +123,7 @@ const messageArray = ref([])
         <div class="w-full md:w-1/3 p-4">
           <div class="flex flex-col justify-between p-8 h-full bg-blue-500 rounded-3xl">
             <div class="flex-initial mb-6"><span class="inline-block mb-6 text-sm text-white font-bold uppercase tracking-widest">Address Delivery</span>
-              <h2 class="font-heading text-4xl text-white font-black tracking-tight"><span>~{{globalJson.addressPercentage}}% (Min {{globalJson.addressMinFee}}) USD</span></h2>
+              <h2 class="font-heading text-4xl text-white font-black tracking-tight"><span>{{globalJson.addressPercentage}}% (Min {{globalJson.addressMinFee}}) USD</span></h2>
               <p class="mb-8 text-sm text-blue-200 font-bold">Deliver Any Item to Any Address</p>
               <ul>
 <!--                 <li class="flex items-center mb-4">

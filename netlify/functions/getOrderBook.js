@@ -12,16 +12,29 @@ exports.handler = async () => {
        {'metaData.type': { $eq: "giftregistry" }}
        ]
     }).toArray()
-    const userSafeInfo = {
-      test: true
-    }
+    const orders = []
     for (const order of info) {
-      console.log(order);
-      //order.allOrderInformation.orderInfo.metadata
+      let tempOrder = {}
+      const constants = order.orderDetails.allOrderInformation.orderInfo.metadata.constants
+      const discountPercentage = order.orderDetails.allOrderInformation.orderInfo.metadata.info.discount
+      const listTotal = order.orderDetails.allOrderInformation.orderInfo.metadata.info.listTotal
+      const serviceFeePercentage = constants.budgetOrderServiceFeePercent
+
+      const totalPercentage = -Number(discountPercentage)-Number(serviceFeePercentage)
+      const usdOffset = Number(listTotal)*(totalPercentage*.01)
+
+      tempOrder.type = "giftregistry"
+      tempOrder.usd = (Number(usdOffset)+Number(listTotal)).toFixed(2)
+      tempOrder.rate = Number(order.orderDetails.allOrderInformation.paymentInfo[0].rate).toFixed(2)
+
+      if(tempOrder.rate.toString().length >5 || tempOrder.usd.toString().length> 8 ){
+        }else{
+          orders.push(tempOrder)
+        }
     }
     return {
         statusCode: 200,
-        body: JSON.stringify(userSafeInfo)
+        body: JSON.stringify(orders)
       } 
   } 
   catch (error) {

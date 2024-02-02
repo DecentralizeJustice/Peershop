@@ -1,5 +1,5 @@
 {
-    "budgetOrderServiceFeePercent": 2,
+    "budgetOrderServiceFeePercent": 1,
     "earnerBond": 5,
     "shopperBond": 5,
     "minBudgetOrder": 40,

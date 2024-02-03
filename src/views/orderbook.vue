@@ -55,9 +55,6 @@ onMounted(() => {
                       <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">~Cost To You(USD)</th>
                       <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">~XMR You Will Recieve</th>
                       <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Type</th>
-                      <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                        <span class="sr-only">Edit</span>
-                      </th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-800">
@@ -67,9 +64,8 @@ onMounted(() => {
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ (Number(order.usd) / Number(order.rate)).toFixed(5) }}</td>
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">Gift Registry</td>
                       <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <a href="#" class="text-blue-400 hover:text-blue-300"
-                          >Select This Order<span class="sr-only">, {{ order }}</span></a
-                        >
+                        <router-link class="text-blue-400 hover:text-blue-300" :to="`/pickuporder#${order.id}`"
+                          >Select This Order</router-link>
                       </td>
                     </tr>
                   </tbody>

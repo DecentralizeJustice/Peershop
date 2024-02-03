@@ -11,11 +11,10 @@ const statuses = {
 const people = [
 { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
 ]
+const orders= ref([])
 async function getOrders() {
-  console.log('ran')
-  const results = await axios.post('/.netlify/functions/getOrderBook', { 
-  })
-  console.log(results.data)
+  const results = await axios.get('/.netlify/functions/getOrderBook')
+  orders.value = results.data
 }
 onMounted(() => {
   getOrders()
@@ -40,10 +39,10 @@ onMounted(() => {
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-              <p class="mt-2 text-sm text-gray-300">A list of all the orders waiting to be fulfilled by shoppers.</p>
+              <p class="mt-2 text-sm text-gray-300">A list of all the orders waiting to be fulfilled by earners.</p>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-              <button type="button" class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Place Order</button>
+              <router-link type="button" class="block rounded-md bg-blue-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500" to="/placeorder">Place Locker Order</router-link>
             </div>
           </div>
           <div class="mt-8 flow-root">
@@ -52,10 +51,9 @@ onMounted(() => {
                 <table class="min-w-full divide-y divide-gray-700">
                   <thead>
                     <tr>
-                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">USD/XMR</th>
-                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Cost To You(USD)</th>
-                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">XMR You Will Recieve</th>
-                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Number of Items</th>
+                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">~USD/XMR</th>
+                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">~Cost To You(USD)</th>
+                      <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">~XMR You Will Recieve</th>
                       <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Type</th>
                       <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                         <span class="sr-only">Edit</span>
@@ -63,15 +61,14 @@ onMounted(() => {
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-800">
-                    <tr v-for="person in people" :key="person.email">
-                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{{ person.name }}</td>
-                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.title }}</td>
-                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.email }}</td>
-                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.role }}</td>
-                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ person.role }}</td>
+                    <tr v-for="order in orders" :key="order.index">
+                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{{ order.rate }}</td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ order.usd }}</td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ (Number(order.usd) / Number(order.rate)).toFixed(5) }}</td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">Gift Registry</td>
                       <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <a href="#" class="text-indigo-400 hover:text-indigo-300"
-                          >Select This Order<span class="sr-only">, {{ person.name }}</span></a
+                        <a href="#" class="text-blue-400 hover:text-blue-300"
+                          >Select This Order<span class="sr-only">, {{ order }}</span></a
                         >
                       </td>
                     </tr>

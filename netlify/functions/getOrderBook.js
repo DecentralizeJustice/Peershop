@@ -26,12 +26,14 @@ exports.handler = async () => {
       tempOrder.type = "giftregistry"
       tempOrder.usd = (Number(usdOffset)+Number(listTotal)).toFixed(2)
       tempOrder.rate = Number(order.orderDetails.allOrderInformation.paymentInfo[0].rate).toFixed(2)
-
-      if(tempOrder.rate.toString().length >5 || tempOrder.usd.toString().length> 8 ){
+      tempOrder.id = order.orderDetails.orderId
+      if(tempOrder.rate.toString().length >9 || tempOrder.usd.toString().length> 9 ){
+        console.log('error due to being too large')
         }else{
           orders.push(tempOrder)
         }
     }
+    
     return {
         statusCode: 200,
         body: JSON.stringify(orders)

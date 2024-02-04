@@ -32,7 +32,7 @@ async function submit() {
       orderId: props.orderId,
       constants: globalJson
     }
-    const results = await axios.post('/.netlify/functions/createBTCPayInvoice', 
+    const results = await axios.post('/.netlify/functions/pickupOrder', 
     { amount: metadata.bondUSD, 
       metadata: metadata
     })
@@ -45,7 +45,7 @@ After your payment has 7 confirmations, you can use this passphrase to check on 
 onMounted(() => {
   getPassphrase()
 })
-const what = `After you place your order, I will process it and get back to you within 24 hours.`
+const what = `After you place your order,you will be able to see your order details and chat if you have any questions or issues.`
 //const what1 = `After your order is in the orderbook, earners have the opportunity to select and complete your order. Your order will stay in the order book for around a week before being canceled and returned to you, if no one picks it up.`
 </script>
 

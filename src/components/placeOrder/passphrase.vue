@@ -25,7 +25,8 @@ async function submit() {
   console.log('ran')
   const results = await axios.post('/.netlify/functions/submitBudgetOrder', { 
     passphraseArray: numberArray.value,
-    wishListInfo: props.wishListInfo
+    wishListInfo: props.wishListInfo,
+    type: 'placeBudgetOrder'
   })
   console.log(results)
   window.location.href = results.data.checkoutLink

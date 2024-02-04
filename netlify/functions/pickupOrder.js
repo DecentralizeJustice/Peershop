@@ -17,33 +17,18 @@ exports.handler = async (event, context) => {
     const passphraseArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0)).required()
     await passphraseArraySchema.validateAsync(parsed.passphraseArray)
     cleanedInfo.passphraseArray = parsed.passphraseArray
- 
-    const wishListLinkSchema = Joi.string().required().max(600).allow('')
-    await wishListLinkSchema.validateAsync(parsed.wishListInfo.wishListLink)
-    cleanedInfo.wishListLink = parsed.wishListInfo.wishListLink
-
-    const listTotalSchema = Joi.number().precision(3).max(100000).min(0).required()
-    await listTotalSchema.validateAsync(parsed.wishListInfo.listTotal)
-    cleanedInfo.listTotal = parsed.wishListInfo.listTotal
-
-    const discountSchema = Joi.number().integer().required().max(10).min(0)
-    await discountSchema.validateAsync(parsed.wishListInfo.discount)
-    cleanedInfo.discount = parsed.wishListInfo.discount
 
 
     const xmrRefundAddress = Joi.string().required().max(600).min(0)
-    await xmrRefundAddress.validateAsync(parsed.wishListInfo.xmrRefundAddress)
-    cleanedInfo.xmrRefundAddress = parsed.wishListInfo.xmrRefundAddress
+    await xmrRefundAddress.validateAsync(parsed.refundAddress)
+    cleanedInfo.refundAddress = parsed.refundAddress
 
-    const orderNotesSchema = Joi.string().max(600).allow('')
-    await orderNotesSchema.validateAsync(parsed.wishListInfo.orderNotes)
-    cleanedInfo.orderNotes = parsed.wishListInfo.orderNotes
+    const orderId = Joi.string().required().max(100).min(10)
+    await orderId.validateAsync(parsed.orderId)
+    cleanedInfo.orderId = parsed.orderId
 
-    const paymentDue = 
-    (Number(cleanedInfo.listTotal)+
-    Number(infoList.budgetOrderServiceFeePercent*cleanedInfo.listTotal*.01)
-    +Number(infoList.shopperBond)
-    -Number(cleanedInfo.discount*.01*cleanedInfo.listTotal)).toFixed(2);
+
+    const paymentDue = Number(infoList.earnerBond)
 
     const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
     const response = await axios.post(

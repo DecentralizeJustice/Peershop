@@ -28,7 +28,8 @@ async function submit() {
     { 
       refundAddress: props.moneroAddress,
       type: 'pickupOrder',
-      orderId: props.orderId
+      orderId: props.orderId,
+      passphraseArray: numberArray.value
     }
     const results = await axios.post('/.netlify/functions/pickupOrder', 
     { 

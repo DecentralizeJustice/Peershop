@@ -5,21 +5,18 @@ const emit = defineEmits(['next'])
 const enabled0 = ref(false)
 const enabled1 = ref(false)
 const enabled2 = ref(false)
-const enabled3 = ref(false)
-const enabled4 = ref(false)
-const enabled5 = ref(false)
 const requirements = [
 {
-    title: 'Check Locker Orde Regularly',
-    text: `You are required to check on your order every other day for Locker Orders.`
+    title: 'Disputes Process',
+    text: `Disputes are rare, but they do require using this process to handle them.`
   },
   {
-    title: 'Locker Orders Must Ship from Amazon',
-    text: `All of your items must ship Directly from Amazon. No digital products. Only physical items can be ordered.`
+    title: 'Be Kind',
+    text: `This p2p system requires both parties to work together. If you have any questions or issues, shoot me a message in the admin chat.`
   },
   {
-    title: 'Locker Size & Weight Constraints',
-    text: `Here are the other limits for items that can be shipped: https://shorturl.at/kBPRS`
+    title: 'Thank You',
+    text: `Thank you for supporting the new and growing p2p economy.`
   }
 ]
 function next(){
@@ -44,14 +41,14 @@ const allready = computed(() => {
           
           <div class="w-full md:w-1/2 p-8 ">
             <div class="md:max-w-md mx-auto text-center">
-              <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Anonymous Locker</span>
-                    <p class="mb-8 mt-2 text-2xl text-left text-white">This service allows you to have Amazon items shipped to Amazon Lockers or Amazon Counters near you.
+              <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Earn Monero</span>
+                    <p class="mb-8 mt-2 text-2xl text-left text-white">By using this service to earn Monero, you will be ordering Amazon Wishlist items for people. We require a bond from both parties, and we have a system to prevent fraud by both parties. You can read more about this system here: (insert link to guide). Agree to the terms to the right and continue.
                     </p>
             </div>
           </div>
           <div class="w-full md:w-1/2 p-8">
             <div class="md:max-w-md mx-auto text-center items-center ">
-                  <h3 class="font-heading text-4xl text-white font-black tracking-tight mb-10">Locker Order Requirements</h3>
+                  <h3 class="font-heading text-4xl text-white font-black tracking-tight mb-10">Earner Requirements</h3>
                   <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
                     <Switch v-model="enabled0" :class="[enabled0 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
                       <span aria-hidden="true" :class="[enabled0 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />

@@ -26,14 +26,12 @@ async function getPassphrase() {
 async function submit() {
   const metadata =   
     { 
-      bondUSD: Number(globalJson.earnerBond),
       refundAddress: props.moneroAddress,
       type: 'pickupOrder',
-      orderId: props.orderId,
-      constants: globalJson
+      orderId: props.orderId
     }
     const results = await axios.post('/.netlify/functions/pickupOrder', 
-    { amount: metadata.bondUSD, 
+    { 
       metadata: metadata
     })
    window.location.href = results.data.checkoutLink

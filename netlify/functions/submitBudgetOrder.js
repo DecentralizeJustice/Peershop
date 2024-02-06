@@ -61,7 +61,8 @@ exports.handler = async (event, context) => {
               'metadata': { 
                 info: cleanedInfo,
                 timestamp: Date.now(),
-                constants: infoList
+                constants: infoList,
+                type: "placeBudgetOrder"
                }
           },
           {

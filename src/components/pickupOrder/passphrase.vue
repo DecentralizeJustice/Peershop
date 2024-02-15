@@ -26,14 +26,14 @@ async function getPassphrase() {
 async function submit() {
   const metadata =   
     { 
+      
+    }
+    const results = await axios.post('/.netlify/functions/pickupOrder', 
+    { 
       refundAddress: props.moneroAddress,
       type: 'pickupOrder',
       orderId: props.orderId,
       passphraseArray: numberArray.value
-    }
-    const results = await axios.post('/.netlify/functions/pickupOrder', 
-    { 
-      metadata: metadata
     })
    window.location.href = results.data.checkoutLink
 }

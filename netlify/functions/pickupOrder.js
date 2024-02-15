@@ -13,6 +13,7 @@ exports.handler = async (event, context) => {
     const parsed = JSON.parse(params)
 
     const cleanedInfo = {}
+    console.log(parsed)
 
     const passphraseArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0)).required()
     await passphraseArraySchema.validateAsync(parsed.passphraseArray)

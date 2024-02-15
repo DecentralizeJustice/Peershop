@@ -5,12 +5,13 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const componentKey = ref(0)
 import words from '@/assets/bip39Wordlist.txt?raw'
-import shopperPendingApproval from '@/components/customerAdmin/shopperPendingApproval.vue'
+import shopperLogin from '@/components/login/shopperLogin.vue'
 
 const passphraseWords = ref(["", "", "", "", "", "", "", ""])
 const wrongWord = ref(999)
 const orderData = ref({})
 const orderDoesNotExist = ref(false)
+const shopperTrue = ref(false)
 function getPassphraseInputLabels(i) {
   var j = i % 10,
         k = i % 100;
@@ -38,17 +39,14 @@ async function signIn() {
       }
       numberArray.push(number)
     }
-    const results = await axios.post('/.netlify/functions/login', { accountPhrase: numberArray })
-    console.log(results)
+    const results = await axios.post('/.netlify/functions/shopperLogin', { accountPhrase: numberArray })
     if (results.data === null) {
       orderDoesNotExist.value = true
       throw new Error('Order does not exist')
     }
-    const results1 = await axios.post('/.netlify/functions/getMessageArray', { chatID: results.data.orders[0].chatID })
     orderData.value = results.data
-    orderData.value.passphrase = numberArray
-    orderData.value.messageArray = results1.data.messageArray
-    componentKey.value += .000000000000001
+    shopperTrue.value = true
+    componentKey.value += .00000000000000001
   } catch (error) {
     orderDoesNotExist.value = true
     console.log(error)
@@ -130,7 +128,7 @@ watch(
   </div>
 </section>
 <section> 
-  <shopperPendingApproval :orderData="orderData" v-if="Object.keys(orderData).length > 0"
+  <shopperLogin :orderData="orderData" v-if="shopperTrue"
     @refresh="signIn" :key="componentKey"/>
 </section>
 </template>

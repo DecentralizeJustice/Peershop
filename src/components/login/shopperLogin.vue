@@ -78,9 +78,9 @@ onMounted(async() => {
       <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-            <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-1/2 sm:p-6 sm:my-8 sm:w-full sm:max-w-sm break-words">
+            <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-3/4 md:w-1/2 sm:p-6 sm:my-8  break-words">
               <div>
-                <ul>
+                <ul class="text-xl">
                   <li>Order Link: {{ orderData.genOrderInfo.wishListLink }}</li>
                   <li>List Total: {{ orderData.genOrderInfo.listTotal }} USD</li>
                   <li>Discount: {{ orderData.genOrderInfo.discount }}%</li>
@@ -123,19 +123,19 @@ onMounted(async() => {
                 <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
                 <div v-for="(message, index) in orderData.everyoneChat" :key="message.timestamp">
                   <div class="chat"
-                  :class="{ 'chat-start':  message.from === 'dgoon', 
-                  'chat-end':  message.from !== 'dgoon' }">
+                  :class="{ 'chat-start':  message.sender === 'dgoon', 
+                  'chat-end':  message.sender !== 'dgoon' }">
                     <div class="chat-image avatar">
                       <div class="w-10 rounded-full">
-                        <img :src="getChatImage(message.from)" />
+                        <img :src="getChatImage(message.sender)" />
                       </div>
                     </div>
                     <div class="chat-header text-white">
-                      {{ message.from }}
+                      {{ message.sender }}
                     </div>
                     <div class="chat-bubble break-words">{{ message.message }} </div>
                     <div class="chat-footer text-white">
-                      Sent at {{localTime(message.sent)}}
+                      Sent at {{localTime(message.timestamp)}}
                     </div>
                   </div>
               </div>

@@ -30,6 +30,7 @@ exports.handler = async (event) => {
       shopperChat: info.chats.shopperChat,
       everyoneChat: info.chats.everyoneChat
     }
+    delete infoForShopper.genOrderInfo.passphraseArray
 
   return {
     statusCode: 200,

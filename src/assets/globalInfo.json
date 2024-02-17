@@ -2,6 +2,5 @@
     "budgetOrderServiceFeePercent": 1,
     "earnerBond": 5,
     "shopperBond": 5,
-    "minBudgetOrder": 40,
-    "estimatedTax": 8
+    "minBudgetOrder": 40
 }

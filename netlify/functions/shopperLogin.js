@@ -30,9 +30,11 @@ exports.handler = async (event) => {
       shopperChat: info.chats.shopperChat,
       everyoneChat: info.chats.everyoneChat,
     }
-    infoForShopper.genOrderInfo.constants = info.orderDetails.allOrderInformation.orderInfo.metadata.constants
+
     delete infoForShopper.genOrderInfo.passphraseArray
 
+    infoForShopper.genOrderInfo.constants = info.orderDetails.allOrderInformation.orderInfo.metadata.constants
+    delete infoForShopper.genOrderInfo.constants.earnerBond
   return {
     statusCode: 200,
     body: JSON.stringify(infoForShopper)

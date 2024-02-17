@@ -102,12 +102,12 @@ onMounted(async() => {
             <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-3/4 md:w-1/2 sm:p-6 sm:my-8  break-words">
               <div>
                 <ul class="text-xl">
-                  <li>Order Link: {{ orderData.genOrderInfo.wishListLink }}</li>
-                  <li>List Total: {{ orderData.genOrderInfo.listTotal }} USD</li>
-                  <li>Discount: {{ orderData.genOrderInfo.discount }}%</li>
-                  <li>Order Notes: {{ orderData.genOrderInfo.orderNotes }}</li>
-                  <li>Your XMR Refund Address: {{ orderData.genOrderInfo.xmrRefundAddress }}</li>
-                  <li>Order Constants: {{ orderData.genOrderInfo.constants }}</li>
+                  <li>Order Link: {{ orderData.genInfo.wishListLink }}</li>
+                  <li>List Total: {{ orderData.genInfo.listTotal }} USD</li>
+                  <li>Discount: {{ orderData.genInfo.discount }}%</li>
+                  <li>Order Notes: {{ orderData.genInfo.orderNotes }}</li>
+                  <li>Your XMR Refund Address: {{ orderData.genInfo.xmrRefundAddress }}</li>
+                  <li>Order Constants: {{ orderData.genInfo.constants }}</li>
                 </ul>
               </div>
               <div class="mt-5 sm:mt-6">
@@ -190,7 +190,7 @@ onMounted(async() => {
                       </div>
                     </div>
                     <div class="chat-header text-white">
-                      {{ message.sender }}
+                      {{ message.sender.charAt(0).toUpperCase() + message.sender.slice(1) }}
                     </div>
                     <div class="chat-bubble break-words">{{ message.message }} </div>
                     <div class="chat-footer text-white">

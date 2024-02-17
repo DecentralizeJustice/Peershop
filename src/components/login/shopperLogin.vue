@@ -190,7 +190,7 @@ onMounted(async() => {
                       </div>
                     </div>
                     <div class="chat-header text-white">
-                      {{ message.sender }}
+                      {{ message.sender.charAt(0).toUpperCase() + message.sender.slice(1) }}
                     </div>
                     <div class="chat-bubble break-words">{{ message.message }} </div>
                     <div class="chat-footer text-white">

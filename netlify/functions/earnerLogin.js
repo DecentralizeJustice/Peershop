@@ -26,10 +26,20 @@ exports.handler = async (event) => {
       }
     }
     const infoForEarner = {
-      // genOrderInfo: info.orderDetails.allOrderInformation.orderInfo.metadata.info,
       earnerChat: info.chats.earnerChat,
       everyoneChat: info.chats.everyoneChat,
+      genInfo: {}
     }
+    infoForEarner.genInfo.wishListLink = info.orderDetails.allOrderInformation.orderInfo.metadata.info.wishListLink
+    infoForEarner.genInfo.discount = info.orderDetails.allOrderInformation.orderInfo.metadata.info.discount
+    infoForEarner.genInfo.listTotal = info.orderDetails.allOrderInformation.orderInfo.metadata.info.listTotal
+    infoForEarner.genInfo.orderNotes = info.orderDetails.allOrderInformation.orderInfo.metadata.info.orderNotes
+
+    infoForEarner.genInfo.constants = info.orderDetails.allOrderInformation.orderInfo.metadata.constants
+    delete infoForEarner.genInfo.constants.earnerBond
+
+    infoForEarner.genInfo.constants.earnerBond = info.earnerInfo.metadata.constants.earnerBond
+    infoForEarner.genInfo.xmrRefundAddress = info.earnerInfo.metadata.info.refundAddress
 
   return {
     statusCode: 200,

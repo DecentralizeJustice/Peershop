@@ -12,7 +12,6 @@ exports.handler = async (event) => {
 
     const parsed = JSON.parse(event.body)
 
-    console.log(parsed)
     const numberArray = parsed.passphrase
     const numberArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
     await numberArraySchema.validateAsync(numberArray)

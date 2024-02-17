@@ -3,10 +3,5 @@
     "earnerBond": 5,
     "shopperBond": 5,
     "minBudgetOrder": 40,
-    "estimatedTax": 8,
-    "lockerMinFee": 10,
-    "lockerPercentage": 10,
-    "minLockerOrder": 35,
-    "addressMinFee": 15,
-    "addressPercentage": 15
+    "estimatedTax": 8
 }

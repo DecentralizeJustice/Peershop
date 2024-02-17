@@ -28,8 +28,9 @@ exports.handler = async (event) => {
     const infoForShopper = {
       genOrderInfo: info.orderDetails.allOrderInformation.orderInfo.metadata.info,
       shopperChat: info.chats.shopperChat,
-      everyoneChat: info.chats.everyoneChat
+      everyoneChat: info.chats.everyoneChat,
     }
+    infoForShopper.genOrderInfo.constants = info.orderDetails.allOrderInformation.orderInfo.metadata.constants
     delete infoForShopper.genOrderInfo.passphraseArray
 
   return {

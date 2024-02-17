@@ -107,6 +107,7 @@ onMounted(async() => {
                   <li>Discount: {{ orderData.genOrderInfo.discount }}%</li>
                   <li>Order Notes: {{ orderData.genOrderInfo.orderNotes }}</li>
                   <li>Your XMR Refund Address: {{ orderData.genOrderInfo.xmrRefundAddress }}</li>
+                  <li>Order Constants: {{ orderData.genOrderInfo.constants }}</li>
                 </ul>
               </div>
               <div class="mt-5 sm:mt-6">

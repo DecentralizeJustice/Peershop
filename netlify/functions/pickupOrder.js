@@ -41,7 +41,7 @@ exports.handler = async (event, context) => {
                   'paymentMethods': [
                       'XMR'
                   ],
-                  'redirectURL': 'https://peer.anonshop.app/login',
+                  'redirectURL': 'https://peershop.app/login',
                   'redirectAutomatically': true
               },
               'metadata': { 

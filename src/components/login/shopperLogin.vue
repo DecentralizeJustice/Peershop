@@ -72,10 +72,16 @@ function localTime(epoch) {
   return strTime;
 }
 function getChatImage(sender) {
-  if (sender !== 'dgoon') {
+  if (sender === 'shopper') {
     return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1686024666/landingpage/avatars/man_2.svg'
   }
-  return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1687402881/landingpage/avatars/african-man.svg'
+  if (sender === 'earner') {
+    return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1686024733/landingpage/avatars/man_6.svg'
+  }
+  if (sender === 'Admin DGoon') {
+    return 'https://res.cloudinary.com/dylevfpbl/image/upload/v1687402881/landingpage/avatars/african-man.svg'
+  }
+  return ''
 }
 onMounted(async() => {
   initialSetup()
@@ -138,8 +144,8 @@ onMounted(async() => {
                 <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv" >
                 <div v-for="(message, index) in orderData.everyoneChat" :key="message.timestamp">
                   <div class="chat"
-                  :class="{ 'chat-start':  message.sender === 'dgoon', 
-                  'chat-end':  message.sender !== 'dgoon' }">
+                  :class="{ 'chat-start':  message.sender !== 'shopper', 
+                  'chat-end':  message.sender === 'shopper' }">
                     <div class="chat-image avatar">
                       <div class="w-10 rounded-full">
                         <img :src="getChatImage(message.sender)" />
@@ -171,23 +177,23 @@ onMounted(async() => {
             <div class="md:max-w-md mx-auto">
               <div class="max-w-sm rounded shadow-lg">
               <div class="px-6 py-4 bg-gray-800" >
-                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-blue-500 text-white py-4">Admin and You Chat</div>
+                <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-red-500 text-white py-4">Admin and You Chat</div>
                 <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv1" >
                 <div v-for="(message, index) in orderData.shopperChat" :key="message.timestamp">
                   <div class="chat"
-                  :class="{ 'chat-start':  message.from === 'dgoon', 
-                  'chat-end':  message.from !== 'dgoon' }">
+                  :class="{ 'chat-start':  message.sender !== 'shopper', 
+                  'chat-end':  message.sender === 'shopper' }">
                     <div class="chat-image avatar">
                       <div class="w-10 rounded-full">
-                        <img :src="getChatImage(message.from)" />
+                        <img :src="getChatImage(message.sender)" />
                       </div>
                     </div>
                     <div class="chat-header text-white">
-                      {{ message.from }}
+                      {{ message.sender }}
                     </div>
                     <div class="chat-bubble break-words">{{ message.message }} </div>
                     <div class="chat-footer text-white">
-                      Sent at {{localTime(message.sent)}}
+                      Sent at {{localTime(message.timestamp)}}
                     </div>
                   </div>
               </div>

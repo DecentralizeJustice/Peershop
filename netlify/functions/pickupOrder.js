@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
           storeAddress,
           {
               'amount': paymentDue,
-              'speedPolicy': 'LowSpeed',
+              'speedPolicy': 'MediumSpeed',
               'checkout': {
                   'paymentMethods': [
                       'XMR'

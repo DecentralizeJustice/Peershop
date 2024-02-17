@@ -2,16 +2,18 @@
 import axios from 'axios';
 import { ref, onMounted, toRef } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { CheckIcon } from '@heroicons/vue/24/outline'
 const open = ref(false)
 const emit = defineEmits(['refresh'])
 const message = ref('')
+const message1 = ref('')
 const customChatDiv = ref(null)
 const customChatDiv1 = ref(null)
 const props = defineProps({
-  orderData: Object
+  orderData: Object,
+  numberArray: Array
 })
 const orderData = toRef(props, 'orderData')
+const numberArray = toRef(props, 'numberArray')
 function waitforme(millisec) {
     return new Promise(resolve => {
         setTimeout(() => { resolve('') }, millisec);
@@ -21,21 +23,34 @@ async function initialSetup() {
   try {
     await waitforme(500)
     const div = customChatDiv.value
-    const div1 = customChatDiv.value
+    const div1 = customChatDiv1.value
     div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
     div1.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
   } catch (error) {
     console.log(error)
   }
 }
-async function sendMessage() {
-  await axios.post('/.netlify/functions/sendMessage',
+async function sendMessage(to) {
+  await axios.post('/.netlify/functions/sendCustomerMessage',
   { 
-    chatID: orderData.value.orders[0].chatID, 
+    to: to, 
     message: message.value,
-    sender: 'shopper'
+    sender: 'shopper',
+    passphrase: numberArray.value
   })
   message.value = ''
+  refresh()
+}
+
+async function sendMessage1(to) {
+  await axios.post('/.netlify/functions/sendCustomerMessage',
+  { 
+    to: to, 
+    message: message1.value,
+    sender: 'shopper',
+    passphrase: numberArray.value
+  })
+  message1.value = ''
   refresh()
 }
 async function refresh(){
@@ -131,7 +146,7 @@ onMounted(async() => {
                       </div>
                     </div>
                     <div class="chat-header text-white">
-                      {{ message.sender }}
+                      {{ message.sender.charAt(0).toUpperCase() + message.sender.slice(1) }}
                     </div>
                     <div class="chat-bubble break-words">{{ message.message }} </div>
                     <div class="chat-footer text-white">
@@ -145,7 +160,7 @@ onMounted(async() => {
             v-model="message"></textarea>
             <div class="flex flex-wrap my-1">
               <div class="w-full lg:w-1/2 p-2"><button @click="refresh" class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
+                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage("everyone")' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
               </div>
               </div>
             </div>
@@ -179,105 +194,15 @@ onMounted(async() => {
                      
             </div>
             <textarea class="appearance-none px-2 md:px-6 my-5 py-5 w-full text-lg text-gray-500 font-bold bg-gray-900 placeholder-gray-500 outline-none focus:ring-4 focus:ring-blue-200 rounded-3xl" type="text" rows="4" placeholder="Enter your message"
-            v-model="message"></textarea>
+            v-model="message1"></textarea>
             <div class="flex flex-wrap my-1">
               <div class="w-full lg:w-1/2 p-2"><button @click="refresh" class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 rounded-full">Check For New Messages</button></div>
-                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
+                <div class="w-full lg:w-1/2 p-2"><button @click='sendMessage1("Admin DGoon")' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-green-500 hover:bg-green-600  rounded-full">Send Message</button></div>
               </div>
               </div>
             </div>
             </div>
           </div>
-          
-
-<!--           <div class="w-full md:w-1/2 break-words">
-              <div class="px-10 mx-auto">
-                <div class="rounded shadow-lg">
-                <div class=" bg-gray-800" >
-                  <div class="font-bold mb-2 text-center mb-5 bg-blue-500 text-white py-4">
-                    <div class="text-xl px-5">Order Info</div>
-                  </div>
-                  <div style="height: 60vh;" class="overflow-auto px-5" ref="customChatDiv2">
-                  <div class="text-white text-left text-xl">
-                    <p> Item List:</p>
-                    <br/>
-                    <li v-for="(thing, key) in orderData.orders[0].itemList">
-                      {{ key + 1}}: <br/>
-                      Link: {{ thing.link }}<br/>
-                      Notes: {{ thing.description }}<br/>
-                      Cost: {{ thing.cost }}<br/>
-                      Quantity: {{ thing.quantity }}<br/>
-                    </li>
-                  </div>
-                  <div class="text-white text-left text-xl" v-if="orderData.orders[0].addressInfo"
-                  >
-                    <br/>
-                    <h2>Address Info:</h2>
-            <p style="text-indent: 2em;">Name: {{ orderData.orders[0].addressInfo.fullname }}</p>
-            <p style="text-indent: 2em;">Street: {{ orderData.orders[0].addressInfo.streetAddress }}</p>
-            <p style="text-indent: 2em;">Apt/Suit: {{ orderData.orders[0].addressInfo.aptNumber }}</p>
-            <p style="text-indent: 2em;">City: {{ orderData.orders[0].addressInfo.city }}</p>
-            <p style="text-indent: 2em;">Zipcode: {{ orderData.orders[0].addressInfo.zipcode }}</p>
-            <p style="text-indent: 2em;">Country: {{ orderData.orders[0].addressInfo.country }}</p>
-                  </div>
-
-
-                  <div class="text-white text-left text-xl"
-                  >
-                  <p v-if="orderData.orders[0].lockerName">
-                    <br/>
-                    Locker Name:<br/> {{ orderData.orders[0].lockerName }}</p>
-                  </div>
-
-                  <div class="text-white text-left text-xl"
-                  >
-                  <p v-if="orderData.orders[0].lockerZipcode">
-                    <br/>
-                    Locker Zipcode:<br/> {{ orderData.orders[0].lockerZipcode }}</p>
-                  </div>
-                  <div class="text-white text-left text-xl"
-                  >
-                  <p v-if="orderData.orders[0].country">
-                    <br/>
-                    Country:<br/> {{ orderData.orders[0].country }}</p>
-                  </div>
-
-
-
-                  <br/>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Notes:</p>
-                    <p>{{orderData.orders[0].extraNotes}}</p>
-                  </div>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Total (USD):</p>
-                    <p>{{orderData.orders[0].totalUSD}}</p>
-                  </div>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Tax (USD):</p>
-                    <p>{{orderData.orders[0].taxAmountUSD}}</p>
-                  </div>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Item Subtotal(USD):</p>
-                    <p>{{orderData.orders[0].itemsSubtotal}}</p>
-                  </div>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Total Order Fee(USD):</p>
-                    <p>{{orderData.orders[0].orderFeeUSD}}</p>
-                  </div>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Tip(USD):</p>
-                    <p>{{orderData.orders[0].extraAmountUSD}}</p>
-                  </div>
-                  <div class="text-white text-left text-xl py-3">
-                    <p> Refund Address:</p>
-                    <p>{{orderData.orders[0].refundAddress}}</p>
-                  </div>  
-              </div>
-                </div>
-              </div>
-              </div>
-            </div> -->
 
         </div>
       </div>

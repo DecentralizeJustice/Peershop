@@ -10,6 +10,7 @@ import shopperLogin from '@/components/login/shopperLogin.vue'
 const passphraseWords = ref(["", "", "", "", "", "", "", ""])
 const wrongWord = ref(999)
 const orderData = ref({})
+const numberArrayPass = ref([])
 const orderDoesNotExist = ref(false)
 const shopperTrue = ref(false)
 function getPassphraseInputLabels(i) {
@@ -45,6 +46,7 @@ async function signIn() {
       throw new Error('Order does not exist')
     }
     orderData.value = results.data
+    numberArrayPass.value = numberArray
     shopperTrue.value = true
     componentKey.value += .00000000000000001
   } catch (error) {
@@ -129,7 +131,7 @@ watch(
 </section>
 <section> 
   <shopperLogin :orderData="orderData" v-if="shopperTrue"
-    @refresh="signIn" :key="componentKey"/>
+    @refresh="signIn" :key="componentKey" :numberArray="numberArrayPass"/>
 </section>
 </template>
 

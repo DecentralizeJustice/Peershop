@@ -8,10 +8,11 @@ exports.handler = async (event) => {
 
   try {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
-    const collection = client.db("orders").collection("lockerOrders")
+    const collection = client.db("orders").collection("genOrders")
 
     const parsed = JSON.parse(event.body)
 
+    console.log(parsed)
     const numberArray = parsed.passphrase
     const numberArraySchema = Joi.array().length(8).items(Joi.number().max(2050).min(0))
     await numberArraySchema.validateAsync(numberArray)
@@ -25,15 +26,20 @@ exports.handler = async (event) => {
     await senderSchema.validateAsync(sender)
 
     const to = parsed.to
-    const toSchema = Joi.string().required().valid('dgoon','everyone')
+    const toSchema = Joi.string().required().valid('Admin DGoon','everyone')
     await toSchema.validateAsync(to)
 
-    if(sender === 'shopper' && to === 'dgoon'){
+    if(sender === 'shopper' && to === 'everyone'){
       await collection.updateOne(
-        { shopperPassphrase: numberArray.toString() },
-        { $push: { shopperChat: { message: message, timestamp: Date.now(), sender: sender } } }
+        {'metaData.shopperPassphrase': { $eq: numberArray.toString() }},
+        { $push: { 'chats.everyoneChat': { message: message, timestamp: Date.now(), sender: sender } } }
       )
-      console.log('shopper to dgoon message entered')
+    }
+    if(sender === 'shopper' && to === 'Admin DGoon'){
+      await collection.updateOne(
+        {'metaData.shopperPassphrase': { $eq: numberArray.toString() }},
+        { $push: { 'chats.shopperChat': { message: message, timestamp: Date.now(), sender: sender } } }
+      )
     }
   return {
     statusCode: 200,

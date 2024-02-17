@@ -41,6 +41,19 @@ exports.handler = async (event) => {
         { $push: { 'chats.shopperChat': { message: message, timestamp: Date.now(), sender: sender } } }
       )
     }
+
+    if(sender === 'earner' && to === 'everyone'){
+      await collection.updateOne(
+        {'metaData.earnerPassphrase': { $eq: numberArray.toString() }},
+        { $push: { 'chats.everyoneChat': { message: message, timestamp: Date.now(), sender: sender } } }
+      )
+    }
+    if(sender === 'earner' && to === 'Admin DGoon'){
+      await collection.updateOne(
+        {'metaData.earnerPassphrase': { $eq: numberArray.toString() }},
+        { $push: { 'chats.earnerChat': { message: message, timestamp: Date.now(), sender: sender } } }
+      )
+    }
   return {
     statusCode: 200,
     body: ''

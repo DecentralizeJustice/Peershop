@@ -17,25 +17,23 @@ exports.handler = async (event) => {
     await numberArraySchema.validateAsync(numberArray)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
     const collection = client.db("orders").collection("genOrders")
-    const info = await collection.findOne({'metaData.shopperPassphrase': { $eq: numberArray.toString() }})
+    const info = await collection.findOne({'metaData.earnerPassphrase': { $eq: numberArray.toString() }})
     
     if(info === null){ 
       return {
-        statusCode: 409,
+        statusCode: 200,
         body: JSON.stringify({ error: 'account does not exist' })
       }
     }
-    const infoForShopper = {
-      genOrderInfo: info.orderDetails.allOrderInformation.orderInfo.metadata.info,
-      shopperChat: info.chats.shopperChat,
+    const infoForEarner = {
+      // genOrderInfo: info.orderDetails.allOrderInformation.orderInfo.metadata.info,
+      earnerChat: info.chats.earnerChat,
       everyoneChat: info.chats.everyoneChat,
     }
-    infoForShopper.genOrderInfo.constants = info.orderDetails.allOrderInformation.orderInfo.metadata.constants
-    delete infoForShopper.genOrderInfo.passphraseArray
 
   return {
     statusCode: 200,
-    body: JSON.stringify(infoForShopper)
+    body: JSON.stringify(infoForEarner)
   }
   } catch (error) {
     console.log(error)

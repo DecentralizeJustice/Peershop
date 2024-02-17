@@ -6,6 +6,7 @@ const router = useRouter()
 const componentKey = ref(0)
 import words from '@/assets/bip39Wordlist.txt?raw'
 import shopperLogin from '@/components/login/shopperLogin.vue'
+import earnerLogin from '@/components/login/earnerLogin.vue'
 
 const passphraseWords = ref(["", "", "", "", "", "", "", ""])
 const wrongWord = ref(999)
@@ -13,6 +14,7 @@ const orderData = ref({})
 const numberArrayPass = ref([])
 const orderDoesNotExist = ref(false)
 const shopperTrue = ref(false)
+const earnerTrue = ref(false)
 function getPassphraseInputLabels(i) {
   var j = i % 10,
         k = i % 100;
@@ -40,14 +42,20 @@ async function signIn() {
       }
       numberArray.push(number)
     }
-    const results = await axios.post('/.netlify/functions/shopperLogin', { accountPhrase: numberArray })
-    if (results.data === null) {
-      orderDoesNotExist.value = true
-      throw new Error('Order does not exist')
+    let results = await axios.post('/.netlify/functions/shopperLogin', { accountPhrase: numberArray })
+    if (results.data.error) {
+      results = await axios.post('/.netlify/functions/earnerLogin', { accountPhrase: numberArray })
+      if(results.data.error){
+        orderDoesNotExist.value = true
+        throw new Error('Order does not exist')
+      }else{
+        earnerTrue.value = true
+      }
+    } else{
+      shopperTrue.value = true
     }
     orderData.value = results.data
     numberArrayPass.value = numberArray
-    shopperTrue.value = true
     componentKey.value += .00000000000000001
   } catch (error) {
     orderDoesNotExist.value = true
@@ -131,6 +139,8 @@ watch(
 </section>
 <section> 
   <shopperLogin :orderData="orderData" v-if="shopperTrue"
+    @refresh="signIn" :key="componentKey" :numberArray="numberArrayPass"/>
+  <earnerLogin :orderData="orderData" v-if="earnerTrue"
     @refresh="signIn" :key="componentKey" :numberArray="numberArrayPass"/>
 </section>
 </template>

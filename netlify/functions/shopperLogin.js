@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     
     if(info === null){ 
       return {
-        statusCode: 409,
+        statusCode: 200,
         body: JSON.stringify({ error: 'account does not exist' })
       }
     }

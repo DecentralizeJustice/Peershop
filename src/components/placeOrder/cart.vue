@@ -42,7 +42,7 @@ const buttonError = computed(() => {
     return 'Wishlist Link Incomplete'
   }
   if(listTotal.value<globalJson.minBudgetOrder){
-    return 'Order Total Too Low'
+    return `Order Min. is ${globalJson.minBudgetOrder} USD`
   }
   if(xmrRefundAddress.value.length<45){
     return 'XMR Refund Address Error'

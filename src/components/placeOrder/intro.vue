@@ -62,17 +62,17 @@ const allready = computed(() => {
           
           <div class="w-full md:w-1/2 p-8 ">
             <div class="md:max-w-md mx-auto text-center">
-              <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Anon Shop Intro</span>
+              <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Peer Shop Intro</span>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
-                      Anon shop is a peer-to-peer marketplace that 
-                      allows you to shop on Amazon using wishlist and Monero.
+                      Peer Shop is a peer-to-peer marketplace that 
+                      allows you to shop on Amazon using gift registries and Monero.
                       You first create a wish list on Amazon. You then place your order here.
                       Another person from the Monero Community then arranges for your order to be completed.
-                      Once your items arrived, the funds are released to the correct party.
+                      Once your items arrive, the funds are released to the correct party.
                     </p>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
                       Please read more about how we work and click the toggle boxes next to the order requirements. 
-                      After that you can continue to place a order. <br/><br/>Here is a video on how to make a amazon wishlist: https://www.youtube.com/watch?v=qo7NgqCHbK0 
+                      After that, you can continue to place an order. <br/><br/>Here is a video on how to make an Amazon gift registry: https://www.youtube.com/watch?v=qo7NgqCHbK0 
                     </p>
             </div>
           </div>

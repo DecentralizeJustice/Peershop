@@ -86,7 +86,7 @@ const messageArray = ref([])
     </div>
   </div>
 </section>
-<section class="py-12 bg-gray-800 overflow-hidden"><div class="container mx-auto px-4">
+<!-- <section class="py-12 bg-gray-800 overflow-hidden"><div class="container mx-auto px-4">
   <div class="relative">
     <div class="absolute top-1/2 left-1/2 min-w-max transform -translate-x-1/2 -translate-y-1/2">
       <div class="absolute bg-gradient-radial-dark-light w-full h-full"></div><img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685927797/landingpage/pattern-dark-light.png" alt=""></div>
@@ -126,9 +126,6 @@ const messageArray = ref([])
               <h2 class="font-heading text-4xl text-white font-black tracking-tight"><span>{{globalJson.addressPercentage}}% (Min {{globalJson.addressMinFee}}) USD</span></h2>
               <p class="mb-8 text-sm text-blue-200 font-bold">Deliver Any Item to Any Address</p>
               <ul>
-<!--                 <li class="flex items-center mb-4">
-                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">80% Discount for 3 Month Commitment</p>
-                </li> -->
                 <li class="flex items-center mb-4">
                 <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8335L7.50033 14.1668L15.8337 5.8335" stroke="#F3F4F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Requires Address</p>
                 </li>
@@ -155,9 +152,6 @@ const messageArray = ref([])
               <h2 class="font-heading text-4xl text-white font-black tracking-tight">Up To 10% Discount</h2>
               <p class="mb-8 text-sm text-gray-700 font-bold">Peer to Peer Savings</p>
               <ul>
-<!--                 <li class="flex items-center mb-4">
-                <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">87% Discount for 1 Year Commitment</p>
-                </li> -->
                 <li class="flex items-center mb-4">
                 <svg class="mr-2.5" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.16699 10.8333L7.50033 14.1667L15.8337 5.83333" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p class="text-gray-100 font-bold">Pick Your Own Discount</p>
                 </li>
@@ -182,17 +176,14 @@ const messageArray = ref([])
     </div>
   </div>
   </div>
-</section>
+</section> -->
 <section class="py-16 bg-gray-800 overflow-hidden">
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap lg:items-center -m-8">
       <div class="w-full md:w-1/2 p-8">
         <div class="md:max-w-md"><span class="inline-block mb-4 text-sm text-blue-500 font-bold uppercase tracking-widest">How it works</span>
-          <h2 class="font-heading mb-6 text-4xl md:text-5xl text-gray-100 font-black tracking-tight" contenteditable="false">Spend Your Monero Anywhere</h2>
-          <p class="mb-5 text-gray-500 font-bold">I have built a open &amp; private system that gives you the ability to spend Monero on any website. I have processed hundreds of orders with great flexibility and customer service.</p>
-<!--           <div class="flex flex-wrap -m-2">
-            <div class="w-full md:w-auto p-2"><a class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 rounded-full">Coming Soon</a></div>
-          </div> -->
+          <h2 class="font-heading mb-6 text-4xl md:text-5xl text-gray-100 font-black tracking-tight" contenteditable="false">Discounts on Amazon with Monero</h2>
+          <p class="mb-5 text-gray-500 font-bold">I have built a secure &amp; private system that gives you the ability to spend Monero on Amazon using a peer-to-peer system. This system uses zero-knowledge proofs to reduce fraud and spam also!</p>
         </div>
       </div>
       <div class="w-full md:w-1/2 p-8">
@@ -233,8 +224,8 @@ const messageArray = ref([])
                     <div class="w-px h-24 bg-gray-700"></div>
                   </div>
                   <div class="flex-1 p-4">
-                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">I Message You</h3>
-                    <p class="text-gray-500 font-bold">I have a built in chat into Anon Shop. Using this chat, I will keep you updated on your order.</p>
+                    <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Earner Selects Order</h3>
+                    <p class="text-gray-500 font-bold">A earner selects and places your order. The built-in chat plus Amazon keeps you updated about your order,</p>
                   </div>
                 </div>
               </div>
@@ -252,7 +243,7 @@ const messageArray = ref([])
                   </div>
                   <div class="flex-1 p-4">
                     <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Your Order Arrives</h3>
-                    <p class="text-gray-500 font-bold">Your order arrives. If you need to return it or need any other help, I can also help at this point. </p>
+                    <p class="text-gray-500 font-bold">Your order arrives. If everything is good to go, the funds in escrow are released to the correct party. </p>
                   </div>
                 </div>
               </div>

@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="flex flex-wrap items-center">
             <div class="w-auto hidden lg:block">
               <ul class="flex items-center justify-center">
-                <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300 " href="/messageMe">Message Me</a></li>
+                <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300 " href="/messageMe">Ask Question</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/faq">FAQ</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/placeorder">Place Order</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/orderbook">Order Book</a></li>
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="flex flex-col justify-center py-8 w-full">
               <ul>
-                <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/messageMe">Message Me</a></li>
+                <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/messageMe">Ask Question</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/faq">FAQ</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/placeorder">Place Order</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/orderbook">Order Book</a></li>

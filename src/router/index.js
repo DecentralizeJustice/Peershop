@@ -4,6 +4,7 @@ import placeOrder from "../views/placeOrder.vue"
 import pickupOrder from "../views/pickupOrder.vue"
 import Login from "../views/login.vue"
 import faq from "../views/faq.vue"
+import guides from "../views/guides.vue"
 import orderbook from "../views/orderbook.vue"
 import messageMe from "../views/messageMe.vue"
 import admin from "../views/admin.vue"
@@ -43,6 +44,11 @@ const router = createRouter({
       path: "/faq",
       name: "faq",
       component: faq
+    },
+    {
+      path: "/guides",
+      name: "guides",
+      component: guides
     },
     {
       path: "/orderbook",

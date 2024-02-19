@@ -22,7 +22,7 @@ exports.handler = async (event) => {
   const result = await mg.messages.create(DOMAIN, {
     from: "Anon Server <me@samples.mailgun.org>",
     to: [myEmail],
-    subject: "New Anon Shop Message!",
+    subject: "New Peer Shop Message!",
     text: `${message}`
   })
   console.log(result)

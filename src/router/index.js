@@ -12,7 +12,7 @@ import markdown from "../components/markdown.vue"
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/:catchAll(.*)", component: HomeView },
+    { path: "/:catchAll(.*)", redirect: '/' },
     {
       path: "/",
       name: "home",
@@ -56,7 +56,7 @@ const router = createRouter({
     {
       path: "/guides/:option",
       component: markdown,
-      props: { default: true, litepaper: false }
+      props: { default: true }
     },
     {
       path: '/litepaper',

@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ref, onMounted } from 'vue'
 import globalJson from '@/assets/globalInfo.json'
+import faq from '@/views/faq.vue'
 const customChatDiv = ref(null);
 
 function waitforme(millisec) {
@@ -254,6 +255,7 @@ const messageArray = ref([])
     </div>
   </div>
 </section>
+<faq/>
 </template>
 
 <style scoped>

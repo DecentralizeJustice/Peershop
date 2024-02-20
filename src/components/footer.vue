@@ -11,7 +11,6 @@
       <div class="relative flex flex-col justify-centers"><a class="inline-block max-w-max mx-auto mb-10" href="#"></a>
         <ul class="-m-6 mb-7 text-center text-white">
           <li class="inline-flex p-6"><a class="inline-block text-white hover:text-gray-600 font-bold" href="/messageMe">Message Me</a></li>
-          <li class="inline-flex p-6"><a class="inline-block  hover:text-gray-600 font-bold" href="/faq">FAQ</a></li>
           <li class="inline-flex p-6"><a class="inline-block  hover:text-gray-600 font-bold" href="https://blog.anonindustries.com/">Blog</a></li>
           <li class="inline-flex p-6"><a class="inline-block  hover:text-gray-600 font-bold" href="https://res.cloudinary.com/dylevfpbl/image/upload/v1669904250/ExecuteWorkflow.jpg">Business Registration</a></li>
 <!--           <li class="inline-flex p-6"><a class="inline-block text-gray-500 hover:text-gray-600 font-bold" href="#">About Us</a></li>

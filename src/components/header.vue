@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="w-auto">
           <div class="flex flex-wrap items-center">
                 <div class="w-auto"><a href="/">
-                  <img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1688689613/landingpage/Phantom_Phone_2.png" alt=""></a></div>
+                  <img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1708390933/landingpage/Copy_of_Phantom_Phone.png" alt=""></a></div>
               </div>
         </div>
         <div class="w-auto">
@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
               <ul class="flex items-center justify-center">
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300 " href="/messageMe">Ask Question</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/guides">Guide</a></li>
-                <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/faq">FAQ</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/placeorder">Place Order</a></li>
                 <li class="mr-9"><a class="inline-block text-lg font-bold text-gray-200 hover:text-gray-300" href="/orderbook">Order Book</a></li>
 <!--                 <li class="mr-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="#">Solutions</a></li>
@@ -108,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="flex flex-col justify-center py-8 w-full">
               <ul>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/messageMe">Ask Question</a></li>
-                <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/faq">FAQ</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/guides">Guide</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/placeorder">Place Order</a></li>
                 <li class="mb-9"><a class="inline-block text-sm font-bold text-gray-200 hover:text-gray-300" href="/orderbook">Order Book</a></li>

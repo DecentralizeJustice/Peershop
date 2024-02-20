@@ -4,8 +4,8 @@ import markdownit from 'markdown-it'
 import genMD from '@/assets/markdown/general.md?raw'
 import earnerMD from '@/assets/markdown/earner.md?raw'
 import shopperMD from '@/assets/markdown/shopper.md?raw'
-const route = useRoute()
 
+const route = useRoute()
 const option = route.params.option
 
 const md = markdownit({
@@ -30,8 +30,12 @@ switch (option) {
 </script>
 
 <template>
-<section class="">
-  <span v-html="rawHtml"></span>
+<section class="py-10 bg-gray-800 overflow-hidden">
+  <div class="container mx-auto px-4">
+    <div class="relative py-16 px-8 bg-gray-900 overflow-hidden rounded-3xl text-white">
+      <span v-html="rawHtml"></span>
+    </div>
+  </div>
 </section>
 </template>
 

@@ -35,7 +35,7 @@ function selectQuestion(chosen) {
             <div class="h-full bg-gray-800 rounded-3xl">
               <img class="w-full rounded-3xl" src="https://res.cloudinary.com/dylevfpbl/image/upload/v1708380200/landingpage/0_2.webp" alt="">
               <div class="p-8 text-center">
-                <a class="group inline-block mb-4" href="#">
+                <a class="group inline-block mb-4" href="/guides/shopper">
                   <h3 class="font-heading text-2xl text-white hover:text-blue-600 group-hover:underline font-black">How To Shop</h3>
                 </a>
               </div>
@@ -45,7 +45,7 @@ function selectQuestion(chosen) {
             <div class="h-full bg-gray-800 rounded-3xl">
               <img class="w-full rounded-3xl" src="https://res.cloudinary.com/dylevfpbl/image/upload/v1708381343/landingpage/dgoon21_a_person_earning_money_bbbcf093-5dec-4859-b43e-235da31b6650.png" alt="">
               <div class="p-8 text-center">
-                <a class="group inline-block mb-4" href="#">
+                <a class="group inline-block mb-4" href="/guides/earner">
                   <h3 class="font-heading text-2xl text-white hover:text-blue-600 group-hover:underline font-black">How To Earn</h3>
                 </a>
               </div>
@@ -55,7 +55,7 @@ function selectQuestion(chosen) {
             <div class="h-full bg-gray-800 rounded-3xl">
               <img class="w-full rounded-3xl" src="https://res.cloudinary.com/dylevfpbl/image/upload/v1708381901/landingpage/dgoon21_a_monero_branded_vending_machine_8ab87c64-cd63-4a98-856d-1fee614448ad.png" alt="">
               <div class="p-8 text-center">
-                <a class="group inline-block mb-4 text-center" href="#">
+                <a class="group inline-block mb-4 text-center" href="/guides/general">
                   <h3 class="font-heading text-2xl text-white hover:text-blue-600 group-hover:underline font-black text-center">General Guide</h3>
                 </a>
               </div>

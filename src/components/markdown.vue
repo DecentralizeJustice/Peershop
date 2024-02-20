@@ -4,16 +4,23 @@ import markdownit from 'markdown-it'
 import genMD from '@/assets/markdown/general.md?raw'
 import earnerMD from '@/assets/markdown/earner.md?raw'
 import shopperMD from '@/assets/markdown/shopper.md?raw'
+import litepaperMD from '@/assets/markdown/litepaper.md?raw'
 
 const route = useRoute()
-const option = route.params.option
+let option = route.params.option
+
+const props = defineProps(['litepaper'])
+
+if(props.litepaper){
+  option = 'litepaper'
+}
 
 const md = markdownit({
   html: true,
   linkify: true,
   typographer: true
 })
-let rawHtml = md.render('# markdown-it rulezz!')
+let rawHtml = ''
 switch (option) {
   case 'general':
     rawHtml = md.render(genMD)
@@ -23,6 +30,9 @@ switch (option) {
     break;
   case 'shopper':
     rawHtml = md.render(shopperMD)
+    break;
+  case 'litepaper':
+    rawHtml = md.render(litepaperMD)
     break;
   default:
     rawHtml = md.render(genMD)

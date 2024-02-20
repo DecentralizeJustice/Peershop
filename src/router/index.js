@@ -56,8 +56,13 @@ const router = createRouter({
     {
       path: "/guides/:option",
       component: markdown,
-      props: { default: true }
-    }         
+      props: { default: true, litepaper: false }
+    },
+    {
+      path: '/litepaper',
+      component: markdown,
+      props: { litepaper: true }
+    }    
   ],
 })
 

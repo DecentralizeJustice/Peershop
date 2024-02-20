@@ -43,7 +43,7 @@ switch (option) {
 <section class="py-10 bg-gray-800 overflow-hidden content-center">
   <div class="container px-4 mx-auto">
     <div class="relative py-16 mx-auto px-8 bg-gray-900 overflow-hidden rounded-3xl  w-full md:w-2/3">
-      <span v-html="rawHtml" class="prose prose-lg text-white"></span>
+      <span v-html="rawHtml" class="prose prose-lg prose-headings:text-white text-white prose-a:text-blue-600"></span>
     </div>
   </div>
 </section>

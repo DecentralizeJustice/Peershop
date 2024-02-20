@@ -40,10 +40,10 @@ switch (option) {
 </script>
 
 <template>
-<section class="py-10 bg-gray-800 overflow-hidden">
-  <div class="container mx-auto px-4">
-    <div class="relative py-16 px-8 bg-gray-900 overflow-hidden rounded-3xl text-white">
-      <span v-html="rawHtml"></span>
+<section class="py-10 bg-gray-800 overflow-hidden content-center">
+  <div class="container px-4 mx-auto">
+    <div class="relative py-16 mx-auto px-8 bg-gray-900 overflow-hidden rounded-3xl  w-full md:w-2/3">
+      <span v-html="rawHtml" class="prose prose-lg text-white"></span>
     </div>
   </div>
 </section>

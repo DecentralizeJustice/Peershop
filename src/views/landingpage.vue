@@ -73,7 +73,7 @@ const messageArray = ref([])
             <div class="absolute bg-gradient-radial-dark w-full h-full"></div><img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685922792/landingpage/pattern-grid-dark-light.svg" alt="">
           </div>
           <div class="relative max-w-lg"><span class="inline-block mb-3 text-sm text-blue-500 font-bold uppercase tracking-widest">Anon Shop</span>
-            <h1 class="font-heading mb-6 text-5xl text-white font-black tracking-tight"><span>Get Monero discounts from</span><span class="text-blue-500"> Amazon!</span><span></span></h1>
+            <h1 class="font-heading mb-6 text-5xl text-white font-black tracking-tight"><span>Get Discounts on Amazon with</span><span class="text-blue-500"> Monero!</span><span></span></h1>
             <p class="mb-8 text-xl text-gray-500 font-bold">A Cheap, Safe,and Easy bridge between Monero and Amazon!</p>
             <div class="flex flex-wrap justify-center -m-2">
               <div class="w-full md:w-auto p-2"><a href="/placeorder"
@@ -226,7 +226,7 @@ const messageArray = ref([])
                   </div>
                   <div class="flex-1 p-4">
                     <h3 class="font-heading mb-3 text-2xl text-gray-100 font-bold">Earner Selects Order</h3>
-                    <p class="text-gray-500 font-bold">A earner selects and places your order. The built-in chat plus Amazon keeps you updated about your order,</p>
+                    <p class="text-gray-500 font-bold">An earner selects and places your order. The built-in chat plus Amazon keeps you updated about your order,</p>
                   </div>
                 </div>
               </div>

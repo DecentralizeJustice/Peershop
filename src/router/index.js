@@ -7,14 +7,8 @@ import guides from "../views/guides.vue"
 import orderbook from "../views/orderbook.vue"
 import messageMe from "../views/messageMe.vue"
 import admin from "../views/admin.vue"
-/* const User = {
-  template: `
-    <div class="user">
-      <h2>User {{ $route.params.id }}</h2>
-      <router-view></router-view>
-    </div>
-  `
-} */
+import markdown from "../components/markdown.vue"
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -58,6 +52,11 @@ const router = createRouter({
       path: "/pickuporder",
       name: "pickuporder",
       component: pickupOrder
+    },
+    {
+      path: "/guides/:option",
+      component: markdown,
+      props: { default: true }
     }         
   ],
 })

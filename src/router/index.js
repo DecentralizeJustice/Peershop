@@ -6,7 +6,6 @@ import Login from "../views/login.vue"
 import guides from "../views/guides.vue"
 import orderbook from "../views/orderbook.vue"
 import messageMe from "../views/messageMe.vue"
-import admin from "../views/admin.vue"
 import markdown from "../components/markdown.vue"
 
 const router = createRouter({
@@ -42,11 +41,6 @@ const router = createRouter({
       path: "/orderbook",
       name: "orderbook",
       component: orderbook
-    },
-    {
-      path: "/admin",
-      name: "admin",
-      component: admin
     },
     {
       path: "/pickuporder",

@@ -11,7 +11,7 @@ const enabled4 = ref(false)
 const requirements = [
 {
     title: 'Check Order Regularly',
-    text: `You'r required to check on your order every day.`
+    text: `You are required to check on your order every day.`
   },
   {
     title: 'Ships from Amazon.com',
@@ -29,6 +29,11 @@ const requirements = [
     title: 'Variable Pricing',
     text: `Since we do not have native Amazon support, our pricing is just an estimate. You might pay more.`
   }, */
+
+  {
+    title: 'Gift Registry Only',
+    text: `We only use Gift Registries, not wish lists. You should create a shareable gift registry.`
+  },
   {
     title: 'Other Constraints',
     text: `Here are the other limits for items that can be shipped: https://shorturl.at/eiqF2`
@@ -66,13 +71,13 @@ const allready = computed(() => {
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
                       Peer Shop is a peer-to-peer marketplace that 
                       allows you to shop on Amazon using gift registries and Monero.
-                      You first create a wish list on Amazon. You then place your order here.
+                      You first create a gift registry (not a wish list) on Amazon. You then place your order here.
                       Another person from the Monero Community then arranges for your order to be completed.
                       Once your items arrive, the funds are released to the correct party.
                     </p>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
                       Please read more about how we work and click the toggle boxes next to the order requirements. 
-                      After that, you can continue to place an order. <br/><br/>Here is a video on how to make an Amazon gift registry: https://www.youtube.com/watch?v=qo7NgqCHbK0 
+                      After that, you can continue to place an order. <br/><br/>Here is a video on how to make an Amazon Gift Registry: https://www.youtube.com/watch?v=3dx4lSit6MI 
                     </p>
             </div>
           </div>
@@ -125,7 +130,7 @@ const allready = computed(() => {
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[4].text }}</p>
                     </SwitchLabel>
                   </SwitchGroup>
-<!--                   <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
+                  <SwitchGroup as="div" class="flex items-center justify-stretch mt-5">
                     <Switch v-model="enabled5" :class="[enabled5 ? 'bg-blue-500' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
                       <span aria-hidden="true" :class="[enabled5 ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
                     </Switch>
@@ -133,7 +138,7 @@ const allready = computed(() => {
                       <h4 class="font-medium  text-3xl text-blue-500">{{ requirements[5].title }}</h4>
                       <p class="text-white text-xl mt-4 text-left">{{ requirements[5].text }}</p>
                     </SwitchLabel>
-                  </SwitchGroup> -->
+                  </SwitchGroup>
               </div>
           </div>
           <div class="w-full p-2 justify center">

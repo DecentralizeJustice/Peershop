@@ -2,7 +2,7 @@
 
 ## 1 Introduction
 
-The main focus of this guide is to cover the dispute process from the shoppers's perspective, you should read the [General Guide](https://peershop.app/guides/general) for an overview of how the platform works. The focus here will be the dispute process, not the general platform mechanics. This process will very rarely be required, but it is good as an shopper to be familiar with this process.
+The main focus of this guide is to cover the dispute process from the shoppers's perspective, you should read the [General Guide](https://peershop.app/guides/general) for an overview of how the platform works. The focus here will be the dispute process, not the general platform mechanics. This process will very rarely be required, but it is good as a shopper to be familiar with this process.
 
 ## 2 General Tips
 Here are some vital facts about being a shopper on peershop:
@@ -12,7 +12,7 @@ Here are some vital facts about being a shopper on peershop:
 - The [ZK tool](https://github.com/tlsnotary/tlsn-extension) requires an updated chrome browser to use, so you must have access to a chrome desktop browser.
 - The email verification requires [DKIM](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail) support. Most major email providers, such as Gmail support this.
 
-These are vital facts to understand about being an shopper. Now we can cover the detailed process if disputes happen.
+These are vital facts to understand about being a shopper. Now we can cover the detailed process if disputes happen.
 
 ## 3 Detailed Dispute Process for the Shopper
 In cases of dispute, both sides will be asked to deposit more funds in the form of a bond and then provide. Here are the steps that the shopper must go through in cases of dispute.

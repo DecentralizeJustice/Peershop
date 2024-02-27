@@ -3,6 +3,7 @@ import HomeView from "../views/landingpage.vue"
 import placeOrder from "../views/placeOrder.vue"
 import pickupOrder from "../views/pickupOrder.vue"
 import Login from "../views/login.vue"
+import admin from "../views/admin.vue"
 import guides from "../views/guides.vue"
 import orderbook from "../views/orderbook.vue"
 import messageMe from "../views/messageMe.vue"
@@ -56,7 +57,12 @@ const router = createRouter({
       path: '/litepaper',
       component: markdown,
       props: { litepaper: true }
-    }    
+    },
+    {
+      path: '/admin',
+      name: "admin",
+      component: admin
+    }     
   ],
 })
 

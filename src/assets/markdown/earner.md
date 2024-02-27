@@ -4,9 +4,9 @@
 
 The main focus of this guide is to cover the dispute process from the earner's perspective, you should read the [General Guide](https://peershop.app/guides/general) for an overview of how the platform works. The focus here will be the dispute process, not the general platform mechanics. This process will very rarely be required, but it is wise as an earner to be familiar with this process.
 
-## 2 General Tips
+## 2 Earner Requirements
 Here are some vital facts about being an earner on peershop:
-- You should communicate any updates to the order.
+- You should communicate any updates to the order and process the order in a timely manner.
 - If you lose access to your email/account tell the admin, not the shopper.
 - The [ZK tool](https://github.com/tlsnotary/tlsn-extension) requires an updated chrome browser to use, so you must have access to a chrome desktop browser.
 - The email verification requires [DKIM](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail) support. Most major email providers, such as Gmail support this.

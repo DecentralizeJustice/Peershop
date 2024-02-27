@@ -5,7 +5,8 @@
 The main focus of this guide is to cover the dispute process from the shoppers's perspective, you should read the [General Guide](https://peershop.app/guides/general) for an overview of how the platform works. The focus here will be the dispute process, not the general platform mechanics. This process will very rarely be required, but it is good as a shopper to be familiar with this process.
 
 ## 2 General Tips
-Here are some vital facts about being a shopper on peershop:
+Here are some vital facts about being a shopper on Peer Shop:
+- Check on your chat regularly and respond in a reasonable time frame.
 - Do not edit your gift registry after it is made and you have submitted your order.
 - Set your registry at least 3 months in the future.
 - If you lose access to your email/account tell the admin, not the shopper.

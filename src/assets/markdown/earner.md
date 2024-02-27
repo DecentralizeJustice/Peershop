@@ -44,5 +44,5 @@ In the photo below the correct proof is the first item:
 
 The admin in charge of your order will request similar proof from the shopper. After the proof has been submitted from both sides the admin should be able to determine what happened and the appropriate place to send the bond and fees. If you have any questions or concerns about this process please do not hesitate to reach out to your order admin.
 
-## High Value Order Required Proof
+## High Value Orders
 For orders over 900 USD, the earner must submit proof that they used the same card on the current order as on an older order. The older order must be at least 2 months old. The process for creating a proof for this claim is the same as above with the tls-notary chrome browser tool.

@@ -7,28 +7,33 @@ const orders = ref({})
 onMounted(async () => {
   const results = await axios.post('/.netlify/functions/adminGetAllOrders', {})
   orders.value = results.data
+  await initialSetup()
 })
+
+
 const openDia = ref(false)
 const message = ref('')
 const message1 = ref('')
 const message2 = ref('')
 
 
-/* const customChatDiv = ref(null)
+const customChatDiv = ref(null)
 const customChatDiv1 = ref(null)
-const customChatDiv2 = ref(null) */
+const customChatDiv2 = ref(null)
 
-/* async function initialSetup() {
+async function initialSetup() {
   try {
-    await waitforme(500)
-    const div = customChatDiv.value
-    const div1 = customChatDiv1.value
-    div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
-    div1.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
+    // await waitforme(500)
+    // const div = customChatDiv.value
+    // const div1 = customChatDiv1.value
+    // const div2 = customChatDiv2.value
+    // div.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
+    // div1.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
+    // div2.scrollTo({ top: 99999999999999999999999999999, behavior: "smooth" })
   } catch (error) {
     console.log(error)
   }
-} */
+}
 async function sendMessage(to, note,orderId) {
   await axios.post('/.netlify/functions/sendAdminMessage',
   { 
@@ -215,7 +220,7 @@ function getChatImage(sender) {
               <div class="max-w-sm rounded shadow-lg">
               <div class="px-6 py-4 bg-gray-800" >
                 <div class="rounded-md font-bold text-2xl mb-2 text-center mb-5 bg-red-500 text-white py-4">Shopper Chat</div>
-                <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv1" >
+                <div style="height: 40vh;" class="overflow-auto" ref="customChatDiv2" >
                 <div v-for="(message, index) in order.chats.shopperChat" :key="message.timestamp">
                   <div class="chat"
                   :class="{ 'chat-start':  message.sender !== 'Admin DGoon', 

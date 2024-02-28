@@ -22,7 +22,7 @@ The cost to handle disputes does require time. To decrease the abuse of this sys
 ### Step 2: Notarize Proof of Purchase
 The main tool we will use to create proofs of the purchase from Amazon is [tls-notary](https://github.com/tlsnotary/tlsn-extension). 
 #### Get TLS-Notary Chrome Browser Extension
-1. You should go to the link on a desktop or laptop (no mobile or tablet support yet) and install this [version](https://github.com/tlsnotary/tlsn-extension/releases/tag/0.1.0.4-rc.1) of the extension. You should download the [tlsn-extension-0.1.0.4-rc.1.zip](https://github.com/tlsnotary/tlsn-extension/releases/download/0.1.0.4-rc.1/tlsn-extension-0.1.0.4.zip) file. 
+1. You should go to the link on a desktop or laptop (no mobile or tablet support yet) and install this [version](https://github.com/tlsnotary/tlsn-extension/releases/tag/0.1.0.4) of the extension. You should download the [tlsn-extension-0.1.0.4-rc.1.zip](https://github.com/tlsnotary/tlsn-extension/releases/download/0.1.0.4/tlsn-extension-0.1.0.4.zip) file. 
 2. Once you have this downloaded and unzipped enter chrome://extensions/ in your chrome browser. If this does not work for you, click the puzzle symbol to the right of the search bar and select "Manage Extension" from the drop down menu. 
 3. Once you are on this page, you should go to the top right and toggle "Developer Mode"
 4. Now you can go to the top left of this page and click "Load Unpacked" then select the unzipped folder. It should be named something like: tls-extension-0.1.0.4. Once you select this, the extension will be ready to go.

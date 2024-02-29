@@ -100,30 +100,6 @@ function getChatImage(sender) {
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
               <section class="bg-gray-800 overflow-hidden">
-            <TransitionRoot as="template" :show="openDia">
-              <Dialog as="div" class="relative z-10" @close="openDia = false">
-                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-                  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-                </TransitionChild>
-
-                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                      <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-3/4 md:w-1/2 sm:p-6 sm:my-8  break-words">
-                        <div>
-                          <ul class="text-xl">
-                            {{ order }}
-                          </ul>
-                        </div>
-                        <div class="mt-5 sm:mt-6">
-                          <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" @click="openDia = false">Close</button>
-                        </div>
-                      </DialogPanel>
-                    </TransitionChild>
-                  </div>
-                </div>
-              </Dialog>
-            </TransitionRoot>
   <div class="container mx-auto px-4">
     <div class="relative p-10 bg-gray-900 overflow-hidden rounded-3xl">
       
@@ -131,14 +107,7 @@ function getChatImage(sender) {
         <div class="absolute bg-gradient-radial-dark w-full h-full"></div><img src="https://res.cloudinary.com/dylevfpbl/image/upload/v1685928443/landingpage/pattern-dark.png" alt="">
       </div>
       <div class="relative z-10">
-        <div class="flex flex-wrap items-center -m-8">
 
-          <div class="w-full  p-8 ">
-            <div class="w-full  p-2">
-                    <button @click='openDia = true' class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-red-500 hover:bg-red-600  rounded-full">View Order Details</button>
-                  </div>
-          </div>
-          </div>
 
         <div class="flex flex-wrap items-center -m-8">
 
@@ -250,6 +219,16 @@ function getChatImage(sender) {
               </div>
             </div>
             </div>
+          </div>
+          <div class="flex flex-wrap items-center -m-8 bg-black text-white">
+
+          <div class="w-full  p-8 ">
+            <div>
+                          <ul class="text-xl break-all">
+                            {{ order }}
+                          </ul>
+                        </div>
+          </div>
           </div>
 
         </div>

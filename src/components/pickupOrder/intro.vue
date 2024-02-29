@@ -42,7 +42,7 @@ const allready = computed(() => {
           <div class="w-full md:w-1/2 p-8 ">
             <div class="md:max-w-md mx-auto text-center">
               <span class="inline-block mb-6 text-lg text-blue-500 font-bold uppercase tracking-widest">Earn Monero</span>
-                    <p class="mb-8 mt-2 text-2xl text-left text-white">By using this service to earn Monero, you will be ordering Amazon Wishlist items for people. We require a bond from both parties, and we have a system to prevent fraud by both parties. You can read more about this system here: (insert link to guide). Agree to the terms to the right and continue.
+                    <p class="mb-8 mt-2 text-2xl text-left text-white">By using this service to earn Monero, you will be ordering Amazon Wishlist items for people. We require a bond from both parties, and we have a system to prevent fraud by both parties. You can read more about this system here: https://peershop.app/guides/earner. Agree to the terms to the right and continue.
                     </p>
             </div>
           </div>

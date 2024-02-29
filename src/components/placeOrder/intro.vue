@@ -7,7 +7,7 @@ const enabled1 = ref(false)
 const enabled2 = ref(false)
 const enabled3 = ref(false)
 const enabled4 = ref(false)
-// const enabled5 = ref(false)
+const enabled5 = ref(false)
 const requirements = [
 {
     title: 'Check Order Regularly',
@@ -55,9 +55,9 @@ const allready = computed(() => {
   if(!enabled4.value){
     return false
   }
-/*   if(!enabled5.value){
+  if(!enabled5.value){
     return false
-  } */
+  }
   return true
 })
 

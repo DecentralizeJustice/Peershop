@@ -76,7 +76,7 @@ const allready = computed(() => {
                       Once your items arrive, the funds are released to the correct party.
                     </p>
                     <p class="mb-8 mt-2 text-2xl text-left text-white">
-                      Please read more about how we work and click the toggle boxes next to the order requirements. 
+                      Please read more about how we work:https://peershop.app/guides/shopper. 
                       After that, you can continue to place an order. <br/><br/>Here is a video on how to make an Amazon Gift Registry: https://www.youtube.com/watch?v=3dx4lSit6MI 
                     </p>
             </div>

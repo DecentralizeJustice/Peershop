@@ -223,9 +223,15 @@ function getChatImage(sender) {
           <div class="flex flex-wrap items-center -m-8 bg-black text-white">
 
           <div class="w-full  p-8 ">
-            <div>
-                          <ul class="text-xl break-all">
-                            {{ order }}
+            <div>   
+                          <ul class="text-xl break-all py-6">
+                            {{ order.metaData }}
+                          </ul>
+                          <ul class="text-xl break-all py-6">
+                            {{ order.orderDetails }}
+                          </ul>
+                          <ul class="text-xl break-all py-6">
+                            {{ order.earnerInfo }}
                           </ul>
                         </div>
           </div>

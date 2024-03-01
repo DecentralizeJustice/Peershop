@@ -50,12 +50,15 @@ async function sendMessage(to, note,orderId) {
 
 async function del(orderId) {
   delCount.value += 1
-  console.log(orderId, delCount.value)
-/*   await axios.post('/.netlify/functions/sendAdminMessage',
+  console.log('del count= ' + delCount.value)
+  if(delCount.value> 6){
+    await axios.post('/.netlify/functions/adminDelete',
   { 
     document: orderId
   })
-  refresh() */
+  refresh()
+  }
+
 }
 
 async function refresh(){

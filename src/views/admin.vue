@@ -48,7 +48,14 @@ async function sendMessage(to, note,orderId) {
   refresh()
 }
 
-
+async function del(orderId) {
+  console.log(orderId)
+/*   await axios.post('/.netlify/functions/sendAdminMessage',
+  { 
+    document: orderId
+  })
+  refresh() */
+}
 
 async function refresh(){
   window.location.reload()
@@ -219,8 +226,22 @@ function getChatImage(sender) {
               </div>
             </div>
             </div>
+            
           </div>
-          <div class="flex flex-wrap items-center -m-8 bg-black text-white">
+          <div class="w-full md:w-1/2 p-8 ">
+            <div class="md:max-w-md mx-auto">
+              <div class="max-w-sm rounded shadow-lg">
+              <div class="px-6 py-4 bg-gray-800" >
+                
+            <div class="flex flex-wrap my-1">
+              <div class="w-full lg:w-1/2 p-2"><button @click="del(order._id)" class="block w-full px-4 py-2.5 text-sm text-center text-white font-bold bg-red-500 rounded-full">Delete Order</button></div>
+              
+              </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center -m-8 bg-black text-white mt-3">
 
           <div class="w-full  p-8 ">
             <div>   

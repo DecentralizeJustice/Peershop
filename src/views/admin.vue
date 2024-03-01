@@ -11,7 +11,7 @@ onMounted(async () => {
 })
 
 
-const openDia = ref(false)
+const delCount = ref(0)
 const message = ref('')
 const message1 = ref('')
 const message2 = ref('')
@@ -49,7 +49,8 @@ async function sendMessage(to, note,orderId) {
 }
 
 async function del(orderId) {
-  console.log(orderId)
+  delCount.value += 1
+  console.log(orderId, delCount.value)
 /*   await axios.post('/.netlify/functions/sendAdminMessage',
   { 
     document: orderId

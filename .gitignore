@@ -29,3 +29,5 @@ netlify/functions/getAll.js
 netlify/functions/adminGetAllOrders.js
 netlify/functions/adminSendMessage.js
 netlify/functions/sendAdminMessage.js
+netlify/functions/adminDelete.js
+netlify/functions/admin*.js

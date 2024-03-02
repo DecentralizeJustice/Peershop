@@ -17,8 +17,8 @@ async function sendMessage() {
 }
 const faq = [
 {
-    q: `New orders are currently paused while we update our note infrastructure.`,
-    a:`New orders are currently paused while we update our note infrastructure.`
+    q: `New orders are currently paused while we update our node infrastructure.`,
+    a:`New orders are currently paused while we update our node infrastructure.`
   },
   {
     q: `Do I need to have an Amazon account to use this service?`,

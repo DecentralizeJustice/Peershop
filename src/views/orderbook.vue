@@ -45,10 +45,12 @@ onMounted(() => {
               <router-link type="button" class="block rounded-md bg-blue-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500" to="/placeorder">Place Order</router-link>
             </div>
           </div>
-          <div class="mt-8 flow-root">
+          
+          <div v-if="orders.length===0" class="text-4xl text-white text-center my-5 font-medium">
+            No Current Orders
+          </div>
+          <div class="mt-8 flow-root" v-if="orders.length>0">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-
-
               <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 md:hidden">
                 <table class="min-w-full divide-y divide-gray-700">
                   <thead>
@@ -131,6 +133,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

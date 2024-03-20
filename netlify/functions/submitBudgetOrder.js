@@ -45,7 +45,7 @@ exports.handler = async (event, context) => {
     +Number(infoList.shopperBond)
     -Number(cleanedInfo.discount*.01*cleanedInfo.listTotal)).toFixed(2);
 
-    const storeAddress = 'https://btcpay.anonshop.app/api/v1/stores/' + BTCpayStore + '/invoices'
+    const storeAddress = 'https://btcpay.peershop.app/api/v1/stores/' + BTCpayStore + '/invoices'
     const response = await axios.post(
           storeAddress,
           {

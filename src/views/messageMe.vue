@@ -16,10 +16,6 @@ async function sendMessage() {
   messageSent.value = true
 }
 const faq = [
-{
-    q: `New orders are currently paused while we update our node infrastructure.`,
-    a:`New orders are currently paused while we update our node infrastructure.`
-  },
   {
     q: `Do I need to have an Amazon account to use this service?`,
     a:`Yes. If you do not want to make an account, our other service would be a better fit for you: anonshop.app`
